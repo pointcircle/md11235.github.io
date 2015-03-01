@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>wget-and-singlel-quote-in-windows-cmd</title>
+<!-- 2015-03-01 Sun 15:52 -->
+<meta  charset="utf-8">
+<meta  name="generator" content="Org-mode">
+<meta  name="author" content="md11235">
+<link rel="stylesheet" type="text/css" href="styles/bigblow/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="styles/bigblow/css/bigblow.css"/>
+<link rel="stylesheet" type="text/css" href="styles/bigblow/css/hideshow.css"/>
+<script type="text/javascript" src="styles/bigblow/js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="styles/bigblow/js/jquery-ui-1.10.2.min.js"></script>
+<script type="text/javascript" src="styles/bigblow/js/jquery.localscroll-min.js"></script>
+<script type="text/javascript" src="styles/bigblow/js/jquery.scrollTo-1.4.3.1-min.js"></script>
+<script type="text/javascript" src="styles/bigblow/js/jquery.zclip.min.js"></script>
+<script type="text/javascript" src="styles/bigblow/js/bigblow.js"></script>
+<script type="text/javascript" src="styles/bigblow/js/hideshow.js"></script>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="preamble" class="status">
+<link rel="stylesheet" type="text/css" href="styles/bigblow/css/htmlize.css"/><link rel="stylesheet" type="text/css" href="styles/bigblow/css/bigblow.css"/><link rel="stylesheet" type="text/css" href="styles/bigblow/css/hideshow.css"/><script type="text/javascript" src="styles/bigblow/js/jquery-1.11.0.min.js"></script><script type="text/javascript" src="styles/bigblow/js/jquery-ui-1.10.2.min.js"></script><script type="text/javascript" src="styles/bigblow/js/jquery.localscroll-min.js"></script><script type="text/javascript" src="styles/bigblow/js/jquery.scrollTo-1.4.3.1-min.js"></script><script type="text/javascript" src="styles/bigblow/js/jquery.zclip.min.js"></script><script type="text/javascript" src="styles/bigblow/js/bigblow.js"></script><script type="text/javascript" src="styles/bigblow/js/hideshow.js"></script>
+</div>
+<div id="content">
+<h1 class="title">wget-and-singlel-quote-in-windows-cmd</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1. 单引号('')、双引号("")与Windows cmd</a></li>
+<li><a href="#sec-2">2. wget 的 &#x2013;accept-regex 参数与 Windows cmd</a></li>
+<li><a href="#sec-3">3. wget 与 cygwin terminal(mintty)</a></li>
+<li><a href="#sec-4">4. 参考文档</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> 单引号('')、双引号("")与Windows cmd</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+cmd似乎会把单引号作为参数的固有部分传给程序。写一个小的C程序来演示：
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-shell">#include &lt;stdio.h&gt;
+
+int main (int argc, char * argv[]) {
+    for(int i=0; i &lt; argc; i++)
+        printf("%s\n", argv[i]);
+
+    return 0;
+}
+</pre>
+</div>
+
+<div class="org-src-container">
+
+<pre class="src src-shell">gcc test.c -o test_cmd.exe
+test_cmd.exe abc 'abc' "abc"
+</pre>
+</div>
+
+<p>
+插一句，在zsh和bash(cygwin, msys2, or linux)里，'abc'这样的参数会被去
+掉两端的单引号以后传给程序。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> wget 的 &#x2013;accept-regex 参数与 Windows cmd</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+在zsh和bash里，传递给wget的&#x2013;accpet-regex参数的值，不用引号、用单引号、
+用双引号都可以的。
+</p>
+
+<p>
+但是在cmd里面就不同了。如前所述，在cmd里，如果参数值被单引号括住，那么
+单引号就变成了参数的一部分，然后wget会把  _'\/ZH\/'_  作为正则表达式，
+于是就导致除了目标页面本身以外没有其他可以匹配的内容，导致不能递归抓取
+数据。
+</p>
+
+<p>
+以下面命令为例进行说明。完全不用引号，或者使用双引号，都是ok的：
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-shell">.\wget.exe -r -l inf --no-remove-listing -np -nc -p --accept-regex "\/ZH\/" http://www.example.com/ZH/index.html
+</pre>
+</div>
+
+<div class="org-src-container">
+
+<pre class="src src-shell">.\wget.exe -r -l inf --no-remove-listing -np -nc -p --accept-regex "\/ZH\/" http://www.example.com/ZH/index.html
+</pre>
+</div>
+
+<div class="org-src-container">
+
+<pre class="src src-shell">.\wget.exe -r -l inf --no-remove-listing -np -nc -p --accept-regex "\/ZH\/" "http://www.example.com/ZH/index.html"
+</pre>
+</div>
+
+<div class="org-src-container">
+
+<pre class="src src-shell">.\wget.exe -r -l inf --no-remove-listing -np -nc -p --accept-regex "\/ZH\/" "http://www.example.com/ZH/index.html"
+</pre>
+</div>
+
+
+<p>
+如果用单引号括住，则两侧的单引号会被 wget 作为待匹配的正则表达式的一部分：
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-shell">.\wget.exe -r -l inf --no-remove-listing -np -nc -p --accept-regex '\/ZH\/' http://www.example.com/ZH/index.html
+</pre>
+</div>
+
+<div class="org-src-container">
+
+<pre class="src src-shell">.\wget.exe -r -l inf --no-remove-listing -np -nc -p --accept-regex '\/ZH\/' http://www.example.com/ZH/index.html
+</pre>
+</div>
+
+<div class="org-src-container">
+
+<pre class="src src-shell">.\wget.exe -r -l inf --no-remove-listing -np -nc -p --accept-regex '\/ZH\/' "http://www.example.com/ZH/index.html"
+</pre>
+</div>
+
+<div class="org-src-container">
+
+<pre class="src src-shell">.\wget.exe -r -l inf --no-remove-listing -np -nc -p --accept-regex '\/ZH\/' "http://www.example.com/ZH/index.html"
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> wget 与 cygwin terminal(mintty)</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+使用zsh或者bash的时候，则下述方式都能正常地递归抓取数据，因为这两个shell会把括住参数的单引号剥掉以后再传给程序。
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-shell">wget.exe -r -l inf --no-remove-listing -np -nc -p --accept-regex "\/ZH\/" www.etk.cc/bmw/ZH/search/selectCar/R56N/Cou/BMW+One+Eco+55kW/ECE/
+</pre>
+</div>
+
+<div class="org-src-container">
+
+<pre class="src src-shell">wget.exe -r -l inf --no-remove-listing -np -nc -p --accept-regex "\/ZH\/" http://www.etk.cc/bmw/ZH/search/selectCar/R56N/Cou/BMW+One+Eco+55kW/ECE/
+</pre>
+</div>
+
+<div class="org-src-container">
+
+<pre class="src src-shell">wget.exe -r -l inf --no-remove-listing -np -nc -p --accept-regex "\/ZH\/" "www.etk.cc/bmw/ZH/search/selectCar/R56N/Cou/BMW+One+Eco+55kW/ECE/"
+</pre>
+</div>
+
+<div class="org-src-container">
+
+<pre class="src src-shell">wget.exe -r -l inf --no-remove-listing -np -nc -p --accept-regex "\/ZH\/" "http://www.etk.cc/bmw/ZH/search/selectCar/R56N/Cou/BMW+One+Eco+55kW/ECE/"
+</pre>
+</div>
+
+<div class="org-src-container">
+
+<pre class="src src-shell">wget.exe -r -l inf --no-remove-listing -np -nc -p --accept-regex '\/ZH\/' www.etk.cc/bmw/ZH/search/selectCar/R56N/Cou/BMW+One+Eco+55kW/ECE/
+</pre>
+</div>
+
+<div class="org-src-container">
+
+<pre class="src src-shell">wget.exe -r -l inf --no-remove-listing -np -nc -p --accept-regex '\/ZH\/' http://www.etk.cc/bmw/ZH/search/selectCar/R56N/Cou/BMW+One+Eco+55kW/ECE/
+</pre>
+</div>
+
+<div class="org-src-container">
+
+<pre class="src src-shell">wget.exe -r -l inf --no-remove-listing -np -nc -p --accept-regex '\/ZH\/' "www.etk.cc/bmw/ZH/search/selectCar/R56N/Cou/BMW+One+Eco+55kW/ECE/"
+</pre>
+</div>
+
+<div class="org-src-container">
+
+<pre class="src src-shell">wget.exe -r -l inf --no-remove-listing -np -nc -p --accept-regex '\/ZH\/' "http://www.etk.cc/bmw/ZH/search/selectCar/R56N/Cou/BMW+One+Eco+55kW/ECE/"
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> 参考文档</h2>
+<div class="outline-text-2" id="text-4">
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<div class="navfoot">
+     <hr>
+     <table summary="Footer navigation" border="0" width="100%">
+       <col width="33%"><col width="34%"><col width="33%">
+       <tbody><tr>
+         <td align="left">
+           <span class="footdate">Last Updated:Sun Mar  1 15:52:27 2015</span>
+         </td>
+         <td align="center">
+           <span class="foothome">
+             <a href="/index.html">Home</a>
+           </span>
+         </td>
+         <td align="right">
+    		<a href="mailto:md11235 at gmail dot com">Contact Me</a>
+         </td>
+       </tr>
+     </tbody></table>
+    </div>
+</div>
+</body>
+</html>
