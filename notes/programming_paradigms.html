@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>programming_paradigms</title>
+<!-- 2015-03-01 Sun 11:45 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Madsen Zhang" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">programming_paradigms</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1. different ways of modeling a problem</a></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> different ways of modeling a problem</h2>
+<div class="outline-text-2" id="text-1">
+<pre class="example">
+################################
+ilovecpp (cpp) 于  (Mon Aug 29 09:55:29 2011)  提到:
+
+【 在 Madsen (format t "A walker") 的大作中提到: 】
+: 比如，试着用python等楼主认为的主流语言写这么一个函数：
+: 1、接收两个参数，第一个参数是一个表达式，第二个则是期待的eval这个表达
+: 式得到的值
+: 2、输出要求：在标准得到这个表达式的raw form以及实际eval以后的值，并
+: 输出期待的
+: ...................
+
+用程序构造程序，目前流行的有三种风格：
+1. 直接在程序"文本"（S-exp）上作变换。只在Lisp上流行。
+2. 构造一组互相关联的对象作为程序。OOPL。
+3. 构造函数的组合作为程序。FPL。
+
+我的感觉是这三种风格在表达能力上没有明显的高下。举一个特别适合风格1的
+例子并不能说明风格2/3较弱。对于同一个复杂的现实世界问题，不同风格的程
+序长度差不多。
+################################
+</pre>
+
+<p>
+lisp的macro能对文本代码作变换是因为文本代码的被很直接、方便和优雅地转变
+成了lisp最擅长处理的list格式。且侧重的是代码变换方面。
+</p>
+
+<p>
+lisp程序的代码倒是也可以被认为是一种对问题（problems）建模并描述的方法。
+这种建模和描述方法可以被很容易地变换，因为lisp的macro。
+</p>
+
+<p>
+另一方面，lisp代码被加载之后变成了list，这是一种对代码本身建模和描述的
+方法。在此基础上，各种查询和变换都变得很方便。
+</p>
+
+<p>
+OOPL和FPL也是对问题的描述和建模方法。另外一个层面，如果各自的compile
+time和runtime能够提供相应的对Object本身和Function本身建模并查询各种信息
+（reflection）的utilities，那么对Object和Function的各种查询和变换也将变
+得很容易？
+</p>
+
+<p>
+所以建模和描述可以大概分为两个层面：
+</p>
+
+<ul class="org-ul">
+<li>对待解决问题领域（target problem domain）的建模和描述，去解决问题
+</li>
+<li>对用来解决问题的手段、方法或者媒介（代码、对象或者函数）本身进行建模
+和描述，并提供查询（reflection）的utilities，使得解决问题更加轻松和
+方便。这个层面属于meta层面？
+<ul class="org-ul">
+<li>这个层面的建模又可以分为至少两种：相关的reflection信息可否在
+compile time得到；以及可否在runtime得到。在compile time可以得到的
+话，compile的时候可以做更多的处理和变换。
+</li>
+</ul>
+</li>
+</ul>
+
+<p>
+建模和描述，大概就是“编程”。
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Madsen Zhang</p>
+<p class="date">Created: 2015-03-01 Sun 11:45</p>
+<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 25.0.50.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
