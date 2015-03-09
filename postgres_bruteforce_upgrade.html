@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>PostgreSQL主版本号升级，如何升级数据库文件</title>
+<!-- 2015-03-09 Mon 16:54 -->
+<meta  charset="utf-8">
+<meta  name="generator" content="Org-mode">
+<meta  name="author" content="md11235">
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">PostgreSQL主版本号升级，如何升级数据库文件</h1>
+<p>
+从官方网站抄的。
+</p>
+
+<p>
+One upgrade method is to dump data from one major version of PostgreSQL and reload it in another — to do this, you must use a logical backup tool like pg<sub>dumpall</sub>; file system level backup methods will not work. (There are checks in place that prevent you from using a data directory with an incompatible version of PostgreSQL, so no great harm can be done by trying to start the wrong server version on a data directory.)
+</p>
+
+<p>
+It is recommended that you use the pg<sub>dump</sub> and pg<sub>dumpall</sub> programs from the newer version of PostgreSQL, to take advantage of enhancements that might have been made in these programs. Current releases of the dump programs can read data from any server version back to 7.0.
+</p>
+
+<p>
+These instructions assume that your existing installation is under the /usr/local/pgsql directory, and that the data area is in /usr/local/pgsql/data. Substitute your paths appropriately.
+</p>
+
+<p>
+If making a backup, make sure that your database is not being updated. This does not affect the integrity of the backup, but the changed data would of course not be included. If necessary, edit the permissions in the file /usr/local/pgsql/data/pg<sub>hba</sub>.conf (or equivalent) to disallow access from everyone except you. See Chapter 19 for additional information on access control.
+</p>
+
+<p>
+To back up your database installation, type:
+</p>
+
+<p>
+pg<sub>dumpall</sub> &gt; outputfile
+</p>
+
+<p>
+To make the backup, you can use the pg<sub>dumpall</sub> command from the version you are currently running; see Section 24.1.2 for more details. For best results, however, try to use the pg<sub>dumpall</sub> command from PostgreSQL 9.4.1, since this version contains bug fixes and improvements over older versions. While this advice might seem idiosyncratic since you haven't installed the new version yet, it is advisable to follow it if you plan to install the new version in parallel with the old version. In that case you can complete the installation normally and transfer the data later. This will also decrease the downtime.
+</p>
+
+<p>
+Shut down the old server:
+</p>
+
+<p>
+pg<sub>ctl</sub> stop
+</p>
+
+<p>
+On systems that have PostgreSQL started at boot time, there is probably a start-up file that will accomplish the same thing. For example, on a Red Hat Linux system one might find that this works:
+</p>
+
+<p>
+/etc/rc.d/init.d/postgresql stop
+</p>
+
+<p>
+See Chapter 17 for details about starting and stopping the server.
+</p>
+
+<p>
+If restoring from backup, rename or delete the old installation directory if it is not version-specific. It is a good idea to rename the directory, rather than delete it, in case you have trouble and need to revert to it. Keep in mind the directory might consume significant disk space. To rename the directory, use a command like this:
+</p>
+
+<p>
+mv /usr/local/pgsql /usr/local/pgsql.old
+</p>
+
+<p>
+(Be sure to move the directory as a single unit so relative paths remain unchanged.)
+</p>
+
+<p>
+Install the new version of PostgreSQL as outlined in Section 15.4.
+</p>
+
+<p>
+Create a new database cluster if needed. Remember that you must execute these commands while logged in to the special database user account (which you already have if you are upgrading).
+</p>
+
+<p>
+/usr/local/pgsql/bin/initdb -D /usr/local/pgsql/data
+</p>
+
+<p>
+Restore your previous pg<sub>hba</sub>.conf and any postgresql.conf modifications.
+</p>
+
+<p>
+Start the database server, again using the special database user account:
+</p>
+
+<p>
+/usr/local/pgsql/bin/postgres -D /usr/local/pgsql/data
+</p>
+
+<p>
+Finally, restore your data from backup with:
+</p>
+
+<p>
+/usr/local/pgsql/bin/psql -d postgres -f outputfile
+</p>
+
+<p>
+using the new psql.
+</p>
+
+<p>
+The least downtime can be achieved by installing the new server in a different directory and running both the old and the new servers in parallel, on different ports. Then you can use something like:
+</p>
+
+<p>
+pg<sub>dumpall</sub> -p 5432 | psql -d postgres -p 5433
+</p>
+
+<p>
+to transfer your data.</p>
+</div>
+<div id="postamble" class="status">
+<div class="navfoot">
+     <hr>
+     <table summary="Footer navigation" border="0" width="100%">
+       <col width="33%"><col width="34%"><col width="33%">
+       <tbody><tr>
+         <td align="left">
+           <span class="footdate">Last Updated:Mon Mar  9 16:54:21 2015</span>
+         </td>
+         <td align="center">
+           <span class="foothome">
+             <a href="/index.html">Home</a>
+           </span>
+         </td>
+         <td align="right">
+    		<a href="mailto:md11235 at gmail dot com">Contact Me</a>
+         </td>
+       </tr>
+     </tbody></table>
+    </div>
+</div>
+</body>
+</html>

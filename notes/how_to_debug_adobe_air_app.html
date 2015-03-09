@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>how_to_debug_adobe_air_app</title>
-<!-- 2015-03-01 Sun 15:44 -->
+<title>如何 debug Adobe AIR 程序</title>
+<!-- 2015-03-09 Mon 16:50 -->
 <meta  charset="utf-8">
 <meta  name="generator" content="Org-mode">
 <meta  name="author" content="md11235">
@@ -96,11 +96,8 @@ for the JavaScript code in this tag.
 </script>
 </head>
 <body>
-<div id="preamble" class="status">
-<link rel="stylesheet" type="text/css" href="styles/bigblow/css/htmlize.css"/><link rel="stylesheet" type="text/css" href="styles/bigblow/css/bigblow.css"/><link rel="stylesheet" type="text/css" href="styles/bigblow/css/hideshow.css"/><script type="text/javascript" src="styles/bigblow/js/jquery-1.11.0.min.js"></script><script type="text/javascript" src="styles/bigblow/js/jquery-ui-1.10.2.min.js"></script><script type="text/javascript" src="styles/bigblow/js/jquery.localscroll-min.js"></script><script type="text/javascript" src="styles/bigblow/js/jquery.scrollTo-1.4.3.1-min.js"></script><script type="text/javascript" src="styles/bigblow/js/jquery.zclip.min.js"></script><script type="text/javascript" src="styles/bigblow/js/bigblow.js"></script><script type="text/javascript" src="styles/bigblow/js/hideshow.js"></script>
-</div>
 <div id="content">
-<h1 class="title">how_to_debug_adobe_air_app</h1>
+<h1 class="title">如何 debug Adobe AIR 程序</h1>
 <ol class="org-ol">
 <li>touch a empty file in the application's META-INF/AIR directory.
 </li>
@@ -114,28 +111,35 @@ for the JavaScript code in this tag.
 example:
 </p>
 
-<p>
-$/d/flex<sub>sdk</sub>//4.5.1/bin/fdb
+<div class="org-src-container">
+
+<pre class="src src-shell">$/d/flex_sdk//4.5.1/bin/fdb
 Adobe fdb (Flash Player Debugger) [build 21328]
 Copyright (c) 2004-2007 Adobe, Inc. All rights reserved.
 (fdb) run
 Waiting for Player to connect
 Player connected; session starting.
 Set breakpoints and then type 'continue' to resume the session.
-[SWF] Bootstrapper.swf/<i>DYNAMIC</i>/12 - 399,550 bytes after decompression
+[SWF] Bootstrapper.swf/[[DYNAMIC]]/12 - 399,550 bytes after decompression
 (fdb) c
-[SWF] Bootstrapper.swf/<i>DYNAMIC</i>/13 - 146,426 bytes after decompression
+[SWF] Bootstrapper.swf/[[DYNAMIC]]/13 - 146,426 bytes after decompression
 [trace] rslCompleteHandler
 [trace] initDefaultConnection::main0
 [UnloadSWF] unknown
 Player session terminated
 (fdb) quit
-</p>
-
+</pre>
+</div>
 
 <p>
-C:\Program Files\Suncity Game\Snd DB&gt;d:\flex<sub>sdk\4</sub>.5.1\bin\adl.exe META-INF\AIR\application.xml .
+or
 </p>
+
+<div class="org-src-container">
+
+<pre class="src src-shell">C:\Program Files\Suncity Game\Snd DB&gt;d:\flex_sdk\4.5.1\bin\adl.exe META-INF\AIR\application.xml .
+</pre>
+</div>
 </div>
 <div id="postamble" class="status">
 <div class="navfoot">
@@ -144,7 +148,7 @@ C:\Program Files\Suncity Game\Snd DB&gt;d:\flex<sub>sdk\4</sub>.5.1\bin\adl.exe 
        <col width="33%"><col width="34%"><col width="33%">
        <tbody><tr>
          <td align="left">
-           <span class="footdate">Last Updated:Sun Mar  1 15:44:02 2015</span>
+           <span class="footdate">Last Updated:Mon Mar  9 16:50:38 2015</span>
          </td>
          <td align="center">
            <span class="foothome">
