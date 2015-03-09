@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Random Memo</title>
-<!-- 2015-03-09 Mon 16:31 -->
+<title>cygwin-zsh-auto-generate-fake-files</title>
+<!-- 2015-03-09 Mon 16:29 -->
 <meta  charset="utf-8">
 <meta  name="generator" content="Org-mode">
 <meta  name="author" content="md11235">
@@ -55,39 +55,20 @@ for the JavaScript code in this tag.
 </head>
 <body>
 <div id="content">
-<h1 class="title">Random Memo</h1>
-<ul class="org-ul">
-<li>notes
-<ul class="org-ul">
-<li><a href="notes/emacs_vim.html">emacs<sub>vim</sub></a>
-</li>
-<li><a href="notes/how_to_debug_adobe_air_app.html">how<sub>to</sub><sub>debug</sub><sub>adobe</sub><sub>air</sub><sub>app</sub></a>
-</li>
-<li><a href="notes/life.html">life</a>
-</li>
-<li><a href="notes/lisp.html">lisp</a>
-</li>
-<li><a href="notes/programm.html">programm</a>
-</li>
-<li><a href="notes/programming_paradigms.html">programming<sub>paradigms</sub></a>
-</li>
-<li><a href="notes/unicode.html">unicode</a>
-</li>
-</ul>
-</li>
-<li><a href="TestFileName.html">TestFileName</a>
-</li>
-<li><a href="cygwin-zsh-auto-generate-fake-files.html">cygwin-zsh-auto-generate-fake-files</a>
-</li>
-<li><a href="lisp.html">lisp</a>
-</li>
-<li><a href="postgres_bruteforce_upgrade.html">postgres<sub>bruteforce</sub><sub>upgrade</sub></a>
-</li>
-<li><a href="the-most-painful-things.html">the-most-painful-things</a>
-</li>
-<li><a href="wget-and-singlel-quote-in-windows-cmd.html">wget-and-singlel-quote-in-windows-cmd</a>
-</li>
-</ul>
+<h1 class="title">cygwin-zsh-auto-generate-fake-files</h1>
+<p>
+#+TITLE 在Cygwin的zsh里自动生成fake-files
+</p>
+
+<p>
+凑合写了一个：
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-shell">zstyle ':completion:*' fake-files $(df --output=source | tr -d ':' |xargs -I{} echo "/:{}" |tr '\n' ' ' | sed -e 's/\/\:Filesystem //g' | sed -e 's/ $//g')
+</pre>
+</div>
 </div>
 <div id="postamble" class="status">
 <div class="navfoot">
@@ -96,7 +77,7 @@ for the JavaScript code in this tag.
        <col width="33%"><col width="34%"><col width="33%">
        <tbody><tr>
          <td align="left">
-           <span class="footdate">Last Updated:Mon Mar  9 16:31:23 2015</span>
+           <span class="footdate">Last Updated:Mon Mar  9 16:29:12 2015</span>
          </td>
          <td align="center">
            <span class="foothome">
