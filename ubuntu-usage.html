@@ -4,7 +4,7 @@
 <!-- 2017-10-27 Fri 22:13 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>如何 debug Adobe AIR 程序</title>
+<title>&lrm;</title>
 <meta name="generator" content="Org mode">
 <meta name="author" content="md11235">
 <script type="text/javascript">
@@ -53,69 +53,11 @@ for the JavaScript code in this tag.
  }
 /*]]>*///-->
 </script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        displayAlign: "center",
-        displayIndent: "0em",
-
-        "HTML-CSS": { scale: 100,
-                        linebreaks: { automatic: "false" },
-                        webFont: "TeX"
-                       },
-        SVG: {scale: 100,
-              linebreaks: { automatic: "false" },
-              font: "TeX"},
-        NativeMML: {scale: 100},
-        TeX: { equationNumbers: {autoNumber: "AMS"},
-               MultLineWidth: "85%",
-               TagSide: "right",
-               TagIndent: ".8em"
-             }
-});
-</script>
-<script type="text/javascript"
-        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
 </head>
 <body>
 <div id="content">
-<h1 class="title">如何 debug Adobe AIR 程序</h1>
-<ol class="org-ol">
-<li>touch a empty file in the application's META-INF/AIR directory.</li>
-<li>launch a "fdb" program and perform "run" in the (fdb) shell.</li>
-<li>launch the target air application using adl.exe: "adl.exe MeTA-INF\AIR\application.xml ."</li>
-</ol>
-
 <p>
-example:
 </p>
-
-<div class="org-src-container">
-<pre><code class="src src-shell">$/d/flex_sdk//4.5.1/bin/fdb
-Adobe fdb (Flash Player Debugger) [build 21328]
-<span style="color: #00fa9a;">Copyright</span> (c) 2004-2007 Adobe, Inc. All rights reserved.
-(fdb) run
-Waiting for Player to connect
-Player connected; session starting.
-Set breakpoints and then type <span style="color: #ffa500;">'continue'</span> to resume the session.
-[SWF] Bootstrapper.swf/[[DYNAMIC]]/12 - 399,550 bytes after decompression
-(fdb) c
-[SWF] Bootstrapper.swf/[[DYNAMIC]]/13 - 146,426 bytes after decompression
-[trace] rslCompleteHandler
-[trace] initDefaultConnection::main0
-[UnloadSWF] unknown
-Player session terminated
-(fdb) quit
-</code></pre>
-</div>
-
-<p>
-or
-</p>
-
-<div class="org-src-container">
-<pre><code class="src src-shell">C:\Program Files\Suncity Game\Snd DB&gt;d:\flex_sdk\4.5.1\bin\adl.exe META-INF\AIR\application.xml .
-</code></pre>
-</div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: md11235 (<a href="mailto:md11235@gmail.com">md11235@gmail.com</a>)</p>

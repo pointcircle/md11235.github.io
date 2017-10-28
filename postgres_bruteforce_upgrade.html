@@ -1,17 +1,18 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+<!-- 2017-10-27 Fri 22:13 -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>PostgreSQL主版本号升级，如何升级数据库文件</title>
-<!-- 2015-03-09 Mon 16:54 -->
-<meta  charset="utf-8">
-<meta  name="generator" content="Org-mode">
-<meta  name="author" content="md11235">
+<meta name="generator" content="Org mode">
+<meta name="author" content="md11235">
 <script type="text/javascript">
 /*
 @licstart  The following is the entire license notice for the
 JavaScript code in this tag.
 
-Copyright (C) 2012-2013 Free Software Foundation, Inc.
+Copyright (C) 2012-2017 Free Software Foundation, Inc.
 
 The JavaScript code in this tag is free software: you can
 redistribute it and/or modify it under the terms of the GNU
@@ -57,8 +58,7 @@ for the JavaScript code in this tag.
 <div id="content">
 <h1 class="title">PostgreSQL主版本号升级，如何升级数据库文件</h1>
 <p>
-从官方网站抄的。
-</p>
+从官方网站抄的。</p>
 
 <p>
 One upgrade method is to dump data from one major version of PostgreSQL and reload it in another — to do this, you must use a logical backup tool like pg<sub>dumpall</sub>; file system level backup methods will not work. (There are checks in place that prevent you from using a data directory with an incompatible version of PostgreSQL, so no great harm can be done by trying to start the wrong server version on a data directory.)
@@ -73,7 +73,7 @@ These instructions assume that your existing installation is under the /usr/loca
 </p>
 
 <p>
-If making a backup, make sure that your database is not being updated. This does not affect the integrity of the backup, but the changed data would of course not be included. If necessary, edit the permissions in the file /usr/local/pgsql/data/pg<sub>hba</sub>.conf (or equivalent) to disallow access from everyone except you. See Chapter 19 for additional information on access control.
+If making a backup, make sure that your database is not being updated. This does not affect the integrity of the backup, but the changed data would of course not be included. If necessary, edit the permissions in the file /usr/local/pgsql/data/pg<sub>hba.conf</sub> (or equivalent) to disallow access from everyone except you. See Chapter 19 for additional information on access control.
 </p>
 
 <p>
@@ -133,7 +133,7 @@ Create a new database cluster if needed. Remember that you must execute these co
 </p>
 
 <p>
-Restore your previous pg<sub>hba</sub>.conf and any postgresql.conf modifications.
+Restore your previous pg<sub>hba.conf</sub> and any postgresql.conf modifications.
 </p>
 
 <p>
@@ -168,25 +168,10 @@ pg<sub>dumpall</sub> -p 5432 | psql -d postgres -p 5433
 to transfer your data.</p>
 </div>
 <div id="postamble" class="status">
-<div class="navfoot">
-     <hr>
-     <table summary="Footer navigation" border="0" width="100%">
-       <col width="33%"><col width="34%"><col width="33%">
-       <tbody><tr>
-         <td align="left">
-           <span class="footdate">Last Updated:Mon Mar  9 16:54:21 2015</span>
-         </td>
-         <td align="center">
-           <span class="foothome">
-             <a href="/index.html">Home</a>
-           </span>
-         </td>
-         <td align="right">
-    		<a href="mailto:md11235 at gmail dot com">Contact Me</a>
-         </td>
-       </tr>
-     </tbody></table>
-    </div>
+<p class="author">Author: md11235 (<a href="mailto:md11235@gmail.com">md11235@gmail.com</a>)</p>
+<p class="date">Date: </p>
+<p class="creator"><a href="https://www.gnu.org/software/emacs/">Emacs</a> 27.0.50 (<a href="http://orgmode.org">Org</a> mode 9.1.1)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
 </html>

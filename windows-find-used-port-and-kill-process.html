@@ -1,12 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2017-10-27 Fri 22:13 -->
+<!-- 2017-10-28 Sat 09:22 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>如何 debug Adobe AIR 程序</title>
+<title>在Windows cmd里查找占用端口的进程并杀掉</title>
 <meta name="generator" content="Org mode">
 <meta name="author" content="md11235">
+<link rel="stylesheet" type="text/css" href="styles/bigblow/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="styles/bigblow/css/bigblow.css"/>
+<link rel="stylesheet" type="text/css" href="styles/bigblow/css/hideshow.css"/>
+<script type="text/javascript" src="styles/bigblow/js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="styles/bigblow/js/jquery-ui-1.10.2.min.js"></script>
+<script type="text/javascript" src="styles/bigblow/js/jquery.localscroll-min.js"></script>
+<script type="text/javascript" src="styles/bigblow/js/jquery.scrollTo-1.4.3.1-min.js"></script>
+<script type="text/javascript" src="styles/bigblow/js/jquery.zclip.min.js"></script>
+<script type="text/javascript" src="styles/bigblow/js/bigblow.js"></script>
+<script type="text/javascript" src="styles/bigblow/js/hideshow.js"></script>
 <script type="text/javascript">
 /*
 @licstart  The following is the entire license notice for the
@@ -53,74 +63,44 @@ for the JavaScript code in this tag.
  }
 /*]]>*///-->
 </script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        displayAlign: "center",
-        displayIndent: "0em",
-
-        "HTML-CSS": { scale: 100,
-                        linebreaks: { automatic: "false" },
-                        webFont: "TeX"
-                       },
-        SVG: {scale: 100,
-              linebreaks: { automatic: "false" },
-              font: "TeX"},
-        NativeMML: {scale: 100},
-        TeX: { equationNumbers: {autoNumber: "AMS"},
-               MultLineWidth: "85%",
-               TagSide: "right",
-               TagIndent: ".8em"
-             }
-});
-</script>
-<script type="text/javascript"
-        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
 </head>
 <body>
 <div id="content">
-<h1 class="title">如何 debug Adobe AIR 程序</h1>
-<ol class="org-ol">
-<li>touch a empty file in the application's META-INF/AIR directory.</li>
-<li>launch a "fdb" program and perform "run" in the (fdb) shell.</li>
-<li>launch the target air application using adl.exe: "adl.exe MeTA-INF\AIR\application.xml ."</li>
-</ol>
+<h1 class="title">在Windows cmd里查找占用端口的进程并杀掉</h1>
+<p>
+在写网络程序的时候，调试时，有的进程占用端口不放弃，会导致后续的调试没法继续。那么windows下快捷处理呢？</p>
 
 <p>
-example:
-</p>
+在cmd窗口里使用netstat、findstr、taskkill就行，类似linux下的netstat、grep、kill。</p>
+
+<p>
+首先是运行cmd窗口（window键盘+r，输入cmd，回车，出来黑色窗口），然后执行如下操作：</p>
 
 <div class="org-src-container">
-<pre><code class="src src-shell">$/d/flex_sdk//4.5.1/bin/fdb
-Adobe fdb (Flash Player Debugger) [build 21328]
-<span style="color: #00fa9a;">Copyright</span> (c) 2004-2007 Adobe, Inc. All rights reserved.
-(fdb) run
-Waiting for Player to connect
-Player connected; session starting.
-Set breakpoints and then type <span style="color: #ffa500;">'continue'</span> to resume the session.
-[SWF] Bootstrapper.swf/[[DYNAMIC]]/12 - 399,550 bytes after decompression
-(fdb) c
-[SWF] Bootstrapper.swf/[[DYNAMIC]]/13 - 146,426 bytes after decompression
-[trace] rslCompleteHandler
-[trace] initDefaultConnection::main0
-[UnloadSWF] unknown
-Player session terminated
-(fdb) quit
-</code></pre>
+<pre class="src src-shell">netstat -ano |findstr <span style="color: #ffa500;">":10000"</span>
+</pre>
 </div>
 
 <p>
-or
-</p>
+在Windows 10上，输出类似，其中最后一列是pid（进程号）：</p>
 
 <div class="org-src-container">
-<pre><code class="src src-shell">C:\Program Files\Suncity Game\Snd DB&gt;d:\flex_sdk\4.5.1\bin\adl.exe META-INF\AIR\application.xml .
-</code></pre>
+<pre class="src src-shell">TCP    0.0.0.0:22             0.0.0.0:0              LISTENING       5136
+</pre>
+</div>
+
+<p>
+然后，在cmd窗口里用taskkill杀掉这个进程：</p>
+
+<div class="org-src-container">
+<pre class="src src-shell">taskkill /pid 5136
+</pre>
 </div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: md11235 (<a href="mailto:md11235@gmail.com">md11235@gmail.com</a>)</p>
 <p class="date">Date: </p>
-<p class="creator"><a href="https://www.gnu.org/software/emacs/">Emacs</a> 27.0.50 (<a href="http://orgmode.org">Org</a> mode 9.1.1)</p>
+<p class="creator"><a href="https://www.gnu.org/software/emacs/">Emacs</a> 27.0.50 (<a href="http://orgmode.org">Org</a> mode 9.1.2)</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
