@@ -1,12 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2017-11-04 Sat 14:47 -->
+<!-- 2017-11-04 Sat 14:48 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Random Memo</title>
+<title>怎么临时修改已经打包好的jar里的properties配置文件？</title>
 <meta name="generator" content="Org mode">
 <meta name="author" content="md11235">
+<link rel="stylesheet" type="text/css" href="styles/bigblow/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="styles/bigblow/css/bigblow.css"/>
+<link rel="stylesheet" type="text/css" href="styles/bigblow/css/hideshow.css"/>
+<script type="text/javascript" src="styles/bigblow/js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="styles/bigblow/js/jquery-ui-1.10.2.min.js"></script>
+<script type="text/javascript" src="styles/bigblow/js/jquery.localscroll-min.js"></script>
+<script type="text/javascript" src="styles/bigblow/js/jquery.scrollTo-1.4.3.1-min.js"></script>
+<script type="text/javascript" src="styles/bigblow/js/jquery.zclip.min.js"></script>
+<script type="text/javascript" src="styles/bigblow/js/bigblow.js"></script>
+<script type="text/javascript" src="styles/bigblow/js/hideshow.js"></script>
 <script type="text/javascript">
 /*
 @licstart  The following is the entire license notice for the
@@ -56,32 +66,30 @@ for the JavaScript code in this tag.
 </head>
 <body>
 <div id="content">
-<h1 class="title">Random Memo</h1>
-<ul class="org-ul">
-<li><a href="postgres_bruteforce_upgrade.html">PostgreSQL主版本号升级，如何升级数据库文件</a></li>
-<li><a href="advices-on-life.html">The days are long but the decades are short</a></li>
-<li><a href="lisp.html">lisp</a></li>
-<li><a href="ubuntu-usage.html">ubuntu-usage</a></li>
-<li><a href="repair-pdf.html">修复pdf文件</a></li>
-<li><a href="wget-and-singlel-quote-in-windows-cmd.html">单引号、双引号与Windows cmd</a></li>
-<li><a href="cygwin-zsh-auto-generate-fake-files.html">在Cygwin的zsh里自动生成fake-files</a></li>
-<li><a href="windows-find-used-port-and-kill-process.html">在Windows cmd里查找占用端口的进程并杀掉</a></li>
-<li><a href="how_to_check_conferences_or_proceedings_indexed_by_what.html">如何查看 conferences 或者 proceedings 是否被索引</a></li>
-<li><a href="the-most-painful-things.html">计划上最痛苦的事情</a></li>
-<li><a href="resetting-NTFS-files-security-and-permission-in-Windows.html">重置Windows下NTFS文件系统上的文件安全和权限设置</a></li>
-<li><a href="access-linux-servers-using-vnc.html">如何利用VNC访问平时没有图形界面的服务器</a></li>
-<li><a href="edit-java-jar-files-on-site.html">怎么临时修改已经打包好的jar里的properties配置文件？</a></li>
-<li>notes
-<ul class="org-ul">
-<li><a href="notes/emacs_vim.html">Emacs 与 Vim</a></li>
-<li><a href="notes/lisp.html">Lisp DNA</a></li>
-<li><a href="notes/programm.html">Steps for Writing Programs</a></li>
-<li><a href="notes/unicode.html">unicode</a></li>
-<li><a href="notes/how_to_debug_adobe_air_app.html">如何 debug Adobe AIR 程序</a></li>
-<li><a href="notes/life.html">怎样培养沉稳的气质</a></li>
-<li><a href="notes/programming_paradigms.html">编程范式 Programming Paradigms</a></li>
-</ul></li>
-</ul>
+<h1 class="title">怎么临时修改已经打包好的jar里的properties配置文件？</h1>
+<p>
+jar文件采用的是<a href="https://docs.oracle.com/javase/tutorial/deployment/jar/basicsindex.html">zip文件格式</a>。</p>
+
+<p>
+直观来说，非常简单，利用vim直接编辑。</p>
+
+<div class="org-src-container">
+<pre class="src src-shell">vim xyz.jar
+</pre>
+</div>
+
+<p>
+vim打开这个jar文件，就跟vim后面跟一个目录一样，可以进入和退出目录，选择文件编辑，保存，会自动重新打好压缩包。</p>
+
+<p>
+另外，Emacs也能做这事，如果你能用得来Emacs的话。</p>
+
+<p>
+当然，PATH里要有zip和unzip可执行程序。</p>
+
+<p>
+<a href="https://www.google.com/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=3&amp;cad=rja&amp;uact=8&amp;ved=0ahUKEwi80euRqaTXAhUUzGMKHadyDJsQFgg0MAI&amp;url=http%3A%2F%2Fwww.programering.com%2Fa%2FMDM2kjMwATI.html&amp;usg=AOvVaw0SJmAE4j5DduoyPVWHnhO2">Emacs is God's editor, Vim editor god.</a>
+</p>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: md11235 (<a href="mailto:md11235@gmail.com">md11235@gmail.com</a>)</p>
