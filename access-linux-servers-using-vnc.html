@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- 2017-11-04 Sat 11:45 -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>如何利用VNC访问平时没有图形界面的服务器</title>
+<meta name="generator" content="Org mode">
+<meta name="author" content="md11235">
+<link rel="stylesheet" type="text/css" href="styles/bigblow/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="styles/bigblow/css/bigblow.css"/>
+<link rel="stylesheet" type="text/css" href="styles/bigblow/css/hideshow.css"/>
+<script type="text/javascript" src="styles/bigblow/js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="styles/bigblow/js/jquery-ui-1.10.2.min.js"></script>
+<script type="text/javascript" src="styles/bigblow/js/jquery.localscroll-min.js"></script>
+<script type="text/javascript" src="styles/bigblow/js/jquery.scrollTo-1.4.3.1-min.js"></script>
+<script type="text/javascript" src="styles/bigblow/js/jquery.zclip.min.js"></script>
+<script type="text/javascript" src="styles/bigblow/js/bigblow.js"></script>
+<script type="text/javascript" src="styles/bigblow/js/hideshow.js"></script>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2017 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">如何利用VNC访问平时没有图形界面的服务器</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgc961e67">1. 安装桌面环境、vncserver等</a></li>
+<li><a href="#orgafab7c3">2. 配置vncserver</a></li>
+<li><a href="#org5688796">3. 运行vncserver</a></li>
+<li><a href="#orgc41961d">4. 用VNC客户端连接到服务器</a></li>
+</ul>
+</div>
+</div>
+<p>
+比如有的时候，需要用图形界面跑跑虚拟机什么的。</p>
+
+<div id="outline-container-orgc961e67" class="outline-2">
+<h2 id="orgc961e67"><span class="section-number-2">1</span> 安装桌面环境、vncserver等</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+轻量些的环境比如Xfce4。以ubuntu服务器为例：</p>
+
+<div class="org-src-container">
+<pre class="src src-shell">sudo apt install xfce4 xfce4-goodies tightvncserver xrdp
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orgafab7c3" class="outline-2">
+<h2 id="orgafab7c3"><span class="section-number-2">2</span> 配置vncserver</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+建立~/.vnc目录，设置vnc连接的密码：</p>
+<div class="org-src-container">
+<pre class="src src-shell">mkdir -p ~/.vnc
+<span style="color: #b0c4de;">echo</span> password | vncpasswd -f &gt; ~/.vnc/passwd
+chmod 600 ~/.vnc/passwd
+</pre>
+</div>
+
+<p>
+然后写初始化文件xstartup:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell"><span style="color: #ffd700;">#</span><span style="color: #ffd700;">!/bin/</span><span style="color: #00ffff;">bash</span>
+xrdb $<span style="color: #ffa07a;">HOME</span>/.Xresources
+startxfce4 &amp;
+</pre>
+</div>
+
+<p>
+再给它加上x权限：</p>
+<div class="org-src-container">
+<pre class="src src-shell">chmod +x ~/.vnc/xstartup
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org5688796" class="outline-2">
+<h2 id="org5688796"><span class="section-number-2">3</span> 运行vncserver</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+用pietty等工具ssh到服务器以后，根据具体需要的分辨率运行vncserver：</p>
+
+<div class="org-src-container">
+<pre class="src src-shell">vncserver -geometry 1920x1808
+</pre>
+</div>
+
+<p>
+这个命令会输出类似信息：</p>
+
+<blockquote>
+<p>
+New 'X' desktop is your-host-name:2
+</p>
+</blockquote>
+</div>
+</div>
+
+<div id="outline-container-orgc41961d" class="outline-2">
+<h2 id="orgc41961d"><span class="section-number-2">4</span> 用VNC客户端连接到服务器</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+假使服务器的IP地址是10.0.0.3。在Windows上运行vnc viewer，比如VNC-Viewer-5.3.0-Windows-64bit.exe，对其进行如下配置：</p>
+
+<p>
+在VNC Server一栏输入(注意:2和vncserver的输出里的:2的对应关系：10.0.0.3:2
+</p>
+
+<p>
+在Encryption一栏选择“Let VNC Server choose”就行。</p>
+
+<p>
+然后点击Connect按钮，输入密码，能看到远端的桌面了。</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: md11235 (<a href="mailto:md11235@gmail.com">md11235@gmail.com</a>)</p>
+<p class="date">Date: </p>
+<p class="creator"><a href="https://www.gnu.org/software/emacs/">Emacs</a> 27.0.50 (<a href="http://orgmode.org">Org</a> mode 9.1.2)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
