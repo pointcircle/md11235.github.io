@@ -1,0 +1,59 @@
+#+SETUPFILE: setup/css/theme-0.orgcss
+#+TITLE: 如何利用VNC访问平时没有图形界面的服务器
+
+比如有的时候，需要用图形界面跑跑虚拟机什么的。
+
+* 安装桌面环境、vncserver等
+
+  轻量些的环境比如Xfce4。以ubuntu服务器为例：
+
+  #+BEGIN_SRC shell
+    sudo apt install xfce4 xfce4-goodies tightvncserver xrdp
+  #+END_SRC
+  
+* 配置vncserver
+  
+  建立~/.vnc目录，设置vnc连接的密码：
+  #+BEGIN_SRC shell
+  mkdir -p ~/.vnc
+  echo password | vncpasswd -f > ~/.vnc/passwd
+  chmod 600 ~/.vnc/passwd
+  #+END_SRC
+
+  然后写初始化文件xstartup:
+
+  #+BEGIN_SRC shell
+  #!/bin/bash
+  xrdb $HOME/.Xresources
+  startxfce4 &
+  #+END_SRC
+
+  再给它加上x权限：
+  #+BEGIN_SRC shell
+  chmod +x ~/.vnc/xstartup
+  #+END_SRC
+
+* 运行vncserver
+
+  用pietty等工具ssh到服务器以后，根据具体需要的分辨率运行vncserver：
+
+  #+BEGIN_SRC shell
+    vncserver -geometry 1920x1808
+  #+END_SRC
+
+  这个命令会输出类似信息：
+
+  #+BEGIN_QUOTE
+  New 'X' desktop is your-host-name:2
+  #+END_QUOTE
+
+* 用VNC客户端连接到服务器
+
+  假使服务器的IP地址是10.0.0.3。在Windows上运行vnc viewer，比如
+  VNC-Viewer-5.3.0-Windows-64bit.exe，对其进行如下配置：
+
+  在VNC Server一栏输入(注意:2和vncserver的输出里的:2的对应关系：10.0.0.3:2
+
+  在Encryption一栏选择“Let VNC Server choose”就行。
+
+  然后点击Connect按钮，输入密码，能看到远端的桌面了。

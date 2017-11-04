@@ -1,0 +1,12 @@
+#+SETUPFILE: setup/css/theme-0.orgcss
+
+* lisp DNA
+
+If we ask ourselves, ‘What is the genotype of Lisp?’, what is its DNA, its genetic legacy, I'd suggest that it is composed of the following five ideas.
+
+1. Recursion as the primary mean of expressing procedure calling.
+2. Heterogenous lists as the way of composing and dissecting complex data.
+3. Programming by defining functions.
+4. Garbage collection.
+5. Programs as data.
+   

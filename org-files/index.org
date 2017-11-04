@@ -1,0 +1,23 @@
+#+TITLE: Random Memo
+
+- [[file:postgres_bruteforce_upgrade.org][PostgreSQL主版本号升级，如何升级数据库文件]]
+- [[file:advices-on-life.org][The days are long but the decades are short]]
+- [[file:lisp.org][lisp]]
+- [[file:ubuntu-usage.org][ubuntu-usage]]
+- [[file:repair-pdf.org][修复pdf文件]]
+- [[file:wget-and-singlel-quote-in-windows-cmd.org][单引号、双引号与Windows cmd]]
+- [[file:cygwin-zsh-auto-generate-fake-files.org][在Cygwin的zsh里自动生成fake-files]]
+- [[file:windows-find-used-port-and-kill-process.org][在Windows cmd里查找占用端口的进程并杀掉]]
+- [[file:how_to_check_conferences_or_proceedings_indexed_by_what.org][如何查看 conferences 或者 proceedings 是否被索引]]
+- [[file:the-most-painful-things.org][计划上最痛苦的事情]]
+- [[file:resetting-NTFS-files-security-and-permission-in-Windows.org][重置Windows下NTFS文件系统上的文件安全和权限设置]]
+- [[file:access-linux-servers-using-vnc.org][如何利用VNC访问平时没有图形界面的服务器]]
+- [[file:edit-java-jar-files-on-site.org][怎么临时修改已经打包好的jar里的properties配置文件？]]
+- notes
+  - [[file:notes/emacs_vim.org][Emacs 与 Vim]]
+  - [[file:notes/lisp.org][Lisp DNA]]
+  - [[file:notes/programm.org][Steps for Writing Programs]]
+  - [[file:notes/unicode.org][unicode]]
+  - [[file:notes/how_to_debug_adobe_air_app.org][如何 debug Adobe AIR 程序]]
+  - [[file:notes/life.org][怎样培养沉稳的气质]]
+  - [[file:notes/programming_paradigms.org][编程范式 Programming Paradigms]]

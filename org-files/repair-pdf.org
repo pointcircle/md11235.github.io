@@ -1,0 +1,46 @@
+#+TITLE: 修复pdf文件
+
+
+* 页码
+
+  比如在 pdf 阅读器里显示 Cover，以及 i，ii，iii，iv 等罗马数字。
+
+  #+BEGIN_SRC
+/PageLabels << /Nums [
+0 << /P (cover) >> % labels 1st page with the string "cover"
+1 << /S /r >> % numbers pages 2-6 in small roman numerals
+6 << /S /D >> % numbers pages 7-x in decimal arabic numerals
+]
+>>
+  #+END_SRC
+  引用自： http://askubuntu.com/questions/32048/renumber-pages-of-a-pdf
+
+* 批量更新书签
+
+  要用到 pdftk 这个命令行工具，实在太方便了。
+
+  首先要导出 metadata：
+
+  #+BEGIN_SRC
+pdftk test.pdf dump_data > test.info
+  #+END_SRC
+
+  然后编辑导出的元数据文件 test.info，对每一条书签记录，增加类似如下的4行文字：
+
+  #+BEGIN_SRC
+BookmarkBegin
+BookmarkTitle: You're busy. What's the least you can read?
+BookmarkLevel: 3
+BookmarkPageNumber: 7
+  #+END_SRC
+
+  上面的文字里的第一行是固定的；第二行表示标题；第三行层次；第四行页码。
+
+  更新完之后，就用 pdftk 的 update_info 命令来组合原有的 pdf 文件和元数据，以生成新的 pdf 文件：
+
+  #+BEGIN_SRC
+pdftk test.pdf update_info test.info output test2.pdf verbose
+  #+END_SRC
+
+  参考了：
+  http://unix.stackexchange.com/questions/17065/add-and-edit-bookmarks-to-pdf

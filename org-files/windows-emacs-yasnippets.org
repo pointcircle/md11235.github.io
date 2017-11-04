@@ -1,0 +1,6 @@
+#+SETUPFILE: setup/css/theme-0.orgcss
+#+TITLE: Windows上Emacs里加载yasnippets
+
+snippets里的default文件，虽然不是.el后缀，也会被emacs加载，然后报错。
+
+解决方法：在合适的祖先目录里，添加一个空文件，叫做 .nosearch

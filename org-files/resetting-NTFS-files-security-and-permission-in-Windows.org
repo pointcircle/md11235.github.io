@@ -1,0 +1,36 @@
+#+SETUPFILE: setup/css/theme-0.orgcss
+#+TITLE: 重置Windows下NTFS文件系统上的文件安全和权限设置
+
+翻译自 http://lallouslab.net/2009/06/14/resetting-ntfs-files-security-and-permission-in-windows-7/
+
+To reset files permissions, follow these easy 3 steps:
+
+* Step 1: Run “cmd” as Administrator.
+
+Note: In MS Windows 8 and above, press the Win+X keys, then choose “Command Prompt (Admin)”.
+
+* Step 2: Go to the drive or folder in question, for example:
+
+#+BEGIN_SRC shell
+CD /D D:
+#+END_SRC
+
+* Step 3: To reset all the files permissions, type:
+
+#+BEGIN_SRC shell
+icacls * /T /Q /C /RESET
+#+END_SRC
+
+That’s it! After that, the files permissions were reset and I could access them back again.
+
+Very Important note:
+
+Step 3 is irreversible. Make sure you backup the permissions before you proceed!
+
+* Optional Step 2.5
+
+It is possible that “icacls” might fail. For that try to take ownership of the files first. Just before Step (3), please type the following command:
+
+#+BEGIN_SRC shell
+takeown /R /F *
+#+END_SRC

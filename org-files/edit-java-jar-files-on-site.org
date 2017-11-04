@@ -1,0 +1,18 @@
+#+SETUPFILE: setup/css/theme-0.orgcss
+#+TITLE: 怎么临时修改已经打包好的jar里的properties配置文件？
+
+jar文件采用的是[[https://docs.oracle.com/javase/tutorial/deployment/jar/basicsindex.html][zip文件格式]]。
+
+直观来说，非常简单，利用vim直接编辑。
+
+#+BEGIN_SRC shell
+  vim xyz.jar
+#+END_SRC
+
+vim打开这个jar文件，就跟vim后面跟一个目录一样，可以进入和退出目录，选择文件编辑，保存，会自动重新打好压缩包。
+
+另外，Emacs也能做这事，如果你能用得来Emacs的话。
+
+当然，PATH里要有zip和unzip可执行程序。
+
+[[https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=3&cad=rja&uact=8&ved=0ahUKEwi80euRqaTXAhUUzGMKHadyDJsQFgg0MAI&url=http%253A%252F%252Fwww.programering.com%252Fa%252FMDM2kjMwATI.html&usg=AOvVaw0SJmAE4j5DduoyPVWHnhO2][Emacs is God's editor, Vim editor god.]]

@@ -1,0 +1,8 @@
+#+SETUPFILE: setup/css/theme-0.orgcss
+#+TITLE: 在Cygwin的zsh里自动生成fake-files
+
+凑合写了一个：
+
+#+BEGIN_SRC shell
+zstyle ':completion:*' fake-files $(df --output=source | tr -d ':' |xargs -I{} echo "/:{}" |tr '\n' ' ' | sed -e 's/\/\:Filesystem //g' | sed -e 's/ $//g')
+#+END_SRC
