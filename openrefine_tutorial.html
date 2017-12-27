@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- 2017-12-27 周三 16:11 -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OpenRefine 入门教程</title>
+<meta name="generator" content="Org mode">
+<meta name="author" content="md11235">
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2017 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">OpenRefine 入门教程</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org9e34e9e">1. 安装和运行</a></li>
+<li><a href="#orgb65f4e8">2. 导入（上传）数据</a></li>
+<li><a href="#org743ffac">3. 从地址转换为坐标</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org9e34e9e" class="outline-2">
+<h2 id="org9e34e9e"><span class="section-number-2">1</span> 安装和运行</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+架设非常的简单啦，下载，解压缩，Windows上运行openrefine.exe，然后用浏览器访问<a href="http://127.0.0.1:3333">http://127.0.0.1:3333</a> 即可。</p>
+</div>
+</div>
+
+<div id="outline-container-orgb65f4e8" class="outline-2">
+<h2 id="orgb65f4e8"><span class="section-number-2">2</span> 导入（上传）数据</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+我只试验了csv。在打开的web页面里，上传csv文件即可。</p>
+</div>
+</div>
+
+<div id="outline-container-org743ffac" class="outline-2">
+<h2 id="org743ffac"><span class="section-number-2">3</span> 从地址转换为坐标</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+比如利用高德地图的restapi。找到地址所在的列，选择该列左侧的向下实心三角箭头，Edit column &#x2013;&gt; Add column by fetching URLS,
+</p>
+
+<div class="org-src-container">
+<pre class="src src-javascript"><span style="color: #ffa500;">"http://restapi.amap.com/v3/geocode/geo?city=0851&amp;output=json&amp;key=xzyxzyxzyxzyxzyxzyxzyxzyxzyxzyxz&amp;address="</span> + escape(value, <span style="color: #ffa500;">"url"</span>)
+</pre>
+</div>
+
+<p>
+上述 url里的city的意思是城市，这里我用了贵阳的区号0851；output是输出格式；key是从高德申请的developer key。强调的是，最后地址这里，value
+得escape（类似js的encodeURI函数）一下，要不在我这会导致从高德的restapi能拿到结果，但是geocodes为空:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-javascript">{<span style="color: #ffa500;">"status"</span>:<span style="color: #ffa500;">"1"</span>,<span style="color: #ffa500;">"info"</span>:<span style="color: #ffa500;">"OK"</span>,<span style="color: #ffa500;">"infocode"</span>:<span style="color: #ffa500;">"10000"</span>,<span style="color: #ffa500;">"count"</span>:<span style="color: #ffa500;">"0"</span>,<span style="color: #ffa500;">"geocodes"</span>:[]}
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: md11235 (<a href="mailto:md11235@gmail.com">md11235@gmail.com</a>)</p>
+<p class="date">Date: </p>
+<p class="creator"><a href="https://www.gnu.org/software/emacs/">Emacs</a> 26.0.90 (<a href="http://orgmode.org">Org</a> mode 9.1.2)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

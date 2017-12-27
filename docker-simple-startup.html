@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- 2017-12-27 周三 16:14 -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>&lrm;</title>
+<meta name="generator" content="Org mode">
+<meta name="author" content="md11235">
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2017 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgca6a64a">1. docker pull</a></li>
+<li><a href="#org8b72ae3">2. docker run</a></li>
+<li><a href="#orgbaea20a">3. docker start</a></li>
+<li><a href="#org3c3fee4">4. docker stop</a></li>
+<li><a href="#orgc737651">5. docker exec</a></li>
+<li><a href="#org3ae5142">6. docker rm</a></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgca6a64a" class="outline-2">
+<h2 id="orgca6a64a"><span class="section-number-2">1</span> docker pull</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+docker pull mysql-server:5.7.10
+</p>
+</div>
+</div>
+
+<div id="outline-container-org8b72ae3" class="outline-2">
+<h2 id="org8b72ae3"><span class="section-number-2">2</span> docker run</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+docker run -d &#x2013;name "mysql-test" &#x2013;env MYSQL<sub>ROOT</sub><sub>PASSWORD</sub>=123456 -p 3306:3306 -v /tmp/mysql:/var/lib/mysql mysql:5.7.10
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgbaea20a" class="outline-2">
+<h2 id="orgbaea20a"><span class="section-number-2">3</span> docker start</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+docker start mysql-test
+</p>
+</div>
+</div>
+
+<div id="outline-container-org3c3fee4" class="outline-2">
+<h2 id="org3c3fee4"><span class="section-number-2">4</span> docker stop</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+docker stop mysql-test
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgc737651" class="outline-2">
+<h2 id="orgc737651"><span class="section-number-2">5</span> docker exec</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+docker exec -it mysql-test /binb/bash
+</p>
+</div>
+</div>
+
+<div id="outline-container-org3ae5142" class="outline-2">
+<h2 id="org3ae5142"><span class="section-number-2">6</span> docker rm</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+docker rm mysql-test</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: md11235 (<a href="mailto:md11235@gmail.com">md11235@gmail.com</a>)</p>
+<p class="date">Date: </p>
+<p class="creator"><a href="https://www.gnu.org/software/emacs/">Emacs</a> 26.0.90 (<a href="http://orgmode.org">Org</a> mode 9.1.2)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
