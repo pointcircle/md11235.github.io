@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-03-26 Mon 10:56 -->
+<!-- 2018-03-26 Mon 15:50 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Windows 10 里检测无线网卡的连接状态并重连</title>
@@ -85,7 +85,7 @@ for the JavaScript code in this tag.
 
 <span style="color: #00ffff;">while</span> true; <span style="color: #00ffff;">do</span> 
     date; 
-    <span style="color: #00ffff;">if</span> netsh wlan show interfaces | grep <span style="color: #ffa500;">"connected"</span>; <span style="color: #00ffff;">then</span>
+    <span style="color: #00ffff;">if</span> netsh wlan show interfaces | grep <span style="color: #ffa500;">" connected"</span>; <span style="color: #00ffff;">then</span> <span style="color: #ffd700;"># </span><span style="color: #ffd700;">to distinguish from 'disconnected'</span>
        <span style="color: #b0c4de;">echo</span> <span style="color: #ffa500;">"wlan is connected"</span>
     <span style="color: #00ffff;">else</span>
        <span style="color: #b0c4de;">echo</span> <span style="color: #ffa500;">"wlan is NOT connected. Now reconnect."</span>
