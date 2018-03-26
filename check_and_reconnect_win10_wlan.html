@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- 2018-03-26 Mon 10:53 -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>windows 10 里检测无线网卡的连接状态并重连</title>
+<meta name="generator" content="Org mode">
+<meta name="author" content="md11235">
+<link rel="stylesheet" type="text/css" href="styles/bigblow/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="styles/bigblow/css/bigblow.css"/>
+<link rel="stylesheet" type="text/css" href="styles/bigblow/css/hideshow.css"/>
+<script type="text/javascript" src="styles/bigblow/js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="styles/bigblow/js/jquery-ui-1.10.2.min.js"></script>
+<script type="text/javascript" src="styles/bigblow/js/jquery.localscroll-min.js"></script>
+<script type="text/javascript" src="styles/bigblow/js/jquery.scrollTo-1.4.3.1-min.js"></script>
+<script type="text/javascript" src="styles/bigblow/js/jquery.zclip.min.js"></script>
+<script type="text/javascript" src="styles/bigblow/js/bigblow.js"></script>
+<script type="text/javascript" src="styles/bigblow/js/hideshow.js"></script>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2018 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">windows 10 里检测无线网卡的连接状态并重连</h1>
+<ul class="org-ul">
+<li>只在windows 10里测试过</li>
+<li>目前只支持一块无线网卡。如果有多块，需要结合netsh wlan show interfaces以及netsh wlan connect子命令来指定需要连接的无线网卡</li>
+<li>需要运行在（有可能需要提升为管理员权限的）msys2或者cygwin里；</li>
+</ul>
+
+<p>
+程序如下：</p>
+
+<div class="org-src-container">
+<pre class="src src-shell"><span style="color: #ffd700;">#</span><span style="color: #ffd700;">!/bin/</span><span style="color: #00ffff;">bash</span>
+
+<span style="color: #ffd700;"># </span><span style="color: #ffd700;">change windows commands' output in cmd to English for easy handling later</span>
+<span style="color: #ffd700;"># </span><span style="color: #ffd700;">&#25226;wnidows&#30340;cmd&#37324;&#30340;&#21629;&#20196;&#30340;&#36755;&#20986;&#35821;&#35328;&#25913;&#20026;&#33521;&#35821;&#65292;&#26041;&#20415;&#21518;&#32493;&#22788;&#29702;</span>
+/c/Windows/System32/chcp.com 437
+
+<span style="color: #00ffff;">while</span> true; <span style="color: #00ffff;">do</span> 
+    date; 
+    <span style="color: #00ffff;">if</span> netsh wlan show interfaces | grep <span style="color: #ffa500;">"connected"</span>; <span style="color: #00ffff;">then</span>
+       <span style="color: #b0c4de;">echo</span> <span style="color: #ffa500;">"wlan is connected"</span>
+    <span style="color: #00ffff;">else</span>
+       <span style="color: #b0c4de;">echo</span> <span style="color: #ffa500;">"wlan is NOT connected. Now reconnect."</span>
+       netsh wlan connect <span style="color: #ffa07a;">name</span>=<span style="color: #ffa500;">"your_wifi_ssid"</span>
+    <span style="color: #00ffff;">fi</span>
+    sleep 10; 
+<span style="color: #00ffff;">done</span>
+</pre>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: md11235 (<a href="mailto:md11235@gmail.com">md11235@gmail.com</a>)</p>
+<p class="date">Date: </p>
+<p class="creator"><a href="https://www.gnu.org/software/emacs/">Emacs</a> 26.0.91 (<a href="http://orgmode.org">Org</a> mode 9.1.4)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
