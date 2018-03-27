@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-03-27 Tue 14:22 -->
+<!-- 2018-03-27 Tue 14:33 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>在Centos7里安装Anaconda3</title>
@@ -75,7 +75,11 @@ for the JavaScript code in this tag.
 <li><a href="#org2e90f7d">2. 安装</a></li>
 <li><a href="#org066534e">3. 使用</a>
 <ul>
-<li><a href="#orgb0e2251">3.1. 安装virtualenv</a></li>
+<li><a href="#orgb0e2251">3.1. 安装virtualenv</a>
+<ul>
+<li><a href="#orgefa09cc">3.1.1. 可以玩玩ipython</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a href="#org08d00a9">4. 其他</a></li>
@@ -95,7 +99,7 @@ for the JavaScript code in this tag.
 </div>
 
 <p>
-如果你看到有x86<sub>64字样</sub>，就下载Anaconda3-5.1.0-Linux-x86<sub>64.sh</sub>；如果只看到x86，那么就下载Anaconda3-5.1.0-Linux-x86.sh。</p>
+如果你看到有x86<sub>64字样</sub>，就下载 <code>Anaconda3-5.1.0-Linux-x86_64.sh</code> ；如果只看到x86，那么就下载 <code>Anaconda3-5.1.0-Linux-x86.sh</code> 。</p>
 </div>
 </div>
 
@@ -158,6 +162,42 @@ virtualenv -p python3.6 ~/virtualenv/python3.6
 <div class="org-src-container">
 <pre class="src src-shell">source ~/virtualenv/python3.6/bin/activate
 </pre>
+</div>
+
+<p>
+你会看到类似下面的输出</p>
+<div class="org-src-container">
+<pre class="src src-shell">(python3.6)
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgefa09cc" class="outline-4">
+<h4 id="orgefa09cc"><span class="section-number-4">3.1.1</span> 可以玩玩ipython</h4>
+<div class="outline-text-4" id="text-3-1-1">
+<p>
+呃，就是个交互式的python shell，比直接运行python得到的shell好用一些。</p>
+
+<p>
+运行ipython
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell">ipython
+</pre>
+</div>
+
+<p>
+会看到类似下面的输出：</p>
+
+<div class="org-src-container">
+<pre class="src src-shell">Python 3.6.3 |Anaconda, Inc.| (default, Oct 13 2017, 12:02:49)
+Type <span style="color: #ffa500;">'copyright'</span>, <span style="color: #ffa500;">'credits'</span> or <span style="color: #ffa500;">'license'</span> for more information
+IPython 6.2.1 -- An enhanced Interactive Python. Type <span style="color: #ffa500;">'?'</span> for help.
+
+In [1]:
+</pre>
+</div>
 </div>
 </div>
 </div>
