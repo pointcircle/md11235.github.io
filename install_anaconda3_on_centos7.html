@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- 2018-03-27 Tue 14:22 -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>在Centos7里安装Anaconda3</title>
+<meta name="generator" content="Org mode">
+<meta name="author" content="md11235">
+<link rel="stylesheet" type="text/css" href="styles/bigblow/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="styles/bigblow/css/bigblow.css"/>
+<link rel="stylesheet" type="text/css" href="styles/bigblow/css/hideshow.css"/>
+<script type="text/javascript" src="styles/bigblow/js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="styles/bigblow/js/jquery-ui-1.10.2.min.js"></script>
+<script type="text/javascript" src="styles/bigblow/js/jquery.localscroll-min.js"></script>
+<script type="text/javascript" src="styles/bigblow/js/jquery.scrollTo-1.4.3.1-min.js"></script>
+<script type="text/javascript" src="styles/bigblow/js/jquery.zclip.min.js"></script>
+<script type="text/javascript" src="styles/bigblow/js/bigblow.js"></script>
+<script type="text/javascript" src="styles/bigblow/js/hideshow.js"></script>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2018 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">在Centos7里安装Anaconda3</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org0eb3b64">1. 下载安装文件</a></li>
+<li><a href="#org2e90f7d">2. 安装</a></li>
+<li><a href="#org066534e">3. 使用</a>
+<ul>
+<li><a href="#orgb0e2251">3.1. 安装virtualenv</a></li>
+</ul>
+</li>
+<li><a href="#org08d00a9">4. 其他</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org0eb3b64" class="outline-2">
+<h2 id="org0eb3b64"><span class="section-number-2">1</span> 下载安装文件</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+从<a href="https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/">https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/</a> 下载最新的给linux用的版本。运行</p>
+
+<div class="org-src-container">
+<pre class="src src-shell">uname -a 
+</pre>
+</div>
+
+<p>
+如果你看到有x86<sub>64字样</sub>，就下载Anaconda3-5.1.0-Linux-x86<sub>64.sh</sub>；如果只看到x86，那么就下载Anaconda3-5.1.0-Linux-x86.sh。</p>
+</div>
+</div>
+
+<div id="outline-container-org2e90f7d" class="outline-2">
+<h2 id="org2e90f7d"><span class="section-number-2">2</span> 安装</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+下载完以后，不要用root帐号安装。用普通的用户，假设你把文件存在了~目录下，那么执行</p>
+
+<div class="org-src-container">
+<pre class="src src-shell">bash ~/Anaconda3-5.1.0-Linux-x86.sh
+</pre>
+</div>
+
+<p>
+如果是新手，就所有选项接受默认值。那么Anaconda3会被安装在~/anaconda3。</p>
+
+<p>
+接受license的时候，要输入yes哈。如果是中文shell环境，输入什么，我还不知道，看具体的提示吧。</p>
+</div>
+</div>
+
+<div id="outline-container-org066534e" class="outline-2">
+<h2 id="org066534e"><span class="section-number-2">3</span> 使用</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+在shell里，先要执行</p>
+
+<div class="org-src-container">
+<pre class="src src-shell">source ~/anaconda3/bin/activate
+</pre>
+</div>
+
+
+<p>
+来激活刚才装的Anaconda3环境。</p>
+
+<p>
+但是，这只是完成了python3的安装。也就是说，Anaconda3只是python3的一个发行版。为了隔离不同的python库的版本，得用上virtualenv，下面接着跟我做。</p>
+</div>
+
+<div id="outline-container-orgb0e2251" class="outline-3">
+<h3 id="orgb0e2251"><span class="section-number-3">3.1</span> 安装virtualenv</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+在刚才source了  ~/anaconda3/bin/activate 的shell里，执行</p>
+
+<div class="org-src-container">
+<pre class="src src-shell">conda install virtualenv
+virtualenv -p python3.6 ~/virtualenv/python3.6
+</pre>
+</div>
+
+<p>
+中间不出错的话，就会看到python3.6的virtualenv（虚拟环境）搭建完毕。</p>
+
+<p>
+具体到某个功能开发和实现，只使用下列语句就行：</p>
+
+<div class="org-src-container">
+<pre class="src src-shell">source ~/virtualenv/python3.6/bin/activate
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org08d00a9" class="outline-2">
+<h2 id="org08d00a9"><span class="section-number-2">4</span> 其他</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+推荐的做法是，具体到某个应用、目的、功能开发的时候，用virtualenv。而如果是一些重要的编程库，则推荐安装到anaconda里。比如要安装pandas
+</p>
+
+<pre class="example">
+conda install pandas
+</pre>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: md11235 (<a href="mailto:md11235@gmail.com">md11235@gmail.com</a>)</p>
+<p class="date">Date: </p>
+<p class="creator"><a href="https://www.gnu.org/software/emacs/">Emacs</a> 27.0.50 (<a href="http://orgmode.org">Org</a> mode 9.1.6)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
