@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- 2018-04-04 Wed 11:15 -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>用vim+xxd编辑（手写）二进制的协议内容</title>
+<meta name="generator" content="Org mode">
+<meta name="author" content="md11235">
+<link rel="stylesheet" type="text/css" href="styles/bigblow/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="styles/bigblow/css/bigblow.css"/>
+<link rel="stylesheet" type="text/css" href="styles/bigblow/css/hideshow.css"/>
+<script type="text/javascript" src="styles/bigblow/js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="styles/bigblow/js/jquery-ui-1.10.2.min.js"></script>
+<script type="text/javascript" src="styles/bigblow/js/jquery.localscroll-min.js"></script>
+<script type="text/javascript" src="styles/bigblow/js/jquery.scrollTo-1.4.3.1-min.js"></script>
+<script type="text/javascript" src="styles/bigblow/js/jquery.zclip.min.js"></script>
+<script type="text/javascript" src="styles/bigblow/js/bigblow.js"></script>
+<script type="text/javascript" src="styles/bigblow/js/hideshow.js"></script>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2018 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">用vim+xxd编辑（手写）二进制的协议内容</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org8365f68">1. 用正确的模式(binary)打开待编辑的文件</a></li>
+<li><a href="#orge8e3ab7">2. 调用xxd转为hex(十六进制)编辑模式</a></li>
+<li><a href="#org4ff1062">3. 编辑协议内容</a></li>
+<li><a href="#org4a917ac">4. 转换为文件</a></li>
+<li><a href="#org63f5f28">5. 校验</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org8365f68" class="outline-2">
+<h2 id="org8365f68"><span class="section-number-2">1</span> 用正确的模式(binary)打开待编辑的文件</h2>
+<div class="outline-text-2" id="text-1">
+<div class="org-src-container">
+<pre class="src src-shell">vim -b /tmp/test.txt
+</pre>
+</div>
+
+<p>
+如果这个文件是空的，请往里面先随便写入一个字符，比如a。</p>
+</div>
+</div>
+
+<div id="outline-container-orge8e3ab7" class="outline-2">
+<h2 id="orge8e3ab7"><span class="section-number-2">2</span> 调用xxd转为hex(十六进制)编辑模式</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+切换到正常模式，输入</p>
+<div class="org-src-container">
+<pre class="src src-shell">%!xxd 
+</pre>
+</div>
+
+<p>
+此时发现文件内容变成</p>
+
+<pre class="example">
+00000000: 610a                                     a.
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org4ff1062" class="outline-2">
+<h2 id="org4ff1062"><span class="section-number-2">3</span> 编辑协议内容</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+切换到编辑模式，按照四个十六进制字符一组的方式，往里填充协议的内容。比如：</p>
+
+<div class="org-src-container">
+<pre class="src src-shell">00000000: 610a 9897                                a.
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org4a917ac" class="outline-2">
+<h2 id="org4a917ac"><span class="section-number-2">4</span> 转换为文件</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+编辑完成后，切换到正常模式，输入</p>
+
+<div class="org-src-container">
+<pre class="src src-shell">%!xxd -r
+</pre>
+</div>
+
+<p>
+然后保存文件</p>
+</div>
+</div>
+
+<div id="outline-container-org63f5f28" class="outline-2">
+<h2 id="org63f5f28"><span class="section-number-2">5</span> 校验</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+用hexdump看看：</p>
+
+<div class="org-src-container">
+<pre class="src src-shell">hexdump -C /tmp/test.txt
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: md11235 (<a href="mailto:md11235@gmail.com">md11235@gmail.com</a>)</p>
+<p class="date">Date: </p>
+<p class="creator"><a href="https://www.gnu.org/software/emacs/">Emacs</a> 27.0.50 (<a href="http://orgmode.org">Org</a> mode 9.1.6)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
