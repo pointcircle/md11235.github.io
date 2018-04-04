@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2017-10-27 Fri 22:13 -->
+<!-- 2018-04-04 Wed 13:43 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>修复pdf文件</title>
@@ -12,7 +12,7 @@
 @licstart  The following is the entire license notice for the
 JavaScript code in this tag.
 
-Copyright (C) 2012-2017 Free Software Foundation, Inc.
+Copyright (C) 2012-2018 Free Software Foundation, Inc.
 
 The JavaScript code in this tag is free software: you can
 redistribute it and/or modify it under the terms of the GNU
@@ -55,21 +55,28 @@ for the JavaScript code in this tag.
 </script>
 </head>
 <body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="/"> UP </a>
+ |
+ <a accesskey="H" href="/"> HOME </a>
+</div><div id="preamble" class="status">
+<p class="date">Published: </p>
+</div>
 <div id="content">
 <h1 class="title">修复pdf文件</h1>
 <div id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org9d5b840">1. 页码</a></li>
-<li><a href="#org729fe90">2. 批量更新书签</a></li>
+<li><a href="#org727c68a">1. 页码</a></li>
+<li><a href="#org7a7367a">2. 批量更新书签</a></li>
 </ul>
 </div>
 </div>
 
 
-<div id="outline-container-org9d5b840" class="outline-2">
-<h2 id="org9d5b840"><span class="section-number-2">1</span> 页码</h2>
+<div id="outline-container-org727c68a" class="outline-2">
+<h2 id="org727c68a"><span class="section-number-2">1</span> 页码</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 比如在 pdf 阅读器里显示 Cover，以及 i，ii，iii，iv 等罗马数字。</p>
@@ -88,8 +95,8 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-org729fe90" class="outline-2">
-<h2 id="org729fe90"><span class="section-number-2">2</span> 批量更新书签</h2>
+<div id="outline-container-org7a7367a" class="outline-2">
+<h2 id="org7a7367a"><span class="section-number-2">2</span> 批量更新书签</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 要用到 pdftk 这个命令行工具，实在太方便了。</p>
@@ -129,7 +136,7 @@ pdftk test.pdf update_info test.info output test2.pdf verbose
 <div id="postamble" class="status">
 <p class="author">Author: md11235 (<a href="mailto:md11235@gmail.com">md11235@gmail.com</a>)</p>
 <p class="date">Date: </p>
-<p class="creator"><a href="https://www.gnu.org/software/emacs/">Emacs</a> 27.0.50 (<a href="http://orgmode.org">Org</a> mode 9.1.1)</p>
+<p class="creator"><a href="https://www.gnu.org/software/emacs/">Emacs</a> 27.0.50 (<a href="http://orgmode.org">Org</a> mode 9.1.6)</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

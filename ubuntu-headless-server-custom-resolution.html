@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- 2018-04-04 Wed 13:43 -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>调整没有显示器的ubuntu server的分辨率</title>
+<meta name="generator" content="Org mode">
+<meta name="author" content="md11235">
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2018 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="/"> UP </a>
+ |
+ <a accesskey="H" href="/"> HOME </a>
+</div><div id="preamble" class="status">
+<p class="date">Published: </p>
+</div>
+<div id="content">
+<h1 class="title">调整没有显示器的ubuntu server的分辨率</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgbf5f719">1. 获取显示器的名字</a></li>
+<li><a href="#org0982a41">2. 计算特定分辨率之下的 VESA CVT 模式行</a></li>
+<li><a href="#orga7f590b">3. 当前gnome session里做测试</a>
+<ul>
+<li><a href="#orge186c60">3.1. 定义新模式</a></li>
+<li><a href="#orgb846c4f">3.2. 添加上一步定义的新模式</a></li>
+<li><a href="#org2aff759">3.3. 启用新模式</a></li>
+</ul>
+</li>
+<li><a href="#orgefbd63b">4. 固化设置</a></li>
+</ul>
+</div>
+</div>
+<p>
+以下命令仅仅在Ubuntu 16.04 x86<sub>64上测试通过</sub>。</p>
+
+<p>
+参考：<a href="http://ubuntuhandbook.org/index.php/2017/04/custom-screen-resolution-ubuntu-desktop/">http://ubuntuhandbook.org/index.php/2017/04/custom-screen-resolution-ubuntu-desktop/</a>
+</p>
+
+<div id="outline-container-orgbf5f719" class="outline-2">
+<h2 id="orgbf5f719"><span class="section-number-2">1</span> 获取显示器的名字</h2>
+<div class="outline-text-2" id="text-1">
+<div class="org-src-container">
+<pre class="src src-shell">xrandr
+</pre>
+</div>
+
+<p>
+输出</p>
+
+<pre class="example">
+Screen 0: minimum 320 x 200, current 1024 x 768, maximum 1920 x 2048
+VGA-1 connected primary 1024x768+0+0 (normal left inverted right x axis y axis) 0mm x 0mm
+ 1024x768      60.00* 
+ 800x600       60.32    56.25  
+ 640x480       59.94  
+</pre>
+
+<p>
+上面的 "VGA-1" 就是显示器名字</p>
+</div>
+</div>
+
+<div id="outline-container-org0982a41" class="outline-2">
+<h2 id="org0982a41"><span class="section-number-2">2</span> 计算特定分辨率之下的 VESA CVT 模式行</h2>
+<div class="outline-text-2" id="text-2">
+<div class="org-src-container">
+<pre class="src src-shell">cvt 1920 1080
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-shell"><span style="color: #ffd700;"># </span><span style="color: #ffd700;">1920x1080 59.96 Hz (CVT 2.07M9) hsync: 67.16 kHz; pclk: 173.00 MHz</span>
+Modeline <span style="color: #ffa500;">"1920x1080_60.00"</span>  173.00  1920 2048 2248 2576  1080 1083 1088 1120 -hsync +vsync  
+</pre>
+</div>
+
+<p>
+输出里Modeline后面的配置行很重要：</p>
+<div class="org-src-container">
+<pre class="src src-shell"><span style="color: #ffa500;">"1920x1080_60.00"</span>  173.00  1920 2048 2248 2576  1080 1083 1088 1120 -hsync +vsync  
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orga7f590b" class="outline-2">
+<h2 id="orga7f590b"><span class="section-number-2">3</span> 当前gnome session里做测试</h2>
+<div class="outline-text-2" id="text-3">
+</div>
+<div id="outline-container-orge186c60" class="outline-3">
+<h3 id="orge186c60"><span class="section-number-3">3.1</span> 定义新模式</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+需要sudo。</p>
+
+<div class="org-src-container">
+<pre class="src src-shell">sudo xrandr --newmode <span style="color: #ffa500;">"1920x1080_60.00"</span>  173.00  1920 2048 2248 2576  1080 1083 1088 1120 -hsync +vsync
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgb846c4f" class="outline-3">
+<h3 id="orgb846c4f"><span class="section-number-3">3.2</span> 添加上一步定义的新模式</h3>
+<div class="outline-text-3" id="text-3-2">
+<div class="org-src-container">
+<pre class="src src-shell">sudo xrandr --addmode VGA-1 <span style="color: #ffa500;">"1920x1080_60.00"</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org2aff759" class="outline-3">
+<h3 id="org2aff759"><span class="section-number-3">3.3</span> 启用新模式</h3>
+<div class="outline-text-3" id="text-3-3">
+<p>
+去gnome的设置里，选择刚才添加的模式。</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgefbd63b" class="outline-2">
+<h2 id="orgefbd63b"><span class="section-number-2">4</span> 固化设置</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+把之前用到的两行涉及xrandr的配置加入~/.xinitrc 或者 ~/.profile
+</p>
+
+<pre class="example">
+xrandr --newmode "1920x1080_60.00"  173.00  1920 2048 2248 2576  1080 1083 1088 1120 -hsync +vsync
+xrandr --addmode VGA-1 "1920x1080_60.00"
+</pre>
+
+<p>
+然后就ok了。</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: md11235 (<a href="mailto:md11235@gmail.com">md11235@gmail.com</a>)</p>
+<p class="date">Date: </p>
+<p class="creator"><a href="https://www.gnu.org/software/emacs/">Emacs</a> 27.0.50 (<a href="http://orgmode.org">Org</a> mode 9.1.6)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

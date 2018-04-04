@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-04-04 Wed 13:59 -->
+<!-- 2018-04-04 Wed 13:43 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>把一行文字作为另一个已存在文件的第一行</title>
+<title>用Monit监控Linux性能</title>
 <meta name="generator" content="Org mode">
 <meta name="author" content="md11235">
 <link rel="stylesheet" type="text/css" href="styles/bigblow/css/htmlize.css"/>
@@ -63,125 +63,60 @@ for the JavaScript code in this tag.
  }
 /*]]>*///-->
 </script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        displayAlign: "center",
-        displayIndent: "0em",
-
-        "HTML-CSS": { scale: 100,
-                        linebreaks: { automatic: "false" },
-                        webFont: "TeX"
-                       },
-        SVG: {scale: 100,
-              linebreaks: { automatic: "false" },
-              font: "TeX"},
-        NativeMML: {scale: 100},
-        TeX: { equationNumbers: {autoNumber: "AMS"},
-               MultLineWidth: "85%",
-               TagSide: "right",
-               TagIndent: ".8em"
-             }
-});
-</script>
-<script type="text/javascript"
-        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
 </head>
 <body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="/"> UP </a>
+ |
+ <a accesskey="H" href="/"> HOME </a>
+</div><div id="preamble" class="status">
+<p class="date">Published: </p>
+</div>
 <div id="content">
-<h1 class="title">把一行文字作为另一个已存在文件的第一行</h1>
+<h1 class="title">用Monit监控Linux性能</h1>
 <div id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgcb44aa9">1. sed</a></li>
-<li><a href="#org4d18536">2. echo cat mv</a></li>
-<li><a href="#org086d0fa">3. echo cat spong</a></li>
+<li><a href="#org59c68b2">1. 安装Monit</a></li>
+<li><a href="#org8e4e87f">2. 配置Monit</a>
+<ul>
+<li><a href="#orge36ccbc">2.1. 用邮件发送警报(alerts)</a></li>
+<li><a href="#org3190f5c">2.2. 监控目录所在分区的空间</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
 <p>
-方法蛮多，收集了几个。</p>
+以CentOS 7.4为例。</p>
 
-<div id="outline-container-orgcb44aa9" class="outline-2">
-<h2 id="orgcb44aa9"><span class="section-number-2">1</span> sed</h2>
+<div id="outline-container-org59c68b2" class="outline-2">
+<h2 id="org59c68b2"><span class="section-number-2">1</span> 安装Monit</h2>
 <div class="outline-text-2" id="text-1">
 <p>
-Use sed's insert (i) option which will insert the text in the preceding line.
-</p>
-
-<p>
-sed '1 i\
-</p>
-
-<p>
-Question author's update:
-</p>
-
-<p>
-To make it edit the file in place - with gnu sed - I had to add the -i option:
-</p>
-
-<p>
-sed -i '1 i\anything' file
-</p>
-
-<p>
-Also syntax
-</p>
-
-<p>
-sed  -i '1i text' filename
-</p>
-
-<p>
-<a href="https://unix.stackexchange.com/questions/99350/how-to-insert-text-before-the-first-line-of-a-file">https://unix.stackexchange.com/questions/99350/how-to-insert-text-before-the-first-line-of-a-file</a>
-</p>
-
-<p>
-sed -i '1s/^/task goes here\n/' todo.txt
-</p>
-
-<p>
-or
-</p>
-
-<p>
-sed -i '1itask goes here' todo.txt
-</p>
-
-<p>
-<a href="https://superuser.com/questions/246837/how-do-i-add-text-to-the-beginning-of-a-file-in-bash">https://superuser.com/questions/246837/how-do-i-add-text-to-the-beginning-of-a-file-in-bash</a>
+sudo yum install monit
 </p>
 </div>
 </div>
 
-<div id="outline-container-org4d18536" class="outline-2">
-<h2 id="org4d18536"><span class="section-number-2">2</span> echo cat mv</h2>
+<div id="outline-container-org8e4e87f" class="outline-2">
+<h2 id="org8e4e87f"><span class="section-number-2">2</span> 配置Monit</h2>
 <div class="outline-text-2" id="text-2">
-<p>
-echo 'task goes here' | cat - todo.txt &gt; temp &amp;&amp; mv temp todo.txt
-</p>
-
-<p>
-<a href="https://superuser.com/questions/246837/how-do-i-add-text-to-the-beginning-of-a-file-in-bash">https://superuser.com/questions/246837/how-do-i-add-text-to-the-beginning-of-a-file-in-bash</a>
-</p>
 </div>
+<div id="outline-container-orge36ccbc" class="outline-3">
+<h3 id="orge36ccbc"><span class="section-number-3">2.1</span> 用邮件发送警报(alerts)</h3>
 </div>
 
-
-<div id="outline-container-org086d0fa" class="outline-2">
-<h2 id="org086d0fa"><span class="section-number-2">3</span> echo cat spong</h2>
-<div class="outline-text-2" id="text-3">
-<p>
-The moreutils have a nice tool called sponge:
-</p>
-
-<p>
-echo "task goes here" | cat - todo.txt | sponge todo.txt
-</p>
-
-<p>
-<a href="https://superuser.com/questions/246837/how-do-i-add-text-to-the-beginning-of-a-file-in-bash">https://superuser.com/questions/246837/how-do-i-add-text-to-the-beginning-of-a-file-in-bash</a></p>
+<div id="outline-container-org3190f5c" class="outline-3">
+<h3 id="org3190f5c"><span class="section-number-3">2.2</span> 监控目录所在分区的空间</h3>
+<div class="outline-text-3" id="text-2-2">
+<div class="org-src-container">
+<pre class="src src-shell">check device var with path /home
+    <span style="color: #00ffff;">if</span> SPACE usage &gt; 90% then alert
+</pre>
+</div>
+</div>
 </div>
 </div>
 </div>

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-04-04 Wed 13:59 -->
+<!-- 2018-04-04 Wed 14:57 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>把一行文字作为另一个已存在文件的第一行</title>
+<title>当第一次ssh到某台主机时如何校验主机的身份？</title>
 <meta name="generator" content="Org mode">
 <meta name="author" content="md11235">
 <link rel="stylesheet" type="text/css" href="styles/bigblow/css/htmlize.css"/>
@@ -63,125 +63,56 @@ for the JavaScript code in this tag.
  }
 /*]]>*///-->
 </script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        displayAlign: "center",
-        displayIndent: "0em",
-
-        "HTML-CSS": { scale: 100,
-                        linebreaks: { automatic: "false" },
-                        webFont: "TeX"
-                       },
-        SVG: {scale: 100,
-              linebreaks: { automatic: "false" },
-              font: "TeX"},
-        NativeMML: {scale: 100},
-        TeX: { equationNumbers: {autoNumber: "AMS"},
-               MultLineWidth: "85%",
-               TagSide: "right",
-               TagIndent: ".8em"
-             }
-});
-</script>
-<script type="text/javascript"
-        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
 </head>
 <body>
 <div id="content">
-<h1 class="title">把一行文字作为另一个已存在文件的第一行</h1>
+<h1 class="title">当第一次ssh到某台主机时如何校验主机的身份？</h1>
 <div id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgcb44aa9">1. sed</a></li>
-<li><a href="#org4d18536">2. echo cat mv</a></li>
-<li><a href="#org086d0fa">3. echo cat spong</a></li>
+<li><a href="#orgf32df49">1. 服务器端</a></li>
+<li><a href="#orgecfc01d">2. 客户端</a></li>
+<li><a href="#org047b8fa">3. References</a></li>
 </ul>
 </div>
 </div>
-<p>
-方法蛮多，收集了几个。</p>
 
-<div id="outline-container-orgcb44aa9" class="outline-2">
-<h2 id="orgcb44aa9"><span class="section-number-2">1</span> sed</h2>
+
+<div id="outline-container-orgf32df49" class="outline-2">
+<h2 id="orgf32df49"><span class="section-number-2">1</span> 服务器端</h2>
 <div class="outline-text-2" id="text-1">
 <p>
-Use sed's insert (i) option which will insert the text in the preceding line.
+ssh-keygen -lf /etc/ssh/ssh<sub>host</sub><sub>rsa</sub><sub>key.pub</sub>
 </p>
 
 <p>
-sed '1 i\
-</p>
-
-<p>
-Question author's update:
-</p>
-
-<p>
-To make it edit the file in place - with gnu sed - I had to add the -i option:
-</p>
-
-<p>
-sed -i '1 i\anything' file
-</p>
-
-<p>
-Also syntax
-</p>
-
-<p>
-sed  -i '1i text' filename
-</p>
-
-<p>
-<a href="https://unix.stackexchange.com/questions/99350/how-to-insert-text-before-the-first-line-of-a-file">https://unix.stackexchange.com/questions/99350/how-to-insert-text-before-the-first-line-of-a-file</a>
-</p>
-
-<p>
-sed -i '1s/^/task goes here\n/' todo.txt
-</p>
-
-<p>
-or
-</p>
-
-<p>
-sed -i '1itask goes here' todo.txt
-</p>
-
-<p>
-<a href="https://superuser.com/questions/246837/how-do-i-add-text-to-the-beginning-of-a-file-in-bash">https://superuser.com/questions/246837/how-do-i-add-text-to-the-beginning-of-a-file-in-bash</a>
+test@ubuntu [05:45:53 PM] [~]
+-&gt; % ssh-keygen -E sha256 -lf /etc/ssh/ssh<sub>host</sub><sub>rsa</sub><sub>key.pub</sub>
+2048 SHA256:D4ZaPD9ZwA22Y/AXc3Y4Q0nqnoIS2YZsDiw7dhZYkIM root@ubuntu (RSA)
+test@ubuntu [05:45:58 PM] [~]
+-&gt; % ssh-keygen -E md5 -lf /etc/ssh/ssh<sub>host</sub><sub>rsa</sub><sub>key.pub</sub>
+2048 MD5:84:c9:eb:3f:c6:f2:1e:a0:2c:28:4a:1c:a5:8d:c9:59 root@ubuntu (RSA)
+test@ubuntu [05:46:01 PM] [~]
 </p>
 </div>
 </div>
 
-<div id="outline-container-org4d18536" class="outline-2">
-<h2 id="org4d18536"><span class="section-number-2">2</span> echo cat mv</h2>
+<div id="outline-container-orgecfc01d" class="outline-2">
+<h2 id="orgecfc01d"><span class="section-number-2">2</span> 客户端</h2>
 <div class="outline-text-2" id="text-2">
 <p>
-echo 'task goes here' | cat - todo.txt &gt; temp &amp;&amp; mv temp todo.txt
-</p>
-
-<p>
-<a href="https://superuser.com/questions/246837/how-do-i-add-text-to-the-beginning-of-a-file-in-bash">https://superuser.com/questions/246837/how-do-i-add-text-to-the-beginning-of-a-file-in-bash</a>
+rsync -av -e "ssh -p 2322 -o FingerprintHash=md5" zhang@61.243.44.6:/home/zhang/guiyang<sub>gsh</sub><sub>lcq</sub> ./
 </p>
 </div>
 </div>
 
-
-<div id="outline-container-org086d0fa" class="outline-2">
-<h2 id="org086d0fa"><span class="section-number-2">3</span> echo cat spong</h2>
+<div id="outline-container-org047b8fa" class="outline-2">
+<h2 id="org047b8fa"><span class="section-number-2">3</span> References</h2>
 <div class="outline-text-2" id="text-3">
 <p>
-The moreutils have a nice tool called sponge:
-</p>
-
-<p>
-echo "task goes here" | cat - todo.txt | sponge todo.txt
-</p>
-
-<p>
-<a href="https://superuser.com/questions/246837/how-do-i-add-text-to-the-beginning-of-a-file-in-bash">https://superuser.com/questions/246837/how-do-i-add-text-to-the-beginning-of-a-file-in-bash</a></p>
+<a href="https://stackoverflow.com/questions/9607295/how-do-i-find-my-rsa-key-fingerprint">https://stackoverflow.com/questions/9607295/how-do-i-find-my-rsa-key-fingerprint</a>
+<a href="https://www.phcomp.co.uk/Tutorials/Unix-And-Linux/ssh-check-server-fingerprint.html">https://www.phcomp.co.uk/Tutorials/Unix-And-Linux/ssh-check-server-fingerprint.html</a></p>
 </div>
 </div>
 </div>

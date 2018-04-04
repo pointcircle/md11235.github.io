@@ -4,7 +4,7 @@
 <!-- 2018-04-04 Wed 13:44 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>在Cygwin的zsh里自动生成fake-files</title>
+<title>在cygwin里建立Windows服务</title>
 <meta name="generator" content="Org mode">
 <meta name="author" content="md11235">
 <link rel="stylesheet" type="text/css" href="styles/bigblow/css/htmlize.css"/>
@@ -73,14 +73,9 @@ for the JavaScript code in this tag.
 <p class="date">Published: </p>
 </div>
 <div id="content">
-<h1 class="title">在Cygwin的zsh里自动生成fake-files</h1>
+<h1 class="title">在cygwin里建立Windows服务</h1>
 <p>
-凑合写了一个：</p>
-
-<div class="org-src-container">
-<pre class="src src-shell">zstyle <span style="color: #ffa500;">':completion:*'</span> fake-files $(df --output=source | tr -d <span style="color: #ffa500;">':'</span> |xargs -I{} <span style="color: #b0c4de;">echo</span> <span style="color: #ffa500;">"/:{}"</span> |tr <span style="color: #ffa500;">'\n'</span> <span style="color: #ffa500;">' '</span> | sed -e <span style="color: #ffa500;">'s/\/\:Filesystem //g'</span> | sed -e <span style="color: #ffa500;">'s/ $//g'</span>)
-</pre>
-</div>
+cygrunsrv -I AutoSSH-MekHub -p /usr/bin/autossh -a "-M 20000 -i /home/zhang/ssh-connect-only/id<sub>rsa</sub> -D 18080 madsen@mekhub.cn" -e AUTOSSH<sub>NTSERVICE</sub>=yes</p>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: md11235 (<a href="mailto:md11235@gmail.com">md11235@gmail.com</a>)</p>

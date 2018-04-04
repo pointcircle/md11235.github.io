@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2017-10-28 Sat 14:11 -->
+<!-- 2018-04-04 Wed 13:43 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>重置Windows下NTFS文件系统上的文件安全和权限设置</title>
@@ -22,7 +22,7 @@
 @licstart  The following is the entire license notice for the
 JavaScript code in this tag.
 
-Copyright (C) 2012-2017 Free Software Foundation, Inc.
+Copyright (C) 2012-2018 Free Software Foundation, Inc.
 
 The JavaScript code in this tag is free software: you can
 redistribute it and/or modify it under the terms of the GNU
@@ -65,16 +65,23 @@ for the JavaScript code in this tag.
 </script>
 </head>
 <body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="/"> UP </a>
+ |
+ <a accesskey="H" href="/"> HOME </a>
+</div><div id="preamble" class="status">
+<p class="date">Published: </p>
+</div>
 <div id="content">
 <h1 class="title">重置Windows下NTFS文件系统上的文件安全和权限设置</h1>
 <div id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org7ba40ac">1. Step 1: Run “cmd” as Administrator.</a></li>
-<li><a href="#org9acfecc">2. Step 2: Go to the drive or folder in question, for example:</a></li>
-<li><a href="#orgac4e530">3. Step 3: To reset all the files permissions, type:</a></li>
-<li><a href="#orgc580144">4. Optional Step 2.5</a></li>
+<li><a href="#org265b208">1. Step 1: Run “cmd” as Administrator.</a></li>
+<li><a href="#orgf3b92a8">2. Step 2: Go to the drive or folder in question, for example:</a></li>
+<li><a href="#org62687f0">3. Step 3: To reset all the files permissions, type:</a></li>
+<li><a href="#org7ce9ab4">4. Optional Step 2.5</a></li>
 </ul>
 </div>
 </div>
@@ -86,8 +93,8 @@ for the JavaScript code in this tag.
 To reset files permissions, follow these easy 3 steps:
 </p>
 
-<div id="outline-container-org7ba40ac" class="outline-2">
-<h2 id="org7ba40ac"><span class="section-number-2">1</span> Step 1: Run “cmd” as Administrator.</h2>
+<div id="outline-container-org265b208" class="outline-2">
+<h2 id="org265b208"><span class="section-number-2">1</span> Step 1: Run “cmd” as Administrator.</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 Note: In MS Windows 8 and above, press the Win+X keys, then choose “Command Prompt (Admin)”.
@@ -95,8 +102,8 @@ Note: In MS Windows 8 and above, press the Win+X keys, then choose “Command Pr
 </div>
 </div>
 
-<div id="outline-container-org9acfecc" class="outline-2">
-<h2 id="org9acfecc"><span class="section-number-2">2</span> Step 2: Go to the drive or folder in question, for example:</h2>
+<div id="outline-container-orgf3b92a8" class="outline-2">
+<h2 id="orgf3b92a8"><span class="section-number-2">2</span> Step 2: Go to the drive or folder in question, for example:</h2>
 <div class="outline-text-2" id="text-2">
 <div class="org-src-container">
 <pre class="src src-shell">CD /D D:
@@ -105,8 +112,8 @@ Note: In MS Windows 8 and above, press the Win+X keys, then choose “Command Pr
 </div>
 </div>
 
-<div id="outline-container-orgac4e530" class="outline-2">
-<h2 id="orgac4e530"><span class="section-number-2">3</span> Step 3: To reset all the files permissions, type:</h2>
+<div id="outline-container-org62687f0" class="outline-2">
+<h2 id="org62687f0"><span class="section-number-2">3</span> Step 3: To reset all the files permissions, type:</h2>
 <div class="outline-text-2" id="text-3">
 <div class="org-src-container">
 <pre class="src src-shell">icacls * /T /Q /C /RESET
@@ -127,8 +134,8 @@ Step 3 is irreversible. Make sure you backup the permissions before you proceed!
 </div>
 </div>
 
-<div id="outline-container-orgc580144" class="outline-2">
-<h2 id="orgc580144"><span class="section-number-2">4</span> Optional Step 2.5</h2>
+<div id="outline-container-org7ce9ab4" class="outline-2">
+<h2 id="org7ce9ab4"><span class="section-number-2">4</span> Optional Step 2.5</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 It is possible that “icacls” might fail. For that try to take ownership of the files first. Just before Step (3), please type the following command:
@@ -144,7 +151,7 @@ It is possible that “icacls” might fail. For that try to take ownership of t
 <div id="postamble" class="status">
 <p class="author">Author: md11235 (<a href="mailto:md11235@gmail.com">md11235@gmail.com</a>)</p>
 <p class="date">Date: </p>
-<p class="creator"><a href="https://www.gnu.org/software/emacs/">Emacs</a> 27.0.50 (<a href="http://orgmode.org">Org</a> mode 9.1.2)</p>
+<p class="creator"><a href="https://www.gnu.org/software/emacs/">Emacs</a> 27.0.50 (<a href="http://orgmode.org">Org</a> mode 9.1.6)</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

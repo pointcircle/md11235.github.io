@@ -4,19 +4,9 @@
 <!-- 2018-04-04 Wed 13:44 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>在Cygwin的zsh里自动生成fake-files</title>
+<title>autossh 不使用监听端口（-M 0）</title>
 <meta name="generator" content="Org mode">
 <meta name="author" content="md11235">
-<link rel="stylesheet" type="text/css" href="styles/bigblow/css/htmlize.css"/>
-<link rel="stylesheet" type="text/css" href="styles/bigblow/css/bigblow.css"/>
-<link rel="stylesheet" type="text/css" href="styles/bigblow/css/hideshow.css"/>
-<script type="text/javascript" src="styles/bigblow/js/jquery-1.11.0.min.js"></script>
-<script type="text/javascript" src="styles/bigblow/js/jquery-ui-1.10.2.min.js"></script>
-<script type="text/javascript" src="styles/bigblow/js/jquery.localscroll-min.js"></script>
-<script type="text/javascript" src="styles/bigblow/js/jquery.scrollTo-1.4.3.1-min.js"></script>
-<script type="text/javascript" src="styles/bigblow/js/jquery.zclip.min.js"></script>
-<script type="text/javascript" src="styles/bigblow/js/bigblow.js"></script>
-<script type="text/javascript" src="styles/bigblow/js/hideshow.js"></script>
 <script type="text/javascript">
 /*
 @licstart  The following is the entire license notice for the
@@ -73,12 +63,12 @@ for the JavaScript code in this tag.
 <p class="date">Published: </p>
 </div>
 <div id="content">
-<h1 class="title">在Cygwin的zsh里自动生成fake-files</h1>
+<h1 class="title">autossh 不使用监听端口（-M 0）</h1>
 <p>
-凑合写了一个：</p>
+这样的好处，也许是能减少在远端机器上的端口占用</p>
 
 <div class="org-src-container">
-<pre class="src src-shell">zstyle <span style="color: #ffa500;">':completion:*'</span> fake-files $(df --output=source | tr -d <span style="color: #ffa500;">':'</span> |xargs -I{} <span style="color: #b0c4de;">echo</span> <span style="color: #ffa500;">"/:{}"</span> |tr <span style="color: #ffa500;">'\n'</span> <span style="color: #ffa500;">' '</span> | sed -e <span style="color: #ffa500;">'s/\/\:Filesystem //g'</span> | sed -e <span style="color: #ffa500;">'s/ $//g'</span>)
+<pre class="src src-shell">autossh -M 0 -q -N -o <span style="color: #ffa500;">"ServerAliveInterval 60"</span> -o <span style="color: #ffa500;">"ServerAliveCountMax 3"</span> -o <span style="color: #ffa500;">"StrictHostKeyChecking no"</span> -R &lt;an_ip_address_or_domain_name&gt;:57077:10.0.0.3:7077 test@&lt;an_ip_address_or_domain_name&gt;
 </pre>
 </div>
 </div>

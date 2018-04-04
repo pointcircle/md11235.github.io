@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-03-29 Thu 22:48 -->
+<!-- 2018-04-04 Wed 13:43 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>在Centos7里安装Anaconda3</title>
@@ -22,7 +22,7 @@
 @licstart  The following is the entire license notice for the
 JavaScript code in this tag.
 
-Copyright (C) 2012-2017 Free Software Foundation, Inc.
+Copyright (C) 2012-2018 Free Software Foundation, Inc.
 
 The JavaScript code in this tag is free software: you can
 redistribute it and/or modify it under the terms of the GNU
@@ -65,30 +65,37 @@ for the JavaScript code in this tag.
 </script>
 </head>
 <body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="/"> UP </a>
+ |
+ <a accesskey="H" href="/"> HOME </a>
+</div><div id="preamble" class="status">
+<p class="date">Published: </p>
+</div>
 <div id="content">
 <h1 class="title">在Centos7里安装Anaconda3</h1>
 <div id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org5b5ea75">1. 下载安装文件</a></li>
-<li><a href="#org6edcc98">2. 安装</a></li>
-<li><a href="#org04aa6e6">3. 使用</a>
+<li><a href="#org0eb3b64">1. 下载安装文件</a></li>
+<li><a href="#org2e90f7d">2. 安装</a></li>
+<li><a href="#org066534e">3. 使用</a>
 <ul>
-<li><a href="#orgd17b0f1">3.1. 安装virtualenv</a>
+<li><a href="#orgb0e2251">3.1. 安装virtualenv</a>
 <ul>
-<li><a href="#orgf8bad3a">3.1.1. 可以玩玩ipython</a></li>
+<li><a href="#orgefa09cc">3.1.1. 可以玩玩ipython</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#org613d5f8">4. 其他</a></li>
+<li><a href="#org08d00a9">4. 其他</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org5b5ea75" class="outline-2">
-<h2 id="org5b5ea75"><span class="section-number-2">1</span> 下载安装文件</h2>
+<div id="outline-container-org0eb3b64" class="outline-2">
+<h2 id="org0eb3b64"><span class="section-number-2">1</span> 下载安装文件</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 运行如下命令从<a href="https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/">https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/</a>
@@ -104,8 +111,8 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-org6edcc98" class="outline-2">
-<h2 id="org6edcc98"><span class="section-number-2">2</span> 安装</h2>
+<div id="outline-container-org2e90f7d" class="outline-2">
+<h2 id="org2e90f7d"><span class="section-number-2">2</span> 安装</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 下载完以后，不要用root帐号安装。用普通的用户，假设你把文件存在了~目录下，那么执行</p>
@@ -123,8 +130,8 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-org04aa6e6" class="outline-2">
-<h2 id="org04aa6e6"><span class="section-number-2">3</span> 使用</h2>
+<div id="outline-container-org066534e" class="outline-2">
+<h2 id="org066534e"><span class="section-number-2">3</span> 使用</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 在shell里，先要执行</p>
@@ -142,8 +149,8 @@ for the JavaScript code in this tag.
 但是，这只是完成了python3的安装。也就是说，Anaconda3只是python3的一个发行版。为了隔离不同的python库的版本，得用上virtualenv，下面接着跟我做。</p>
 </div>
 
-<div id="outline-container-orgd17b0f1" class="outline-3">
-<h3 id="orgd17b0f1"><span class="section-number-3">3.1</span> 安装virtualenv</h3>
+<div id="outline-container-orgb0e2251" class="outline-3">
+<h3 id="orgb0e2251"><span class="section-number-3">3.1</span> 安装virtualenv</h3>
 <div class="outline-text-3" id="text-3-1">
 <p>
 在刚才source了  ~/anaconda3/bin/activate 的shell里，执行</p>
@@ -173,8 +180,8 @@ virtualenv -p python3.6 ~/virtualenv/python3.6
 </div>
 </div>
 
-<div id="outline-container-orgf8bad3a" class="outline-4">
-<h4 id="orgf8bad3a"><span class="section-number-4">3.1.1</span> 可以玩玩ipython</h4>
+<div id="outline-container-orgefa09cc" class="outline-4">
+<h4 id="orgefa09cc"><span class="section-number-4">3.1.1</span> 可以玩玩ipython</h4>
 <div class="outline-text-4" id="text-3-1-1">
 <p>
 呃，就是个交互式的python shell，比直接运行python得到的shell好用一些。</p>
@@ -204,8 +211,8 @@ In [1]:
 </div>
 </div>
 
-<div id="outline-container-org613d5f8" class="outline-2">
-<h2 id="org613d5f8"><span class="section-number-2">4</span> 其他</h2>
+<div id="outline-container-org08d00a9" class="outline-2">
+<h2 id="org08d00a9"><span class="section-number-2">4</span> 其他</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 推荐的做法是，具体到某个应用、目的、功能开发的时候，用virtualenv。而如果是一些重要的编程库，则推荐安装到anaconda里。比如要安装pandas
@@ -220,7 +227,7 @@ conda install pandas
 <div id="postamble" class="status">
 <p class="author">Author: md11235 (<a href="mailto:md11235@gmail.com">md11235@gmail.com</a>)</p>
 <p class="date">Date: </p>
-<p class="creator"><a href="https://www.gnu.org/software/emacs/">Emacs</a> 26.0.90 (<a href="http://orgmode.org">Org</a> mode 9.1.2)</p>
+<p class="creator"><a href="https://www.gnu.org/software/emacs/">Emacs</a> 27.0.50 (<a href="http://orgmode.org">Org</a> mode 9.1.6)</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
