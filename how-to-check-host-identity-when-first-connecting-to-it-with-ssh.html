@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-04-16 Mon 17:08 -->
+<!-- 2018-04-16 Mon 18:20 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>当第一次ssh到某台主机时如何校验主机的身份？</title>
@@ -71,61 +71,32 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgf32df49">1. 服务器端</a></li>
-<li><a href="#orgecfc01d">2. 客户端</a></li>
-<li><a href="#org047b8fa">3. References</a></li>
+<li><a href="#orgecfc01d">1. 客户端</a></li>
+<li><a href="#orgf32df49">2. 服务器端</a></li>
+<li><a href="#orgc660a74">3. 决定要不要继续连接</a></li>
+<li><a href="#org047b8fa">4. References</a></li>
 </ul>
 </div>
 </div>
 
 
-<div id="outline-container-orgf32df49" class="outline-2">
-<h2 id="orgf32df49"><span class="section-number-2">1</span> 服务器端</h2>
-<div class="outline-text-2" id="text-1">
-<div class="org-src-container">
-<pre class="src src-shell">ssh-keygen -lf /etc/ssh/ssh_host_rsa_key.pub  
-</pre>
-</div>
-
-<p>
-利用不同的指纹哈希算法，当使用sha256哈希算法时，</p>
-
-<div class="org-src-container">
-<pre class="src src-shell">ssh-keygen -E sha256 -lf /etc/ssh/ssh_host_rsa_key.pub
-</pre>
-</div>
-
-<p>
-会看到如下输出：</p>
-<pre class="example">
-2048 SHA256:D4ZaPD9ZwA22Y/AXc3Y4Q0nqnoIS2YZsDiw7dhZYkIM root@ubuntu (RSA)
-</pre>
-
-<p>
-使用md5哈希算法，</p>
-<div class="org-src-container">
-<pre class="src src-shell">ssh-keygen -E md5 -lf /etc/ssh/ssh_host_rsa_key.pub
-</pre>
-</div>
-
-<p>
-则会看到：</p>
-<pre class="example">
-2048 MD5:84:c9:eb:3f:c6:f2:1e:a0:2c:28:4a:1c:a5:8d:c9:59 root@ubuntu (RSA)
-test@ubuntu [05:46:01 PM] [~]
-</pre>
-</div>
-</div>
-
 <div id="outline-container-orgecfc01d" class="outline-2">
-<h2 id="orgecfc01d"><span class="section-number-2">2</span> 客户端</h2>
-<div class="outline-text-2" id="text-2">
+<h2 id="orgecfc01d"><span class="section-number-2">1</span> 客户端</h2>
+<div class="outline-text-2" id="text-1">
 <p>
 注意替换下述ssh命令调用里的端口号、用户名、主机名。</p>
 
 <p>
-利用下面的命令（替相应换地址和端口以后）连接到上述服务器的地址和端口，使用sha256哈希算法：</p>
+当利用下面的命令（替相应换用户名、地址、端口以后），第一次连接到某台服务器时，往往你会看到如下的提示（在比较新的linux系统上，默认使用sha256哈希算法）：</p>
 
+<pre class="example">
+The authenticity of host 'www.example.com (93.184.216.34)' can't be established.
+RSA key fingerprint is SHA256:wWEgLxTm7dKP1rW+H8OPrAe6FgjQ74BsaDGCgFxZaEI.
+Are you sure you want to continue connecting (yes/no)?
+</pre>
+
+<p>
+当然你可以强行指定sha256哈希算法：</p>
 <div class="org-src-container">
 <pre class="src src-shell">ssh -p 22 -o <span style="color: #ffa07a;">FingerprintHash</span>=sha256 user@www.example.com
 </pre>
@@ -140,7 +111,7 @@ Are you sure you want to continue connecting (yes/no)?
 </pre>
 
 <p>
-如果使用md5哈希算法：</p>
+或者强行指定使用md5哈希算法（应对较老的服务器linux版本）：</p>
 <div class="org-src-container">
 <pre class="src src-shell">ssh -p 22 -o <span style="color: #ffa07a;">FingerprintHash</span>=md5 user@www.example.com
 </pre>
@@ -162,13 +133,71 @@ Are you sure you want to continue connecting (yes/no)?
 注2：也需要注意服务器和客户端是否用的都是同一类key，比如都是RSA的。</p>
 
 <p>
-然后对比看此处提示的哈希值是否与服务器上显示的哈希值一样：如果一样，恭喜你，有非常大的可能性连接到了正确的主机；如果不一样，可能中间有人在拦截你和本该连接的服务器之间的通讯。</p>
+问题来了，上述ssh命令的输出里说了，那台主机的真实性没法验证，你到底信还是不信，还要不要继续连接到这台服务器？</p>
+
+<p>
+只能去服务器上看看究竟了。</p>
 </div>
 </div>
 
-<div id="outline-container-org047b8fa" class="outline-2">
-<h2 id="org047b8fa"><span class="section-number-2">3</span> References</h2>
+<div id="outline-container-orgf32df49" class="outline-2">
+<h2 id="orgf32df49"><span class="section-number-2">2</span> 服务器端</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+查看服务器上的对应的RSA key的指纹：</p>
+
+<div class="org-src-container">
+<pre class="src src-shell">ssh-keygen -lf /etc/ssh/ssh_host_rsa_key.pub  
+</pre>
+</div>
+
+<p>
+也可以指定不同的指纹哈希算法，当使用sha256哈希算法时，</p>
+
+<div class="org-src-container">
+<pre class="src src-shell">ssh-keygen -E sha256 -lf /etc/ssh/ssh_host_rsa_key.pub
+</pre>
+</div>
+
+<p>
+会看到如下输出：</p>
+<pre class="example">
+2048 SHA256:D4ZaPD9ZwA22Y/AXc3Y4Q0nqnoIS2YZsDiw7dhZYkIM root@www.example.com (RSA)
+</pre>
+
+<p>
+使用md5哈希算法，</p>
+<div class="org-src-container">
+<pre class="src src-shell">ssh-keygen -E md5 -lf /etc/ssh/ssh_host_rsa_key.pub
+</pre>
+</div>
+
+<p>
+则会看到：</p>
+<pre class="example">
+2048 MD5:84:c9:eb:3f:c6:f2:1e:a0:2c:28:4a:1c:a5:8d:c9:59 root@www.example.com (RSA)
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgc660a74" class="outline-2">
+<h2 id="orgc660a74"><span class="section-number-2">3</span> 决定要不要继续连接</h2>
 <div class="outline-text-2" id="text-3">
+<p>
+现在可以对比看客户端ssh提示的哈希值是否与服务器上显示的哈希值一样：</p>
+
+<p>
+如果一样，恭喜你，有非常大的可能性连接到了正确的主机，可以继续连接；</p>
+
+<p>
+如果不一样，可能中间有人在拦截你和本该连接的服务器之间的通讯，会有危险。。。</p>
+</div>
+</div>
+
+
+<div id="outline-container-org047b8fa" class="outline-2">
+<h2 id="org047b8fa"><span class="section-number-2">4</span> References</h2>
+<div class="outline-text-2" id="text-4">
 <p>
 <a href="https://stackoverflow.com/questions/9607295/how-do-i-find-my-rsa-key-fingerprint">https://stackoverflow.com/questions/9607295/how-do-i-find-my-rsa-key-fingerprint</a>
 <a href="https://www.phcomp.co.uk/Tutorials/Unix-And-Linux/ssh-check-server-fingerprint.html">https://www.phcomp.co.uk/Tutorials/Unix-And-Linux/ssh-check-server-fingerprint.html</a></p>
