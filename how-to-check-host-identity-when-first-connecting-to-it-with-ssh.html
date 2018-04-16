@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-04-16 Mon 17:01 -->
+<!-- 2018-04-16 Mon 17:04 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>当第一次ssh到某台主机时如何校验主机的身份？</title>
@@ -88,18 +88,29 @@ for the JavaScript code in this tag.
 </div>
 
 <p>
-利用不同的指纹哈希算法，当使用sha256哈希算法时，会看到如下输出：</p>
+利用不同的指纹哈希算法，当使用sha256哈希算法时，</p>
+
+<div class="org-src-container">
+<pre class="src src-shell">ssh-keygen -E sha256 -lf /etc/ssh/ssh_host_rsa_key.pub
+</pre>
+</div>
+
+<p>
+会看到如下输出：</p>
 <pre class="example">
-test@ubuntu [05:45:53 PM] [~]
--&gt; % ssh-keygen -E sha256 -lf /etc/ssh/ssh_host_rsa_key.pub
 2048 SHA256:D4ZaPD9ZwA22Y/AXc3Y4Q0nqnoIS2YZsDiw7dhZYkIM root@ubuntu (RSA)
 </pre>
 
 <p>
-使用md5哈希算法，则会看到：</p>
+使用md5哈希算法，</p>
+<div class="org-src-container">
+<pre class="src src-shell">ssh-keygen -E md5 -lf /etc/ssh/ssh_host_rsa_key.pub
+</pre>
+</div>
+
+<p>
+则会看到：</p>
 <pre class="example">
-test@ubuntu [05:45:58 PM] [~]
--&gt; % ssh-keygen -E md5 -lf /etc/ssh/ssh_host_rsa_key.pub
 2048 MD5:84:c9:eb:3f:c6:f2:1e:a0:2c:28:4a:1c:a5:8d:c9:59 root@ubuntu (RSA)
 test@ubuntu [05:46:01 PM] [~]
 </pre>
