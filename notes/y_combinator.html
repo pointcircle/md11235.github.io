@@ -63,25 +63,40 @@ for the JavaScript code in this tag.
 <p class="date">Published: </p>
 </div>
 <div id="content">
-<div id="table-of-contents">
-<h2>Table of Contents</h2>
-<div id="text-table-of-contents">
-<ul>
-<li><a href="#orgcb51fe0">1. Unicode</a></li>
-</ul>
-</div>
-</div>
-<div id="outline-container-orgcb51fe0" class="outline-2">
-<h2 id="orgcb51fe0"><span class="section-number-2">1</span> Unicode</h2>
-<div class="outline-text-2" id="text-1">
 <p>
- U nicode and UCS are a giant table of characters, each with an
-id. There are various encodings to serialize a sequence of encoded
-characters (UCS-2, UTF-8, etc). In Unicode characters can also be
-attributed with rules like right to left.
+我的理解是根据y combinator的定义，(Y F) = (F (Y F))
 </p>
-</div>
-</div>
+
+<p>
+在</p>
+
+<p>
+F = λf. λn. IFTHENELSE (ISZERO n) 1 (MULT n (f (PRED n)))
+</p>
+
+<p>
+中，</p>
+
+<p>
+把F apply到(Y F)上，(F (Y F))得到一个lambda (假设叫做G)
+</p>
+
+<p>
+G = λn. IFTHENELSE
+        (ISZERO n)
+        1
+        (MULT n ((Y F) (PRED n)))
+</p>
+
+<p>
+如果if分支到了 (MULT n ((Y F) (PRED n)))
+</p>
+
+<p>
+那么(Y F) =&gt; (F (Y F))，实际上可以认为等价于G，于是递归了。原来的F通过Y combinator不断得到重生。</p>
+
+<p>
+这是我的山寨版的理解。</p>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: md11235 (<a href="mailto:md11235@gmail.com">md11235@gmail.com</a>)</p>

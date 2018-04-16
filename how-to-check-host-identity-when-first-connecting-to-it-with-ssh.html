@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-04-04 Wed 14:57 -->
+<!-- 2018-04-16 Mon 17:01 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>当第一次ssh到某台主机时如何校验主机的身份？</title>
@@ -82,19 +82,27 @@ for the JavaScript code in this tag.
 <div id="outline-container-orgf32df49" class="outline-2">
 <h2 id="orgf32df49"><span class="section-number-2">1</span> 服务器端</h2>
 <div class="outline-text-2" id="text-1">
-<p>
-ssh-keygen -lf /etc/ssh/ssh<sub>host</sub><sub>rsa</sub><sub>key.pub</sub>
-</p>
+<div class="org-src-container">
+<pre class="src src-shell">ssh-keygen -lf /etc/ssh/ssh_host_rsa_key.pub  
+</pre>
+</div>
 
 <p>
+利用不同的指纹哈希算法，当使用sha256哈希算法时，会看到如下输出：</p>
+<pre class="example">
 test@ubuntu [05:45:53 PM] [~]
--&gt; % ssh-keygen -E sha256 -lf /etc/ssh/ssh<sub>host</sub><sub>rsa</sub><sub>key.pub</sub>
+-&gt; % ssh-keygen -E sha256 -lf /etc/ssh/ssh_host_rsa_key.pub
 2048 SHA256:D4ZaPD9ZwA22Y/AXc3Y4Q0nqnoIS2YZsDiw7dhZYkIM root@ubuntu (RSA)
+</pre>
+
+<p>
+使用md5哈希算法，则会看到：</p>
+<pre class="example">
 test@ubuntu [05:45:58 PM] [~]
--&gt; % ssh-keygen -E md5 -lf /etc/ssh/ssh<sub>host</sub><sub>rsa</sub><sub>key.pub</sub>
+-&gt; % ssh-keygen -E md5 -lf /etc/ssh/ssh_host_rsa_key.pub
 2048 MD5:84:c9:eb:3f:c6:f2:1e:a0:2c:28:4a:1c:a5:8d:c9:59 root@ubuntu (RSA)
 test@ubuntu [05:46:01 PM] [~]
-</p>
+</pre>
 </div>
 </div>
 
@@ -102,8 +110,35 @@ test@ubuntu [05:46:01 PM] [~]
 <h2 id="orgecfc01d"><span class="section-number-2">2</span> 客户端</h2>
 <div class="outline-text-2" id="text-2">
 <p>
-rsync -av -e "ssh -p 2322 -o FingerprintHash=md5" zhang@61.243.44.6:/home/zhang/guiyang<sub>gsh</sub><sub>lcq</sub> ./
-</p>
+利用下面的命令（替相应换地址和端口以后）连接到上述服务器的地址和端口：</p>
+<div class="org-src-container">
+<pre class="src src-shell">ssh -p 22 -o <span style="color: #ffa07a;">FingerprintHash</span>=md5 zhang@www.example.com:/tmp/xxx /tmp
+</pre>
+</div>
+
+<p>
+此时依据哈希算法的不同，你会看到：</p>
+
+<pre class="example">
+The authenticity of host 'node1.imlab.lan (192.168.100.27)' can't be established.
+RSA key fingerprint is SHA256:wXe9LXTm7dKP1rW+H8OPrAe6FgjQ74BsaDGCgFxZaEI.
+Are you sure you want to continue connecting (yes/no)?
+</pre>
+
+<pre class="example">
+The authenticity of host 'node1.imlab.lan (192.168.100.27)' can't be established.
+RSA key fingerprint is MD5:ff:ff:ff:ff:ff:ff:ff:ff:ff:ff:d7:73:7b:51:03:4f.
+Are you sure you want to continue connecting (yes/no)?
+</pre>
+
+<p>
+注：上述sha256和md5哈希值已经被特意替换为假的值。</p>
+
+<p>
+注2：也需要注意服务器和客户端是否用的都是同一类key，比如都是RSA的。</p>
+
+<p>
+然后对比看此处提示的哈希值是否与服务器上显示的哈希值一样：如果一样，恭喜你，有非常大的可能性连接到了正确的主机；如果不一样，可能中间有人在拦截你和本该连接的服务器之间的通讯。</p>
 </div>
 </div>
 
@@ -119,7 +154,7 @@ rsync -av -e "ssh -p 2322 -o FingerprintHash=md5" zhang@61.243.44.6:/home/zhang/
 <div id="postamble" class="status">
 <p class="author">Author: md11235 (<a href="mailto:md11235@gmail.com">md11235@gmail.com</a>)</p>
 <p class="date">Date: </p>
-<p class="creator"><a href="https://www.gnu.org/software/emacs/">Emacs</a> 27.0.50 (<a href="http://orgmode.org">Org</a> mode 9.1.6)</p>
+<p class="creator"><a href="https://www.gnu.org/software/emacs/">Emacs</a> 26.0.91 (<a href="http://orgmode.org">Org</a> mode 9.1.4)</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

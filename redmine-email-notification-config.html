@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-04-16 Mon 16:27 -->
+<!-- 2018-04-16 Mon 16:43 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>快速把手写签名的照片转换为透明的png图片（用命令行工具）</title>
+<title>配置redmine的邮件通知</title>
 <meta name="generator" content="Org mode">
 <meta name="author" content="md11235">
 <link rel="stylesheet" type="text/css" href="styles/bigblow/css/htmlize.css"/>
@@ -66,34 +66,56 @@ for the JavaScript code in this tag.
 </head>
 <body>
 <div id="content">
-<h1 class="title">快速把手写签名的照片转换为透明的png图片（用命令行工具）</h1>
+<h1 class="title">配置redmine的邮件通知</h1>
 <div id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org96ff246">1. 前置条件</a></li>
-<li><a href="#org59ed844">2. 命令</a></li>
+<li><a href="#org495bbe8">1. 配置config/configuration.yxml</a></li>
+<li><a href="#org07f6c4c">2. 配置redmine</a></li>
 </ul>
 </div>
 </div>
-<p>
-用命令行工具，imagemagick，快速把手写签名的照片转换为透明的png图片。</p>
 
-<div id="outline-container-org96ff246" class="outline-2">
-<h2 id="org96ff246"><span class="section-number-2">1</span> 前置条件</h2>
+<div id="outline-container-org495bbe8" class="outline-2">
+<h2 id="org495bbe8"><span class="section-number-2">1</span> 配置config/configuration.yxml</h2>
 <div class="outline-text-2" id="text-1">
 <p>
-要求机器上安装有imagemagick，它提供convert命令</p>
+以阿里云邮箱为例，config/configuration.yml摘要：</p>
+
+<pre class="example">
+# default configuration options for all environments
+default:
+  # Outgoing emails configuration
+  # See the examples below and the Rails guide for more configuration options:
+  # http://guides.rubyonrails.org/action_mailer_basics.html#action-mailer-configuration
+  email_delivery:
+    delivery_method: :smtp
+    smtp_settings:
+      tls: true
+      enable_starttls_auto: true
+      address: "smtp.aliyun.com"
+      port: 465
+      domain: "smtp.aliyun.com"
+      authentication: :login
+      user_name: "xxxxxx@aliyun.com"
+      password: "yyyyyyyy"
+</pre>
+
+<p>
+注意smtp<sub>settings下tls这个属性必须得有</sub>，没有的时候不行。</p>
+
+<p>
+重启redmine
+</p>
 </div>
 </div>
 
-<div id="outline-container-org59ed844" class="outline-2">
-<h2 id="org59ed844"><span class="section-number-2">2</span> 命令</h2>
+<div id="outline-container-org07f6c4c" class="outline-2">
+<h2 id="org07f6c4c"><span class="section-number-2">2</span> 配置redmine</h2>
 <div class="outline-text-2" id="text-2">
-<div class="org-src-container">
-<pre class="src src-shell">convert -threshold 40% zs_sig.png - | convert -transparent white -fuzz 20% - zs5.png  
-</pre>
-</div>
+<p>
+注意：redmine设置里的发件人邮件地址要和写在config/configuration.yml里的邮件地址一样</p>
 </div>
 </div>
 </div>
