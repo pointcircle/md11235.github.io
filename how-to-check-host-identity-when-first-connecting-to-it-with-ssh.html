@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-04-16 Mon 17:04 -->
+<!-- 2018-04-16 Mon 17:08 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>当第一次ssh到某台主机时如何校验主机的身份？</title>
@@ -121,23 +121,36 @@ test@ubuntu [05:46:01 PM] [~]
 <h2 id="orgecfc01d"><span class="section-number-2">2</span> 客户端</h2>
 <div class="outline-text-2" id="text-2">
 <p>
-利用下面的命令（替相应换地址和端口以后）连接到上述服务器的地址和端口：</p>
+注意替换下述ssh命令调用里的端口号、用户名、主机名。</p>
+
+<p>
+利用下面的命令（替相应换地址和端口以后）连接到上述服务器的地址和端口，使用sha256哈希算法：</p>
+
 <div class="org-src-container">
-<pre class="src src-shell">ssh -p 22 -o <span style="color: #ffa07a;">FingerprintHash</span>=md5 zhang@www.example.com:/tmp/xxx /tmp
+<pre class="src src-shell">ssh -p 22 -o <span style="color: #ffa07a;">FingerprintHash</span>=sha256 user@www.example.com
 </pre>
 </div>
 
 <p>
-此时依据哈希算法的不同，你会看到：</p>
-
+会看到：</p>
 <pre class="example">
-The authenticity of host 'node1.imlab.lan (192.168.100.27)' can't be established.
+The authenticity of host 'www.example.com (93.184.216.34)' can't be established.
 RSA key fingerprint is SHA256:wXe9LXTm7dKP1rW+H8OPrAe6FgjQ74BsaDGCgFxZaEI.
 Are you sure you want to continue connecting (yes/no)?
 </pre>
 
+<p>
+如果使用md5哈希算法：</p>
+<div class="org-src-container">
+<pre class="src src-shell">ssh -p 22 -o <span style="color: #ffa07a;">FingerprintHash</span>=md5 user@www.example.com
+</pre>
+</div>
+
+<p>
+那么会看到：</p>
+
 <pre class="example">
-The authenticity of host 'node1.imlab.lan (192.168.100.27)' can't be established.
+The authenticity of host 'www.example.com (93.184.216.34)' can't be established.
 RSA key fingerprint is MD5:ff:ff:ff:ff:ff:ff:ff:ff:ff:ff:d7:73:7b:51:03:4f.
 Are you sure you want to continue connecting (yes/no)?
 </pre>
