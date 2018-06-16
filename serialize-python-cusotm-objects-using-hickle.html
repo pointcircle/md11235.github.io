@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-06-16 Sat 17:56 -->
+<!-- 2018-06-16 Sat 19:39 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>在python3里序列化自定义类的对象</title>
@@ -71,59 +71,66 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org6cb592d">1. 安装 hickle and dill</a></li>
-<li><a href="#org24b7922">2. 序列化自定义类的对象</a></li>
-<li><a href="#org53f21c7">3. 激活序列化了的对象</a></li>
+<li><a href="#org851af9c">1. 为什么要做序列化？</a></li>
+<li><a href="#org6cb592d">2. 安装 hickle and dill</a></li>
+<li><a href="#org24b7922">3. 序列化自定义类的对象</a></li>
+<li><a href="#org53f21c7">4. 激活序列化了的对象</a></li>
 </ul>
 </div>
 </div>
-<p>
-在做机器学习的时候，每个样本自身包含的数据量可能大一些比如以MB为单位，且样本的数量还多，这种时候把所有的样本加载到内存或者显存里是不可行的。我的做法是拆分每个样本，序列化（serialize）后存储到硬盘上，在使用的时候，用keras里的DataGenerator分批次读取样本。本教程只涉及用hickle来序列化和读取恢复（激活）样本，这些样本通常以某个自定义的类的对象的方式呈现。</p>
 
-<div id="outline-container-org6cb592d" class="outline-2">
-<h2 id="org6cb592d"><span class="section-number-2">1</span> 安装 hickle and dill</h2>
+<div id="outline-container-org851af9c" class="outline-2">
+<h2 id="org851af9c"><span class="section-number-2">1</span> 为什么要做序列化？</h2>
 <div class="outline-text-2" id="text-1">
 <p>
-dill用pip直接装即可。而hickle目前需要从github安装dev 分支，才能在python3上用：#BEGIN<sub>SRC</sub> shell
-pip install -e git://github.com/telegraphic/hickle.git@dev
-#END<sub>SRC</sub>
-</p>
+在做机器学习的时候，每个样本自身包含的数据量可能大一些比如以MB为单位，且样本的数量还多，这种时候把所有的样本加载到内存或者显存里是不可行的。我的做法是拆分每个样本，序列化（serialize）后存储到硬盘上，在使用的时候，用keras里的DataGenerator分批次读取样本。本教程只涉及用hickle来序列化和读取恢复（激活）样本，这些样本通常以某个自定义的类的对象的方式呈现。</p>
+</div>
+</div>
+
+<div id="outline-container-org6cb592d" class="outline-2">
+<h2 id="org6cb592d"><span class="section-number-2">2</span> 安装 hickle and dill</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+dill用pip直接装即可。</p>
+
+<p>
+而hickle目前需要从github安装dev 分支，才能在python3上用：</p>
+
+<div class="org-src-container">
+<pre class="src src-shell">pip install -e git://github.com/telegraphic/hickle.git@dev
+</pre>
+</div>
 </div>
 </div>
 
 <div id="outline-container-org24b7922" class="outline-2">
-<h2 id="org24b7922"><span class="section-number-2">2</span> 序列化自定义类的对象</h2>
-<div class="outline-text-2" id="text-2">
+<h2 id="org24b7922"><span class="section-number-2">3</span> 序列化自定义类的对象</h2>
+<div class="outline-text-2" id="text-3">
 <p>
 安装好了hickle和dill之后，序列化一个自定义类的对象就很轻松了：</p>
 
-<p>
-#BEGIN<sub>SRC</sub> python
-import hickle
-hickle.dump(aFooObject, '/tmp/foo<sub>0.hkl</sub>', mode='w', compression='gzip')
-#END<sub>SRC</sub>
-</p>
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #00ffff;">import</span> hickle
+hickle.dump(aFooObject, <span style="color: #ffa500;">'/tmp/foo_0.hkl'</span>, mode=<span style="color: #ffa500;">'w'</span>, compression=<span style="color: #ffa500;">'gzip'</span>)
+</pre>
+</div>
 </div>
 </div>
 
 <div id="outline-container-org53f21c7" class="outline-2">
-<h2 id="org53f21c7"><span class="section-number-2">3</span> 激活序列化了的对象</h2>
-<div class="outline-text-2" id="text-3">
+<h2 id="org53f21c7"><span class="section-number-2">4</span> 激活序列化了的对象</h2>
+<div class="outline-text-2" id="text-4">
 <p>
 用 hickle.load 把这个序列化了的对象给重新激活（读回来）：</p>
 
-<p>
-#BEGIN<sub>SRC</sub> python
-</p>
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #ffd700;"># </span><span style="color: #ffd700;">&#36825;&#37324;&#38656;&#35201;import&#21253;&#21547;&#20102;Foo&#31867;&#30340;&#23450;&#20041;&#30340;&#27169;&#22359;&#65292;&#21542;&#21017;hickle&#20250;&#25214;&#19981;&#21040;&#25152;&#38656;&#35201;&#30340;&#31867;</span>
+<span style="color: #00ffff;">import</span> hickle
 
-<p>
-import hickle
-</p>
-
-<p>
-aFooObject = hickle.load('/tmp/foo<sub>0.hkl</sub>'）type(aFooObject)
-#END<sub>SRC</sub>
-</p>
+<span style="color: #ffa07a;">aFooObject</span> = hickle.load(<span style="color: #ffa500;">'/tmp/foo_0.hkl'</span>&#65289;
+<span style="color: #b0c4de;">type</span>(aFooObject)
+</pre>
+</div>
 </div>
 </div>
 </div>

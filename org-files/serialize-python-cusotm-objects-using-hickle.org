@@ -1,6 +1,8 @@
 #+SETUPFILE: setup/css/theme-0.orgcss
 #+TITLE: 在python3里序列化自定义类的对象
 
+* 为什么要做序列化？
+
 在做机器学习的时候，每个样本自身包含的数据量可能大一些比如以MB为单位，
 且样本的数量还多，这种时候把所有的样本加载到内存或者显存里是不可行的。
 我的做法是拆分每个样本，序列化（serialize）后存储到硬盘上，在使用的时
@@ -10,29 +12,30 @@
 * 安装 hickle and dill
 
 dill用pip直接装即可。
+
 而hickle目前需要从github安装dev 分支，才能在python3上用：
-#BEGIN_SRC shell
+
+#+BEGIN_SRC shell
 pip install -e git://github.com/telegraphic/hickle.git@dev
-#END_SRC
+#+END_SRC
 
 * 序列化自定义类的对象
 
 安装好了hickle和dill之后，序列化一个自定义类的对象就很轻松了：
 
-#BEGIN_SRC python
+#+BEGIN_SRC python
 import hickle
 hickle.dump(aFooObject, '/tmp/foo_0.hkl', mode='w', compression='gzip')
-#END_SRC
+#+END_SRC
 
 * 激活序列化了的对象
 
 用 hickle.load 把这个序列化了的对象给重新激活（读回来）：
 
-#BEGIN_SRC python
+#+BEGIN_SRC python
 # 这里需要import包含了Foo类的定义的模块，否则hickle会找不到所需要的类
 import hickle
 
 aFooObject = hickle.load('/tmp/foo_0.hkl'）
 type(aFooObject)
-#END_SRC
-
+#+END_SRC
