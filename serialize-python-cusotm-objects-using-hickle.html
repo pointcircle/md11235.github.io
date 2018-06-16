@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- 2018-06-16 Sat 17:56 -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>在python3里序列化自定义类的对象</title>
+<meta name="generator" content="Org mode">
+<meta name="author" content="md11235">
+<link rel="stylesheet" type="text/css" href="styles/bigblow/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="styles/bigblow/css/bigblow.css"/>
+<link rel="stylesheet" type="text/css" href="styles/bigblow/css/hideshow.css"/>
+<script type="text/javascript" src="styles/bigblow/js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="styles/bigblow/js/jquery-ui-1.10.2.min.js"></script>
+<script type="text/javascript" src="styles/bigblow/js/jquery.localscroll-min.js"></script>
+<script type="text/javascript" src="styles/bigblow/js/jquery.scrollTo-1.4.3.1-min.js"></script>
+<script type="text/javascript" src="styles/bigblow/js/jquery.zclip.min.js"></script>
+<script type="text/javascript" src="styles/bigblow/js/bigblow.js"></script>
+<script type="text/javascript" src="styles/bigblow/js/hideshow.js"></script>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2018 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">在python3里序列化自定义类的对象</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org6cb592d">1. 安装 hickle and dill</a></li>
+<li><a href="#org24b7922">2. 序列化自定义类的对象</a></li>
+<li><a href="#org53f21c7">3. 激活序列化了的对象</a></li>
+</ul>
+</div>
+</div>
+<p>
+在做机器学习的时候，每个样本自身包含的数据量可能大一些比如以MB为单位，且样本的数量还多，这种时候把所有的样本加载到内存或者显存里是不可行的。我的做法是拆分每个样本，序列化（serialize）后存储到硬盘上，在使用的时候，用keras里的DataGenerator分批次读取样本。本教程只涉及用hickle来序列化和读取恢复（激活）样本，这些样本通常以某个自定义的类的对象的方式呈现。</p>
+
+<div id="outline-container-org6cb592d" class="outline-2">
+<h2 id="org6cb592d"><span class="section-number-2">1</span> 安装 hickle and dill</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+dill用pip直接装即可。而hickle目前需要从github安装dev 分支，才能在python3上用：#BEGIN<sub>SRC</sub> shell
+pip install -e git://github.com/telegraphic/hickle.git@dev
+#END<sub>SRC</sub>
+</p>
+</div>
+</div>
+
+<div id="outline-container-org24b7922" class="outline-2">
+<h2 id="org24b7922"><span class="section-number-2">2</span> 序列化自定义类的对象</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+安装好了hickle和dill之后，序列化一个自定义类的对象就很轻松了：</p>
+
+<p>
+#BEGIN<sub>SRC</sub> python
+import hickle
+hickle.dump(aFooObject, '/tmp/foo<sub>0.hkl</sub>', mode='w', compression='gzip')
+#END<sub>SRC</sub>
+</p>
+</div>
+</div>
+
+<div id="outline-container-org53f21c7" class="outline-2">
+<h2 id="org53f21c7"><span class="section-number-2">3</span> 激活序列化了的对象</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+用 hickle.load 把这个序列化了的对象给重新激活（读回来）：</p>
+
+<p>
+#BEGIN<sub>SRC</sub> python
+</p>
+
+<p>
+import hickle
+</p>
+
+<p>
+aFooObject = hickle.load('/tmp/foo<sub>0.hkl</sub>'）type(aFooObject)
+#END<sub>SRC</sub>
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: md11235 (<a href="mailto:md11235@gmail.com">md11235@gmail.com</a>)</p>
+<p class="date">Date: </p>
+<p class="creator"><a href="https://www.gnu.org/software/emacs/">Emacs</a> 27.0.50 (<a href="https://orgmode.org">Org</a> mode 9.1.9)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
