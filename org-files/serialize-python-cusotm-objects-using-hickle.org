@@ -16,7 +16,7 @@ dill用pip直接装即可。
 而hickle目前需要从github安装dev 分支，才能在python3上用：
 
 #+BEGIN_SRC shell
-pip install -e git://github.com/telegraphic/hickle.git@dev
+pip install -e 'git://github.com/telegraphic/hickle.git@dev#egg=hickle'
 #+END_SRC
 
 * 序列化自定义类的对象
