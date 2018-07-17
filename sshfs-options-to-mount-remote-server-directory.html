@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-07-17 Tue 10:24 -->
+<!-- 2018-07-17 Tue 10:27 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>sshfs通过用户和组映射挂载另一服务器的目录为本地目录</title>
@@ -76,7 +76,7 @@ for the JavaScript code in this tag.
 </div>
 
 <p>
-不过慢着，上面涉及两个文件呢，uidfile和gidfile。这里列出我用的sshfs<sub>uid</sub><sub>mapping</sub>：</p>
+不过慢着，上面涉及两个文件呢，uidfile和gidfile。这里列出我用的 <code>sshfs_uid_mapping</code> ：</p>
 
 <div class="org-src-container">
 <pre class="src src-shell">md11235:1001
@@ -87,7 +87,7 @@ for the JavaScript code in this tag.
 其中md11235是本地Linux上你自己用的帐号（用户名），1001是你在远程服务器上的用户id（uid）。</p>
 
 <p>
-另一份文件是sshfs<sub>gid</sub><sub>mapping</sub>：</p>
+另一份文件是 <code>sshfs_gid_mapping</code> ：</p>
 
 <div class="org-src-container">
 <pre class="src src-shell">md11235:1002

@@ -8,7 +8,7 @@ mount到本地Linux来用，那么通过下面的命令即可：
 sshfs -o nomap=ignore -o idmap=file -o uidfile=sshfs_uid_mapping -o gidfile=sshfs_gid_mapping md11235@192.168.100.193:/home/md11235 /home/md11235/node5
 #+END_SRC
 
-不过慢着，上面涉及两个文件呢，uidfile和gidfile。这里列出我用的sshfs_uid_mapping：
+不过慢着，上面涉及两个文件呢，uidfile和gidfile。这里列出我用的 =sshfs_uid_mapping= ：
 
 #+BEGIN_SRC shell
 md11235:1001
@@ -16,7 +16,7 @@ md11235:1001
 
 其中md11235是本地Linux上你自己用的帐号（用户名），1001是你在远程服务器上的用户id（uid）。
 
-另一份文件是sshfs_gid_mapping：
+另一份文件是 =sshfs_gid_mapping= ：
 
 #+BEGIN_SRC shell
 md11235:1002
