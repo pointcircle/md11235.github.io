@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- 2018-07-17 Tue 10:16 -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>sshfs通过用户和组映射挂载另一服务器的目录为本地目录</title>
+<meta name="generator" content="Org mode">
+<meta name="author" content="md11235">
+<link rel="stylesheet" type="text/css" href="styles/bigblow/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="styles/bigblow/css/bigblow.css"/>
+<link rel="stylesheet" type="text/css" href="styles/bigblow/css/hideshow.css"/>
+<script type="text/javascript" src="styles/bigblow/js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="styles/bigblow/js/jquery-ui-1.10.2.min.js"></script>
+<script type="text/javascript" src="styles/bigblow/js/jquery.localscroll-min.js"></script>
+<script type="text/javascript" src="styles/bigblow/js/jquery.scrollTo-1.4.3.1-min.js"></script>
+<script type="text/javascript" src="styles/bigblow/js/jquery.zclip.min.js"></script>
+<script type="text/javascript" src="styles/bigblow/js/bigblow.js"></script>
+<script type="text/javascript" src="styles/bigblow/js/hideshow.js"></script>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2018 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">sshfs通过用户和组映射挂载另一服务器的目录为本地目录</h1>
+<p>
+假设你在一台远程Linux服务器上有帐号和密码，而且有比较大的存储空间，想mount到本地Linux来用，那么通过下面的命令即可：</p>
+
+<div class="org-src-container">
+<pre class="src src-shell">sshfs -o <span style="color: #ffa07a;">nomap</span>=ignore -o <span style="color: #ffa07a;">idmap</span>=file -o <span style="color: #ffa07a;">uidfile</span>=sshfs_uid_mapping -o <span style="color: #ffa07a;">gidfile</span>=sshfs_gid_mapping zhang@192.168.100.193:/home/zhang /home/zhang/node5
+</pre>
+</div>
+
+<p>
+不过慢着，上面涉及两个文件呢，uidfile和gidfile。这里列出我用的sshfs<sub>uid</sub><sub>mapping</sub>：</p>
+
+<div class="org-src-container">
+<pre class="src src-shell">md11235:1001
+</pre>
+</div>
+
+<p>
+其中md11235是本地Linux上你自己用的帐号（用户名），1001是你在远程服务器上的用户id（uid）。</p>
+
+<p>
+另一份文件是sshfs<sub>gid</sub><sub>mapping</sub>：</p>
+
+<div class="org-src-container">
+<pre class="src src-shell">md11235:1002
+</pre>
+</div>
+
+<p>
+同上，md11235是本地Linux上你的主组名，1002是你在远程服务器上的组id（gid）。</p>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: md11235 (<a href="mailto:md11235@gmail.com">md11235@gmail.com</a>)</p>
+<p class="date">Date: </p>
+<p class="creator"><a href="https://www.gnu.org/software/emacs/">Emacs</a> 27.0.50 (<a href="https://orgmode.org">Org</a> mode 9.1.9)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
