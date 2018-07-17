@@ -5,7 +5,7 @@
 mount到本地Linux来用，那么通过下面的命令即可：
 
 #+BEGIN_SRC shell
-sshfs -o nomap=ignore -o idmap=file -o uidfile=sshfs_uid_mapping -o gidfile=sshfs_gid_mapping zhang@192.168.100.193:/home/zhang /home/zhang/node5
+sshfs -o nomap=ignore -o idmap=file -o uidfile=sshfs_uid_mapping -o gidfile=sshfs_gid_mapping md11235@192.168.100.193:/home/md11235 /home/md11235/node5
 #+END_SRC
 
 不过慢着，上面涉及两个文件呢，uidfile和gidfile。这里列出我用的sshfs_uid_mapping：

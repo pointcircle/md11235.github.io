@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-07-17 Tue 10:16 -->
+<!-- 2018-07-17 Tue 10:24 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>sshfs通过用户和组映射挂载另一服务器的目录为本地目录</title>
@@ -71,7 +71,7 @@ for the JavaScript code in this tag.
 假设你在一台远程Linux服务器上有帐号和密码，而且有比较大的存储空间，想mount到本地Linux来用，那么通过下面的命令即可：</p>
 
 <div class="org-src-container">
-<pre class="src src-shell">sshfs -o <span style="color: #ffa07a;">nomap</span>=ignore -o <span style="color: #ffa07a;">idmap</span>=file -o <span style="color: #ffa07a;">uidfile</span>=sshfs_uid_mapping -o <span style="color: #ffa07a;">gidfile</span>=sshfs_gid_mapping zhang@192.168.100.193:/home/zhang /home/zhang/node5
+<pre class="src src-shell">sshfs -o <span style="color: #ffa07a;">nomap</span>=ignore -o <span style="color: #ffa07a;">idmap</span>=file -o <span style="color: #ffa07a;">uidfile</span>=sshfs_uid_mapping -o <span style="color: #ffa07a;">gidfile</span>=sshfs_gid_mapping md11235@192.168.100.193:/home/md11235 /home/md11235/node5
 </pre>
 </div>
 
