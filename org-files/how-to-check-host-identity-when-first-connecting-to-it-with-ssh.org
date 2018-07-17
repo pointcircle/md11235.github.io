@@ -1,0 +1,94 @@
+#+SETUPFILE: setup/css/theme-0.orgcss
+#+TITLE: 当第一次ssh到某台主机时如何校验主机的身份？
+
+
+* 客户端
+
+  注意替换下述ssh命令调用里的端口号、用户名、主机名。
+
+  当利用下面的命令（替相应换用户名、地址、端口以后），第一次连接到某台
+  服务器时，往往你会看到如下的提示（在比较新的linux系统上，默认使用
+  sha256哈希算法）：
+
+  #+BEGIN_SRC 
+  The authenticity of host 'www.example.com (93.184.216.34)' can't be established.
+  RSA key fingerprint is SHA256:wWEgLxTm7dKP1rW+H8OPrAe6FgjQ74BsaDGCgFxZaEI.
+  Are you sure you want to continue connecting (yes/no)?
+  #+END_SRC
+
+  当然你可以强行指定sha256哈希算法：
+  #+BEGIN_SRC shell
+  ssh -p 22 -o FingerprintHash=sha256 user@www.example.com
+  #+END_SRC
+
+  会看到：
+  #+BEGIN_SRC 
+  The authenticity of host 'www.example.com (93.184.216.34)' can't be established.
+  RSA key fingerprint is SHA256:wXe9LXTm7dKP1rW+H8OPrAe6FgjQ74BsaDGCgFxZaEI.
+  Are you sure you want to continue connecting (yes/no)?
+  #+END_SRC
+
+  或者强行指定使用md5哈希算法（应对较老的服务器linux版本）：
+  #+BEGIN_SRC shell
+  ssh -p 22 -o FingerprintHash=md5 user@www.example.com
+  #+END_SRC
+
+  那么会看到：
+
+  #+BEGIN_SRC 
+  The authenticity of host 'www.example.com (93.184.216.34)' can't be established.
+  RSA key fingerprint is MD5:ff:ff:ff:ff:ff:ff:ff:ff:ff:ff:d7:73:7b:51:03:4f.
+  Are you sure you want to continue connecting (yes/no)?
+  #+END_SRC
+
+  注：上述sha256和md5哈希值已经被特意替换为假的值。
+
+  注2：也需要注意服务器和客户端是否用的都是同一类key，比如都是RSA的。
+
+  问题来了，上述ssh命令的输出里说了，那台主机的真实性没法验证，你到底
+  信还是不信，还要不要继续连接到这台服务器？
+
+  只能去服务器上看看究竟了。
+
+* 服务器端
+
+  查看服务器上的对应的RSA key的指纹：
+
+  #+BEGIN_SRC shell
+  ssh-keygen -lf /etc/ssh/ssh_host_rsa_key.pub  
+  #+END_SRC
+
+  也可以指定不同的指纹哈希算法，当使用sha256哈希算法时，
+
+  #+BEGIN_SRC shell
+  ssh-keygen -E sha256 -lf /etc/ssh/ssh_host_rsa_key.pub
+  #+END_SRC
+
+  会看到如下输出：
+  #+BEGIN_SRC 
+  2048 SHA256:D4ZaPD9ZwA22Y/AXc3Y4Q0nqnoIS2YZsDiw7dhZYkIM root@www.example.com (RSA)
+  #+END_SRC
+
+  使用md5哈希算法，
+  #+BEGIN_SRC shell
+  ssh-keygen -E md5 -lf /etc/ssh/ssh_host_rsa_key.pub
+  #+END_SRC
+  
+  则会看到：
+  #+BEGIN_SRC
+  2048 MD5:84:c9:eb:3f:c6:f2:1e:a0:2c:28:4a:1c:a5:8d:c9:59 root@www.example.com (RSA)
+  #+END_SRC
+
+* 决定要不要继续连接
+
+  现在可以对比看客户端ssh提示的哈希值是否与服务器上显示的哈希值一样：
+
+  如果一样，恭喜你，有非常大的可能性连接到了正确的主机，可以继续连接；
+
+  如果不一样，可能中间有人在拦截你和本该连接的服务器之间的通讯，会有危险。。。
+
+
+* References
+
+https://stackoverflow.com/questions/9607295/how-do-i-find-my-rsa-key-fingerprint
+https://www.phcomp.co.uk/Tutorials/Unix-And-Linux/ssh-check-server-fingerprint.html

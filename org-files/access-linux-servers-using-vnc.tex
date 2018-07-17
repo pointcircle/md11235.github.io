@@ -1,0 +1,109 @@
+% Created 2017-11-29 周三 13:03
+% Intended LaTeX compiler: pdflatex
+
+\documentclass[12pt,a4paper]{article}
+\def\pgfsysdriver{pgfsys-dvipdfm.def}
+
+\usepackage{fontspec,indentfirst}
+\usepackage{xunicode}% provides unicode character macros
+\usepackage{xltxtra} % provides some fixes/extras
+\usepackage[margin=1.5cm]{geometry}
+\usepackage{tikz}
+
+\XeTeXlinebreaklocale "zh"
+\XeTeXlinebreakskip = 0pt plus 1pt minus 0.1pt
+
+
+\newfontfamily\xingkai{"XHei-Mono+AnonymousPro"}
+\newfontfamily\caiyun{"XHei-Mono+AnonymousPro"}
+\newfontfamily\kai{"XHei-Mono+AnonymousPro"}
+\newfontfamily\fs{"XHei-Mono+AnonymousPro"}
+\newfontfamily\li{"XHei-Mono+AnonymousPro"}
+\newfontfamily\xinwei{"XHei-Mono+AnonymousPro"}
+\newfontfamily\yao{"XHei-Mono+AnonymousPro"}
+\newfontfamily\hei{"XHei-Mono+AnonymousPro"}
+\newfontfamily\song{"XHei-Mono+AnonymousPro"}
+
+\setmainfont{"XHei-Mono+AnonymousPro"}
+
+\renewcommand{\baselinestretch}{1.2}
+
+% [FIXME] ox-latex 的設計不良導致 hypersetup 必須在這裡插入
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks=true, %把紅框框移掉改用字體顏色不同來顯示連結
+  linkcolor=[rgb]{0,0.37,0.53},
+  citecolor=[rgb]{0,0.47,0.68},
+  filecolor=[rgb]{0,0.37,0.53},
+  urlcolor=[rgb]{0,0.37,0.53},
+  pagebackref=true,
+  linktoc=all,}
+\author{md11235}
+\date{\today}
+\title{如何利用VNC访问平时没有图形界面的服务器}
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+比如有的时候，需要用图形界面跑跑虚拟机什么的。
+
+\section{安装桌面环境、vncserver等}
+\label{sec:orga1a0543}
+
+轻量些的环境比如Xfce4。以ubuntu服务器为例：
+
+\begin{verbatim}
+sudo apt install xfce4 xfce4-goodies tightvncserver xrdp
+\end{verbatim}
+
+\section{配置vncserver}
+\label{sec:orge6fbdd9}
+
+建立\textasciitilde{}/.vnc目录，设置vnc连接的密码：
+\begin{verbatim}
+mkdir -p ~/.vnc
+echo password | vncpasswd -f > ~/.vnc/passwd
+chmod 600 ~/.vnc/passwd
+\end{verbatim}
+
+然后写初始化文件xstartup:
+
+\begin{verbatim}
+#!/bin/bash
+xrdb $HOME/.Xresources
+startxfce4 &
+\end{verbatim}
+
+再给它加上x权限：
+\begin{verbatim}
+chmod +x ~/.vnc/xstartup
+\end{verbatim}
+
+\section{运行vncserver}
+\label{sec:orgb79a32f}
+
+用pietty等工具ssh到服务器以后，根据具体需要的分辨率运行vncserver：
+
+\begin{verbatim}
+vncserver -geometry 1920x1808
+\end{verbatim}
+
+这个命令会输出类似信息：
+
+\begin{quote}
+New 'X' desktop is your-host-name:2
+\end{quote}
+
+\section{用VNC客户端连接到服务器}
+\label{sec:org0d9eb8b}
+
+假使服务器的IP地址是10.0.0.3。在Windows上运行vnc viewer，比如
+VNC-Viewer-5.3.0-Windows-64bit.exe，对其进行如下配置：
+
+在VNC Server一栏输入(注意:2和vncserver的输出里的:2的对应关系：10.0.0.3:2
+
+在Encryption一栏选择“Let VNC Server choose”就行。
+
+然后点击Connect按钮，输入密码，能看到远端的桌面了。
+\end{document}

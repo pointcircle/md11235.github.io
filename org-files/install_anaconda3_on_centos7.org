@@ -1,0 +1,96 @@
+#+SETUPFILE: setup/css/theme-0.orgcss
+#+TITLE: 在Centos7里安装Anaconda3
+
+* 下载安装文件
+
+  运行如下命令从https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/
+  下载最新的给linux用的版本到你的home目录（主目录）里：
+
+  #+BEGIN_SRC shell
+  wget -P ~ https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/Anaconda3-5.1.0-Linux-$(uname -m).sh 
+  #+END_SRC
+
+  我写这篇教程的时候，最新的Anaconda3版本是5.1.0。呃，也许需要看下
+  Anaconda3最新的版本号是多少，比如如果是5.2.0，那么用5.2.0替换上面命
+  令里的5.1.0。
+
+* 安装
+
+  下载完以后，不要用root帐号安装。用普通的用户，假设你把文件存在了~目录下，那么执行
+
+  #+BEGIN_SRC shell
+  bash ~/Anaconda3-5.1.0-Linux-x86.sh
+  #+END_SRC
+
+  如果是新手，就所有选项接受默认值。那么Anaconda3会被安装在~/anaconda3。
+
+  接受license的时候，要输入yes哈。如果是中文shell环境，输入什么，我还不知道，看具体的提示吧。
+
+* 使用
+
+  在shell里，先要执行
+
+  #+BEGIN_SRC shell
+  source ~/anaconda3/bin/activate
+  #+END_SRC
+  
+
+  来激活刚才装的Anaconda3环境。
+
+  但是，这只是完成了python3的安装。也就是说，Anaconda3只是python3的一
+  个发行版。为了隔离不同的python库的版本，得用上virtualenv，下面接着跟
+  我做。
+  
+** 安装virtualenv
+
+   在刚才source了  ~/anaconda3/bin/activate 的shell里，执行
+
+   #+BEGIN_SRC shell
+   conda install virtualenv
+   virtualenv -p python3.6 ~/virtualenv/python3.6
+   #+END_SRC
+
+   中间不出错的话，就会看到python3.6的virtualenv（虚拟环境）搭建完毕。
+
+   具体到某个功能开发和实现，只使用下列语句就行：
+
+   #+BEGIN_SRC shell
+   source ~/virtualenv/python3.6/bin/activate
+   #+END_SRC
+
+   你会看到类似下面的输出
+   #+BEGIN_SRC shell
+   (python3.6)
+   #+END_SRC
+
+*** 可以玩玩ipython
+
+   呃，就是个交互式的python shell，比直接运行python得到的shell好用一些。
+
+   运行ipython
+
+   #+BEGIN_SRC shell
+   ipython
+   #+END_SRC
+
+   会看到类似下面的输出：
+
+   #+BEGIN_SRC shell
+   Python 3.6.3 |Anaconda, Inc.| (default, Oct 13 2017, 12:02:49)
+   Type 'copyright', 'credits' or 'license' for more information
+   IPython 6.2.1 -- An enhanced Interactive Python. Type '?' for help.
+
+   In [1]:
+   #+END_SRC
+
+* 其他
+
+   推荐的做法是，具体到某个应用、目的、功能开发的时候，用virtualenv。
+   而如果是一些重要的编程库，则推荐安装到anaconda里。比如要安装pandas
+
+   #+BEGIN_SRC 
+   conda install pandas
+   #+END_SRC
+
+   
+

@@ -1,0 +1,45 @@
+#+SETUPFILE: setup/css/theme-0.orgcss
+#+TITLE: 把一行文字作为另一个已存在文件的第一行
+
+方法蛮多，收集了几个。
+
+* sed
+
+  Use sed's insert (i) option which will insert the text in the preceding line.
+
+  sed '1 i\
+
+  Question author's update:
+
+  To make it edit the file in place - with gnu sed - I had to add the -i option:
+
+  sed -i '1 i\anything' file
+
+  Also syntax
+
+  sed  -i '1i text' filename
+
+  https://unix.stackexchange.com/questions/99350/how-to-insert-text-before-the-first-line-of-a-file
+
+  sed -i '1s/^/task goes here\n/' todo.txt
+
+  or
+
+  sed -i '1itask goes here' todo.txt
+
+  https://superuser.com/questions/246837/how-do-i-add-text-to-the-beginning-of-a-file-in-bash
+
+* echo cat mv
+
+  echo 'task goes here' | cat - todo.txt > temp && mv temp todo.txt
+
+  https://superuser.com/questions/246837/how-do-i-add-text-to-the-beginning-of-a-file-in-bash
+
+
+* echo cat spong
+
+  The moreutils have a nice tool called sponge:
+
+  echo "task goes here" | cat - todo.txt | sponge todo.txt
+
+  https://superuser.com/questions/246837/how-do-i-add-text-to-the-beginning-of-a-file-in-bash

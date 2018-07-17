@@ -1,0 +1,20 @@
+我的理解是根据y combinator的定义，(Y F) = (F (Y F))
+
+在
+
+F = λf. λn. IFTHENELSE (ISZERO n) 1 (MULT n (f (PRED n)))
+
+中，
+
+把F apply到(Y F)上，(F (Y F))得到一个lambda (假设叫做G)
+
+G = λn. IFTHENELSE
+        (ISZERO n)
+        1
+        (MULT n ((Y F) (PRED n)))
+
+如果if分支到了 (MULT n ((Y F) (PRED n)))
+
+那么(Y F) => (F (Y F))，实际上可以认为等价于G，于是递归了。原来的F通过Y combinator不断得到重生。
+
+这是我的山寨版的理解。

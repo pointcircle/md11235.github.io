@@ -1,0 +1,38 @@
+#+SETUPFILE: setup/css/theme-0.orgcss
+#+TITLE: 配置ipython notebook访问万维网时的代理服务器
+
+
+这个配置方法配置好http代理以后，jupyter运行notebook时也可以用。
+
+[[https://www.jayakumar.org/linux/how-to-configure-httphttps-proxy-for-ipython-notebook-server/][原文: How to configure HTTP/HTTPS proxy for iPython notebook server]]
+
+
+JUNE 1, 2015 BY JAY·0 COMMENTS
+Just to clarify, this is not a post on how to configure apache/nginx to proxy requests to iPython notebook server or a backend proxy.
+
+This is when you have a iPython notebook server running on your laptop/desktop behind a corporate/school proxy/firewall and any web requests needs to go through such proxy. On bash shell you just export the env variable like this and its taken care off. However for a iPython server the env variables are not inherited from user bash profile.
+
+You have to modify the iPython notebook server env. Create a file named 00-something.py under your .ipython notebook server profile and add the following:
+
+For example:
+
+vi /.ipython/profile_myserver/startup/00-startup.py
+and add
+
+import sys,os,os.path
+os.environ['HTTP_PROXY']="http://proxy.example.com:80"
+os.environ['HTTPS_PROXY']="http://proxy.example.com:443"
+you confirm the env variables by running
+
+%env in a cell and the output
+
+{'CLICOLOR': '1',
+ 'GIT_PAGER': 'cat',
+ 'HOME': '/home/jay',
+ 'HTTP_PROXY': 'http://proxy.example.com:80',
+..
+Next try
+
+import requests
+requests.get("http://google.com")
+If you get a response [200] then you are all set.

@@ -1,0 +1,20 @@
+#+SETUPFILE: setup/css/theme-0.orgcss
+#+TITLE: 用Monit监控Linux性能
+
+以CentOS 7.4为例。
+
+* 安装Monit
+
+  sudo yum install monit
+
+* 配置Monit
+
+** 用邮件发送警报(alerts)
+
+** 监控目录所在分区的空间
+
+#+BEGIN_SRC shell
+check device var with path /home
+    if SPACE usage > 90% then alert
+#+END_SRC
+

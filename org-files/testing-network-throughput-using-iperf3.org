@@ -1,0 +1,22 @@
+#+SETUPFILE: setup/css/theme-0.orgcss
+#+TITLE: 用iperf3测试网络吞吐量
+
+
+* Server side
+
+  iperf3 -s 0.0.0.0
+
+1. In a terminal session on the first padb node (10.0.0.5) start the iperf server
+
+# iperf3 --server | tee iperf3.$(date +%Y%m%d_%H%M).out
+
+
+* Client side
+
+2. in a second terminal session on the second padb node, start the iperf client.
+
+# iperf3 --client 10.0.0.5 --bandwidth 10G  --length 8900 --udp --port 5201 --parallel 4 --title '(4)~10Gb udp@8900: .6->.5' | tee iperf3.$(date +%Y%m%d_%H%M).out
+
+3. When the test has completed, kill the iperf server using ctrl+c  
+
+./iperf3 --client node5.imlab.lan --bandwidth 0 -R --length 8900 -n 1000M --udp --port 5201 --parallel 1 --title '(1)~10Gb udp@8900: .6->.5' | tee /tmp/iperf3.$(date +%Y%m%d_%H%M).out

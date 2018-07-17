@@ -1,0 +1,6 @@
+* Unicode
+
+ U nicode and UCS are a giant table of characters, each with an
+id. There are various encodings to serialize a sequence of encoded
+characters (UCS-2, UTF-8, etc). In Unicode characters can also be
+attributed with rules like right to left.

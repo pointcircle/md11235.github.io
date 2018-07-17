@@ -1,0 +1,28 @@
+#+SETUPFILE: setup/css/theme-0.orgcss
+#+TITLE: OpenRefine 入门教程
+
+* 安装和运行
+  
+  架设非常的简单啦，下载，解压缩，Windows上运行openrefine.exe，然后用浏览器访问http://127.0.0.1:3333 即可。
+
+* 导入（上传）数据
+
+  我只试验了csv。在打开的web页面里，上传csv文件即可。
+
+* 从地址转换为坐标
+
+  比如利用高德地图的restapi。找到地址所在的列，选择该列左侧的向下实心三角箭头，Edit column --> Add column by fetching URLS,
+
+  #+BEGIN_SRC  javascript
+  "http://restapi.amap.com/v3/geocode/geo?city=0851&output=json&key=xzyxzyxzyxzyxzyxzyxzyxzyxzyxzyxz&address=" + escape(value, "url")
+  #+END_SRC
+  
+  上述 url里的city的意思是城市，这里我用了贵阳的区号0851；output是输出
+  格式；key是从高德申请的developer key。强调的是，最后地址这里，value
+  得escape（类似js的encodeURI函数）一下，要不在我这会导致从高德的
+  restapi能拿到结果，但是geocodes为空:
+
+ #+BEGIN_SRC javascript
+ {"status":"1","info":"OK","infocode":"10000","count":"0","geocodes":[]}
+ #+END_SRC
+  

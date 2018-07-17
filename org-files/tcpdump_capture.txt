@@ -1,0 +1,7 @@
+tcpdump -vv -n -l -w - -i any "(udp port 1812) or (udp port 1813) or (udp port 1814)" |tee -a ~/rad.log | tcpdump -vv -r -
+
+sudo tcpdump -vv -n -i any udp port 1813 |tee -a /tmp/rad.log
+
+tcpdump -l -w - | -a tee somefile | tcpdump -vv -r -
+
+date +"%T.%N" && radclient -x localhost  acct testing123 -f stop.txt  && date +"%T.%N"

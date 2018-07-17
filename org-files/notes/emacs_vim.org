@@ -1,0 +1,14 @@
+#+TITLE: Emacs 与 Vim
+
+* Almost Equivalent Commands
+
+
+#+BEGIN_SRC 
+Emacs  <--------------------------> Vim
+lisp-mode                           syntax on; set syntax=lisp
+upcase-region                       gU
+downcase-region                     gu
+tramp: sudo://                      w !sudo tee %
+#+END_SRC
+  
+  

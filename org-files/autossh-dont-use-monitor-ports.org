@@ -1,0 +1,7 @@
+#+TITLE: autossh 不使用监听端口（-M 0）
+
+这样的好处，也许是能减少在远端机器上的端口占用
+
+#+BEGIN_SRC shell
+autossh -M 0 -q -N -o "ServerAliveInterval 60" -o "ServerAliveCountMax 3" -o "StrictHostKeyChecking no" -R <an_ip_address_or_domain_name>:57077:10.0.0.3:7077 test@<an_ip_address_or_domain_name>
+#+END_SRC

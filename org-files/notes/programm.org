@@ -1,0 +1,7 @@
+#+TITLE: Steps for Writing Programs
+
+  1. think about how to solve/build something
+  1. write tests based on expected behaviors
+  1. code
+  1. run tests until they pass
+  1. refactor

@@ -1,0 +1,10 @@
+
+
+
+通过在地址栏里进入about:config， 设置 
+
+#+BEGIN_SRC javascript
+browser.sessionstore.resume_from_crash 
+#+END_SRC
+
+为 false

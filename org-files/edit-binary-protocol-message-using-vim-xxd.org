@@ -1,0 +1,53 @@
+#+SETUPFILE: setup/css/theme-0.orgcss
+#+TITLE: 用vim+xxd编辑（手写）二进制的协议内容
+
+这种方法，适合协议报文不太大，或者有参考的协议内容样本的情况。vim操作
+熟悉的话，比写代码轻松、直接、快捷。
+
+* 用正确的模式(binary)打开待编辑的文件
+  
+  #+BEGIN_SRC shell
+  vim -b /tmp/test.txt
+  #+END_SRC
+
+如果这个文件是空的，请往里面先随便写入一个字符，比如a。
+
+* 调用xxd转为hex(十六进制)编辑模式
+
+  切换到正常模式，输入
+  #+BEGIN_SRC shell
+  %!xxd 
+  #+END_SRC
+
+  此时发现文件内容变成
+
+  #+BEGIN_SRC 
+  00000000: 610a                                     a.
+  #+END_SRC
+
+* 编辑协议内容
+
+  切换到编辑模式，按照四个十六进制字符一组的方式，往里填充协议的内容。比如：
+
+  #+BEGIN_SRC
+  00000000: 610a 9897                                a.
+  #+END_SRC
+
+* 转换为文件
+
+  编辑完成后，切换到正常模式，输入
+  
+  #+BEGIN_SRC shell
+  %!xxd -r
+  #+END_SRC
+
+  然后保存文件
+
+* 校验
+
+  用hexdump看看：
+
+  #+BEGIN_SRC shell
+  hexdump -C /tmp/test.txt
+  #+END_SRC
+

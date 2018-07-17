@@ -1,0 +1,13 @@
+#+SETUPFILE: setup/css/theme-0.orgcss
+#+TITLE: 快速把手写签名的照片转换为透明的png图片（用命令行工具）
+
+用命令行工具，imagemagick，快速把手写签名的照片转换为透明的png图片。
+
+* 前置条件
+
+  要求机器上安装有imagemagick，它提供convert命令
+
+* 命令
+  #+BEGIN_SRC shell
+  convert -threshold 40% zs_sig.png - | convert -transparent white -fuzz 20% - zs5.png  
+  #+END_SRC

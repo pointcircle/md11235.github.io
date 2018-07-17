@@ -1,0 +1,31 @@
+#+TITLE: 如何 debug Adobe AIR 程序
+
+1. touch a empty file in the application's META-INF/AIR directory.
+2. launch a "fdb" program and perform "run" in the (fdb) shell.
+3. launch the target air application using adl.exe: "adl.exe MeTA-INF\AIR\application.xml ."
+
+example:
+
+#+BEGIN_SRC shell
+$/d/flex_sdk//4.5.1/bin/fdb
+Adobe fdb (Flash Player Debugger) [build 21328]
+Copyright (c) 2004-2007 Adobe, Inc. All rights reserved.
+(fdb) run
+Waiting for Player to connect
+Player connected; session starting.
+Set breakpoints and then type 'continue' to resume the session.
+[SWF] Bootstrapper.swf/[[DYNAMIC]]/12 - 399,550 bytes after decompression
+(fdb) c
+[SWF] Bootstrapper.swf/[[DYNAMIC]]/13 - 146,426 bytes after decompression
+[trace] rslCompleteHandler
+[trace] initDefaultConnection::main0
+[UnloadSWF] unknown
+Player session terminated
+(fdb) quit
+#+END_SRC
+
+or
+
+#+BEGIN_SRC shell
+C:\Program Files\Suncity Game\Snd DB>d:\flex_sdk\4.5.1\bin\adl.exe META-INF\AIR\application.xml .
+#+END_SRC

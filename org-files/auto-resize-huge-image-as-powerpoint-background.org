@@ -1,0 +1,7 @@
+
+
+* 自定义layout
+
+在SlideMaster里，自定义layout，然后添加Placeholder到此页，把Placeholder拖到跟页面一样高宽
+
+* 使用从剪贴板粘贴图片作为幻灯片背景

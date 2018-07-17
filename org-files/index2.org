@@ -1,16 +1,12 @@
 #+TITLE: Random Memos 脚本佳人
 
-- [[file:sshfs-options-to-mount-remote-server-directory.org][sshfs通过用户和组映射挂载另一服务器的目录为本地目录]]
-- [[file:serialize-python-cusotm-objects-using-hickle.org][在python3里序列化自定义类的对象]]
-- [[file:how-to-check-host-identity-when-first-connecting-to-it-with-ssh.org][当第一次ssh到某台主机时如何校验主机的身份？]]
-- [[file:quick-way-to-get-your-signature.org][快速把手写签名的照片转换为透明的png图片（用命令行工具）]]
-- [[file:redmine-email-notification-config.org][配置redmine的邮件通知]]
-- [[file:index2.org][Random Memos 脚本佳人]]
+- [[file:how_to_check_host_identity_when_first_connecting_to_it_with_ssh.org][how_to_check_host_identity_when_first_connecting_to_it_with_ssh]]
 - [[file:android-sdkmanager-cmdline.org][Android sdk manager command line operations]]
 - [[file:openrefine-tutorial.org][OpenRefine 入门教程]]
 - [[file:insert-text-as-the-first-line-of-another-file.org][把一行文字作为另一个已存在文件的第一行]]
 - [[file:edit-binary-protocol-message-using-vim-xxd.org][用vim+xxd编辑（手写）二进制的协议内容]]
 - [[file:index-mine.org][Random Memo]]
+- [[file:quick-way-to-get-your-signature.org][快速把手写签名的照片转换为透明的png图片（用命令行工具）]]
 - [[file:testing-network-throughput-using-iperf3.org][用iperf3测试网络吞吐量]]
 - [[file:install_zh_CN_man-pages_in_centos7.org][在Centos7里安装中文手册页(man-pages)]]
 - [[file:install_anaconda3_on_centos7.org][在Centos7里安装Anaconda3]]

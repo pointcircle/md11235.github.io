@@ -1,0 +1,44 @@
+#+SETUPFILE: setup/css/theme-0.orgcss
+#+TITLE: 在Centos7里安装中文手册页(man-pages)
+
+作者：徐邦（贵州理工学院 网络151班）
+
+安装中文man-pages。
+
+man命令是很有用的命令，Linux默认man为英文，我们需要安装中文man-pages。
+
+* 第一步
+  在shell中输入：
+  #+BEGIN_SRC shell
+  yum search man-pages
+  #+END_SRC
+  这个命令可以帮助我们在yum源中查询有关man-pages工具包的名称，搜索结果如下：
+  
+  #+CAPTION: 搜索结果
+  #+NAME:  fig:search_man-pages_result
+  [[./images/xubang/zh_CN_man-pages/1.png]]
+  
+ 
+我们可以看到红线中的就是我们需要的中文man-pages，知道名称后就可以安装了。
+
+* 第二步
+  在shell中输入：
+  #+BEGIN_SRC shell
+  sudo yum install man-pages-zh-CN.noarch
+  #+END_SRC
+  
+  见到如下图片就证明安装成功：
+  #+CAPTION: 安装成功
+  #+NAME:  fig:installed_successfully
+  [[./images/xubang/zh_CN_man-pages/2.png]]
+ 
+  安装好之后可以使用了，现在man ls查看一下：
+  #+CAPTION: 使用示例
+  #+NAME: fig:usage_demo
+  [[./images/xubang/zh_CN_man-pages/3.png]]
+ 
+
+
+
+
+

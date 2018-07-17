@@ -1,0 +1,9 @@
+
+
+* How are dependencies injected?
+
+Is it easy or hard to do so?
+
+* how to determine different paths of testing?
+
+permutation of different conditions?

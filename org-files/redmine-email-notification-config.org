@@ -1,0 +1,33 @@
+#+SETUPFILE: setup/css/theme-0.orgcss
+#+TITLE: 配置redmine的邮件通知
+
+* 配置config/configuration.yxml
+
+  以阿里云邮箱为例，config/configuration.yml摘要：
+
+  #+BEGIN_SRC 
+  # default configuration options for all environments
+  default:
+    # Outgoing emails configuration
+    # See the examples below and the Rails guide for more configuration options:
+    # http://guides.rubyonrails.org/action_mailer_basics.html#action-mailer-configuration
+    email_delivery:
+      delivery_method: :smtp
+      smtp_settings:
+        tls: true
+        enable_starttls_auto: true
+        address: "smtp.aliyun.com"
+        port: 465
+        domain: "smtp.aliyun.com"
+        authentication: :login
+        user_name: "xxxxxx@aliyun.com"
+        password: "yyyyyyyy"
+  #+END_SRC
+
+  注意smtp_settings下tls这个属性必须得有，没有的时候不行。
+
+  重启redmine
+
+* 配置redmine
+
+  注意：redmine设置里的发件人邮件地址要和写在config/configuration.yml里的邮件地址一样

@@ -1,0 +1,27 @@
+#+SETUPFILE: setup/css/theme-0.orgcss
+#+TITLE: Windows 10 里检测无线网卡的连接状态并重连
+
+   - 只在windows 10里测试过
+   - 目前只支持一块无线网卡。如果有多块，需要结合netsh wlan show interfaces以及netsh wlan connect子命令来指定需要连接的无线网卡
+   - 需要运行在（有可能需要提升为管理员权限的）msys2或者cygwin里；
+
+   程序如下：
+
+   #+BEGIN_SRC shell
+#!/bin/bash
+
+# change windows commands' output in cmd to English for easy handling later
+# 把wnidows的cmd里的命令的输出语言改为英语，方便后续处理
+/c/Windows/System32/chcp.com 437
+
+while true; do 
+    date; 
+    if netsh wlan show interfaces | grep " connected"; then # to distinguish from 'disconnected'
+       echo "wlan is connected"
+    else
+       echo "wlan is NOT connected. Now reconnect."
+       netsh wlan connect name="your_wifi_ssid"
+    fi
+    sleep 10; 
+done
+   #+END_SRC

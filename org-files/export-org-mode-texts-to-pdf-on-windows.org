@@ -1,0 +1,16 @@
+
+* install Emacs
+
+* install CTeX
+* configure PATH
+
+to have <CTex>/MikTeX/miktex/bin/ in it
+
+* configure org-mode
+
+with proper latex classes;
+to use xelatex
+
+* finally
+
+org-latex-export-as-pdf
