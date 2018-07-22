@@ -6,6 +6,10 @@
 假定读者已经会用cygwin安装软件包，或者会用apt-cyg包管理器也行，同时想
 在windows下用cygwin里的python3开发和运行程序。
 
+为什么不直接在windows里使用 =anaconda+cmd= 来使用pipenv呢？以为cmd实在难用，
+相比bash（更不要说zsh）；而且pipenv在anaconda prompt里根本不支持上下键
+翻查历史命令，实在是很受限。
+
 * 安装python3和python3-pip
 
   用cygwin的图形安装程序 =setup-x86_64.exe= 安装 =python3= 和 =python3-pip= 即可。
@@ -119,3 +123,4 @@ With no options, cyg-ps outputs the long format by default
    cp /usr/bin/procps.exe /usr/bin/ps
    #+END_SRC
    
+   接下来，在你的项目里使用 pipenv 吧！

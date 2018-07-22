@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-07-22 Sun 10:29 -->
+<!-- 2018-07-22 Sun 10:34 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>在cygwin下安装和使用pipenv</title>
@@ -90,6 +90,9 @@ for the JavaScript code in this tag.
 <div class="outline-text-2" id="text-1">
 <p>
 假定读者已经会用cygwin安装软件包，或者会用apt-cyg包管理器也行，同时想在windows下用cygwin里的python3开发和运行程序。</p>
+
+<p>
+为什么不直接在windows里使用 <code>anaconda+cmd</code> 来使用pipenv呢？以为cmd实在难用，相比bash（更不要说zsh）；而且pipenv在anaconda prompt里根本不支持上下键翻查历史命令，实在是很受限。</p>
 </div>
 </div>
 
@@ -233,6 +236,9 @@ apt-cyg install procps
 <pre class="src src-shell">cp /usr/bin/procps.exe /usr/bin/ps
 </pre>
 </div>
+
+<p>
+接下来，在你的项目里使用 pipenv 吧！</p>
 </div>
 </div>
 </div>
