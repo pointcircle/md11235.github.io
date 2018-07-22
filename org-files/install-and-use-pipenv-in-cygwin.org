@@ -74,7 +74,31 @@ gs=']' returned non-zero exit status 1.
   ])
   #+END_SRC
 
-  但是这里如果调用cygwin自己的ps，那么就会出错，因为cygwin的ps不支持 =-w= ， =-o= 选项。那么只能用procps来替换了。
+  但是这里如果调用cygwin自己的ps，那么就会出错，因为cygwin的ps不支持 =-w= ， =-o= 选项:
+
+  #+BEGIN_SRC shell
+$ps -h
+Usage: cyg-ps [-aefls] [-u UID] [-p PID]
+
+Report process status
+
+ -a, --all       show processes of all users
+ -e, --everyone  show processes of all users
+ -f, --full      show process uids, ppids
+ -h, --help      output usage information and exit
+ -l, --long      show process uids, ppids, pgids, winpids
+ -p, --process   show information for specified PID
+ -s, --summary   show process summary
+ -u, --user      list processes owned by UID
+ -V, --version   output version information and exit
+ -W, --windows   show windows as well as cygwin processes
+
+With no options, cyg-ps outputs the long format by default
+  #+END_SRC
+
+  那么只能试试用procps来替换了（对比Linux上pipenv能很好地安装运行，结
+  合上面的ps出错的错误消息和linux上的ps来自procps-ng软件包的事实，得到
+  了结论）。
 
 ** 安装procps
 
