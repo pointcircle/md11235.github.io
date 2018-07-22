@@ -8,14 +8,14 @@
 
 * 安装python3和python3-pip
 
-  用cygwin的图形安装城区=setup-x86_64.exe=安装=python3=和=python3-pip=即可。
+  用cygwin的图形安装程序 =setup-x86_64.exe= 安装 =python3= 和 =python3-pip= 即可。
 
 * 用pip3安装pipenv
   #+BEGIN_SRC shell
   pip3 install pipenv
   #+END_SRC
 
-  然后试图运行=pipenv shell=会报错：
+  然后试图运行 =pipenv shell= 会报错：
 
   #+BEGIN_SRC shell
 ps: unknown option -- w
@@ -61,6 +61,8 @@ subprocess.CalledProcessError: Command '['ps', '-ww', '-o', 'pid=', '-o', 'ppid=
 gs=']' returned non-zero exit status 1.
   #+END_SRC
 
+  为什么呢？请看下一节。
+
 * 用procps替换cygwin自己的ps
 
   在
@@ -72,12 +74,12 @@ gs=']' returned non-zero exit status 1.
   ])
   #+END_SRC
 
-  但是这里如果调用cygwin自己的ps，那么就会出错，因为cygwin的ps不支持
-  =-w，-o=选项。那么只能用procps来替换了。
+  但是这里如果调用cygwin自己的ps，那么就会出错，因为cygwin的ps不支持 =-w= ， =-o= 选项。那么只能用procps来替换了。
 
 ** 安装procps
 
    #+BEGIN_SRC shell
+   # 或者图形界面也行啊，如果不嫌麻烦
    apt-cyg install procps
    #+END_SRC
 
