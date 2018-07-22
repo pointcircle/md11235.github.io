@@ -1,5 +1,6 @@
 #+TITLE: Random Memos 脚本佳人
 
+- [[file:install-and-use-pipenv-in-cygwin.org][在cygwin下安装和使用pipenv]]
 - [[file:sshfs-options-to-mount-remote-server-directory.org][sshfs通过用户和组映射挂载另一服务器的目录为本地目录]]
 - [[file:serialize-python-cusotm-objects-using-hickle.org][在python3里序列化自定义类的对象]]
 - [[file:how-to-check-host-identity-when-first-connecting-to-it-with-ssh.org][当第一次ssh到某台主机时如何校验主机的身份？]]

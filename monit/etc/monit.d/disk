@@ -1,0 +1,2 @@
+check device HOME_PARTITION with path /home
+    if SPACE usage > 90% then alert

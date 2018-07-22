@@ -1,0 +1,95 @@
+#+SETUPFILE: setup/css/theme-0.orgcss
+#+TITLE: 在cygwin下安装和使用pipenv
+
+* 前提条件
+
+假定读者已经会用cygwin安装软件包，或者会用apt-cyg包管理器也行，同时想
+在windows下用cygwin里的python3开发和运行程序。
+
+* 安装python3和python3-pip
+
+  用cygwin的图形安装城区=setup-x86_64.exe=安装=python3=和=python3-pip=即可。
+
+* 用pip3安装pipenv
+  #+BEGIN_SRC shell
+  pip3 install pipenv
+  #+END_SRC
+
+  然后试图运行=pipenv shell=会报错：
+
+  #+BEGIN_SRC shell
+ps: unknown option -- w
+Try `ps --help' for more information.
+Traceback (most recent call last):
+  File "/usr/bin/pipenv", line 11, in <module>
+    sys.exit(cli())
+  File "/usr/lib/python3.6/site-packages/pipenv/vendor/click/core.py", line 722, in __call__
+    return self.main(*args, **kwargs)
+  File "/usr/lib/python3.6/site-packages/pipenv/vendor/click/core.py", line 697, in main
+    rv = self.invoke(ctx)
+  File "/usr/lib/python3.6/site-packages/pipenv/vendor/click/core.py", line 1066, in invoke
+    return _process_result(sub_ctx.command.invoke(sub_ctx))
+  File "/usr/lib/python3.6/site-packages/pipenv/vendor/click/core.py", line 895, in invoke
+    return ctx.invoke(self.callback, **ctx.params)
+  File "/usr/lib/python3.6/site-packages/pipenv/vendor/click/core.py", line 535, in invoke
+    return callback(*args, **kwargs)
+  File "/usr/lib/python3.6/site-packages/pipenv/cli.py", line 664, in shell
+    three=three, python=python, fancy=fancy, shell_args=shell_args, pypi_mirror=pypi_mirror
+  File "/usr/lib/python3.6/site-packages/pipenv/core.py", line 2149, in do_shell
+    shell = choose_shell()
+  File "/usr/lib/python3.6/site-packages/pipenv/shells.py", line 217, in choose_shell
+    type_, command = detect_info()
+  File "/usr/lib/python3.6/site-packages/pipenv/shells.py", line 25, in detect_info
+    return shellingham.detect_shell()
+  File "/usr/lib/python3.6/site-packages/pipenv/vendor/shellingham/__init__.py", line 24, in
+ detect_shell
+    shell = get_shell(pid, max_depth=max_depth)
+  File "/usr/lib/python3.6/site-packages/pipenv/vendor/shellingham/posix/__init__.py", line
+20, in get_shell
+    mapping = _get_process_mapping()
+  File "/usr/lib/python3.6/site-packages/pipenv/vendor/shellingham/posix/__init__.py", line
+13, in _get_process_mapping
+    return impl.get_process_mapping()
+  File "/usr/lib/python3.6/site-packages/pipenv/vendor/shellingham/posix/_default.py", line
+14, in get_process_mapping
+    'ps', '-ww', '-o', 'pid=', '-o', 'ppid=', '-o', 'args=',
+  File "/usr/lib/python3.6/subprocess.py", line 336, in check_output
+    **kwargs).stdout
+  File "/usr/lib/python3.6/subprocess.py", line 418, in run
+    output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['ps', '-ww', '-o', 'pid=', '-o', 'ppid=', '-o', 'ar
+gs=']' returned non-zero exit status 1.
+  #+END_SRC
+
+* 用procps替换cygwin自己的ps
+
+  在
+  =lib/python3.6/site-packages/pipenv/vendor/shellingham/posix/__default__.py=
+  的一段代码里，调用了ps来获取进程信息(具体干嘛用我还没去看):
+  #+BEGIN_SRC python
+  output = subprocess.check_output([
+      'ps', '-ww', '-o', 'pid=', '-o', 'ppid=', '-o', 'args=',
+  ])
+  #+END_SRC
+
+  但是这里如果调用cygwin自己的ps，那么就会出错，因为cygwin的ps不支持
+  =-w，-o=选项。那么只能用procps来替换了。
+
+** 安装procps
+
+   #+BEGIN_SRC shell
+   apt-cyg install procps
+   #+END_SRC
+
+** 把cygwin自己的ps重命名为cyg-ps
+
+   #+BEGIN_SRC shell
+   mv /usr/bin/ps /usr/bin/cyg-ps
+   #+END_SRC
+
+** 把procps重命名为ps
+
+   #+BEGIN_SRC shell
+   cp /usr/bin/procps.exe /usr/bin/ps
+   #+END_SRC
+   
