@@ -1,4 +1,4 @@
-#+SETUPFILE: setup/css/theme-0.orgcss
+#+SETUPFILE: setup/theme-readtheorg-local.setup
 #+TITLE: Windows 10 里检测无线网卡的连接状态并重连
 
    - 只在windows 10里测试过

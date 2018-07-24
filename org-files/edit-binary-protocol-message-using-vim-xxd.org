@@ -1,4 +1,4 @@
-#+SETUPFILE: setup/css/theme-0.orgcss
+#+SETUPFILE: setup/theme-readtheorg-local.setup
 #+TITLE: 用vim+xxd编辑（手写）二进制的协议内容
 
 这种方法，适合协议报文不太大，或者有参考的协议内容样本的情况。vim操作

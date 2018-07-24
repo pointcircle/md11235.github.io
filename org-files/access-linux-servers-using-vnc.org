@@ -1,4 +1,4 @@
-#+SETUPFILE: setup/css/theme-0.orgcss
+#+SETUPFILE: setup/theme-readtheorg-local.setup
 #+TITLE: 如何利用VNC访问平时没有图形界面的服务器
 
 比如有的时候，需要用图形界面跑跑虚拟机什么的。

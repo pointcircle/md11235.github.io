@@ -1,4 +1,4 @@
-#+SETUPFILE: setup/css/theme-0.orgcss
+#+SETUPFILE: setup/theme-readtheorg-local.setup
 #+TITLE: 配置ipython notebook访问万维网时的代理服务器
 
 

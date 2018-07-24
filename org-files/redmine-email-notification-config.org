@@ -1,4 +1,4 @@
-#+SETUPFILE: setup/css/theme-0.orgcss
+#+SETUPFILE: setup/theme-readtheorg-local.setup
 #+TITLE: 配置redmine的邮件通知
 
 * 配置config/configuration.yxml

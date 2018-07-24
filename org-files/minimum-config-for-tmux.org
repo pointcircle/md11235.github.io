@@ -1,0 +1,14 @@
+#+SETUPFILE: setup/theme-readtheorg-local.setup
+#+TITLE: 最简化的用ctrl-o做tmux的主键的配置
+
+  #+BEGIN_SRC 
+  set -g prefix ^o
+  set-window-option -g mode-keys vi
+  set-option -g status-keys emacs
+
+  unbind ^O
+  bind ^O last-window
+
+  unbind '"'
+  bind '"' choose-window
+  #+END_SRC

@@ -1,4 +1,4 @@
-#+SETUPFILE: setup/css/theme-0.orgcss
+#+SETUPFILE: setup/theme-readtheorg-local.setup
 #+TITLE: 重置Windows下NTFS文件系统上的文件安全和权限设置
 
 翻译自 http://lallouslab.net/2009/06/14/resetting-ntfs-files-security-and-permission-in-windows-7/

@@ -1,4 +1,4 @@
-#+SETUPFILE: setup/css/theme-0.orgcss
+#+SETUPFILE: setup/theme-readtheorg-local.setup
 #+TITLE: Windows上Emacs里加载yasnippets
 
 snippets里的default文件，虽然不是.el后缀，也会被emacs加载，然后报错。

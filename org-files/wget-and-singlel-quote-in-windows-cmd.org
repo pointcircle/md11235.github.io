@@ -1,4 +1,4 @@
-#+SETUPFILE: setup/css/theme-0.orgcss
+#+SETUPFILE: setup/theme-readtheorg-local.setup
 #+TITLE: 单引号、双引号与Windows cmd
 
 * 单引号('')、双引号("")与Windows cmd

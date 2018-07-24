@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- 2018-07-24 Tue 09:56 -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>在cygwin下安装和使用pipenv</title>
+<meta name="generator" content="Org mode">
+<meta name="author" content="md11235">
+<link rel="stylesheet" type="text/css" href="styles/readtheorg/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="styles/readtheorg/css/readtheorg.css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="styles/lib/js/jquery.stickytableheaders.min.js"></script>
+<script type="text/javascript" src="styles/readtheorg/js/readtheorg.js"></script>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2018 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">在cygwin下安装和使用pipenv</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org2f1a46a">1. 前提条件</a></li>
+<li><a href="#orgaa8545a">2. 安装python3和python3-pip</a></li>
+<li><a href="#org26c50d8">3. 用pip3安装pipenv</a></li>
+<li><a href="#orgff1f7dc">4. 用procps替换cygwin自己的ps</a>
+<ul>
+<li><a href="#org8e40884">4.1. 安装procps</a></li>
+<li><a href="#org563840a">4.2. 把cygwin自己的ps重命名为cyg-ps</a></li>
+<li><a href="#org168aa05">4.3. 把procps重命名为ps</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org2f1a46a" class="outline-2">
+<h2 id="org2f1a46a"><span class="section-number-2">1</span> 前提条件</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+假定读者已经会用cygwin安装软件包，或者会用apt-cyg包管理器也行，同时想在windows下用cygwin里的python3开发和运行程序。</p>
+
+<p>
+为什么不直接在windows里使用 <code>anaconda+cmd</code> 来使用pipenv呢？以为cmd实在难用，相比bash（更不要说zsh）；而且pipenv在anaconda prompt里根本不支持上下键翻查历史命令，实在是很受限。</p>
+</div>
+</div>
+
+<div id="outline-container-orgaa8545a" class="outline-2">
+<h2 id="orgaa8545a"><span class="section-number-2">2</span> 安装python3和python3-pip</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+用cygwin的图形安装程序 <code>setup-x86_64.exe</code> 安装 <code>python3</code> 和 <code>python3-pip</code> 即可。</p>
+</div>
+</div>
+
+<div id="outline-container-org26c50d8" class="outline-2">
+<h2 id="org26c50d8"><span class="section-number-2">3</span> 用pip3安装pipenv</h2>
+<div class="outline-text-2" id="text-3">
+<div class="org-src-container">
+<pre class="src src-shell">pip3 install pipenv
+</pre>
+</div>
+
+<p>
+然后试图运行 <code>pipenv shell</code> 会报错：</p>
+
+<div class="org-src-container">
+<pre class="src src-shell">ps: unknown option -- w
+Try <span style="color: #fa8072;">`ps --help' for more information.</span>
+<span style="color: #fa8072;">Traceback (most recent call last):</span>
+<span style="color: #fa8072;">  File "/usr/bin/pipenv", line 11, in &lt;module&gt;</span>
+<span style="color: #fa8072;">    sys.exit(cli())</span>
+<span style="color: #fa8072;">  File "/usr/lib/python3.6/site-packages/pipenv/vendor/click/core.py", line 722, in __call__</span>
+<span style="color: #fa8072;">    return self.main(*args, **kwargs)</span>
+<span style="color: #fa8072;">  File "/usr/lib/python3.6/site-packages/pipenv/vendor/click/core.py", line 697, in main</span>
+<span style="color: #fa8072;">    rv = self.invoke(ctx)</span>
+<span style="color: #fa8072;">  File "/usr/lib/python3.6/site-packages/pipenv/vendor/click/core.py", line 1066, in invoke</span>
+<span style="color: #fa8072;">    return _process_result(sub_ctx.command.invoke(sub_ctx))</span>
+<span style="color: #fa8072;">  File "/usr/lib/python3.6/site-packages/pipenv/vendor/click/core.py", line 895, in invoke</span>
+<span style="color: #fa8072;">    return ctx.invoke(self.callback, **ctx.params)</span>
+<span style="color: #fa8072;">  File "/usr/lib/python3.6/site-packages/pipenv/vendor/click/core.py", line 535, in invoke</span>
+<span style="color: #fa8072;">    return callback(*args, **kwargs)</span>
+<span style="color: #fa8072;">  File "/usr/lib/python3.6/site-packages/pipenv/cli.py", line 664, in shell</span>
+<span style="color: #fa8072;">    three=three, python=python, fancy=fancy, shell_args=shell_args, pypi_mirror=pypi_mirror</span>
+<span style="color: #fa8072;">  File "/usr/lib/python3.6/site-packages/pipenv/core.py", line 2149, in do_shell</span>
+<span style="color: #fa8072;">    shell = choose_shell()</span>
+<span style="color: #fa8072;">  File "/usr/lib/python3.6/site-packages/pipenv/shells.py", line 217, in choose_shell</span>
+<span style="color: #fa8072;">    type_, command = detect_info()</span>
+<span style="color: #fa8072;">  File "/usr/lib/python3.6/site-packages/pipenv/shells.py", line 25, in detect_info</span>
+<span style="color: #fa8072;">    return shellingham.detect_shell()</span>
+<span style="color: #fa8072;">  File "/usr/lib/python3.6/site-packages/pipenv/vendor/shellingham/__init__.py", line 24, in</span>
+<span style="color: #fa8072;"> detect_shell</span>
+<span style="color: #fa8072;">    shell = get_shell(pid, max_depth=max_depth)</span>
+<span style="color: #fa8072;">  File "/usr/lib/python3.6/site-packages/pipenv/vendor/shellingham/posix/__init__.py", line</span>
+<span style="color: #fa8072;">20, in get_shell</span>
+<span style="color: #fa8072;">    mapping = _get_process_mapping()</span>
+<span style="color: #fa8072;">  File "/usr/lib/python3.6/site-packages/pipenv/vendor/shellingham/posix/__init__.py", line</span>
+<span style="color: #fa8072;">13, in _get_process_mapping</span>
+<span style="color: #fa8072;">    return impl.get_process_mapping()</span>
+<span style="color: #fa8072;">  File "/usr/lib/python3.6/site-packages/pipenv/vendor/shellingham/posix/_default.py", line</span>
+<span style="color: #fa8072;">14, in get_process_mapping</span>
+<span style="color: #fa8072;">    'ps', '-ww', '-o', 'pid=', '-o', 'ppid=', '-o', 'args=',</span>
+<span style="color: #fa8072;">  File "/usr/lib/python3.6/subprocess.py", line 336, in check_output</span>
+<span style="color: #fa8072;">    **kwargs).stdout</span>
+<span style="color: #fa8072;">  File "/usr/lib/python3.6/subprocess.py", line 418, in run</span>
+<span style="color: #fa8072;">    output=stdout, stderr=stderr)</span>
+<span style="color: #fa8072;">subprocess.CalledProcessError: Command '['ps', '-ww', '-o', 'pid=', '-o', 'ppid=', '-o', 'ar</span>
+<span style="color: #fa8072;">gs=']' returned non-zero exit status 1.</span>
+</pre>
+</div>
+
+<p>
+为什么呢？请看下一节。</p>
+</div>
+</div>
+
+<div id="outline-container-orgff1f7dc" class="outline-2">
+<h2 id="orgff1f7dc"><span class="section-number-2">4</span> 用procps替换cygwin自己的ps</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+在<code>lib/python3.6/site-packages/pipenv/vendor/shellingham/posix/__default__.py</code>
+的一段代码里，调用了ps来获取进程信息(具体干嘛用我还没去看):
+</p>
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #ffa07a;">output</span> = subprocess.check_output([
+    <span style="color: #ffa500;">'ps'</span>, <span style="color: #ffa500;">'-ww'</span>, <span style="color: #ffa500;">'-o'</span>, <span style="color: #ffa500;">'pid='</span>, <span style="color: #ffa500;">'-o'</span>, <span style="color: #ffa500;">'ppid='</span>, <span style="color: #ffa500;">'-o'</span>, <span style="color: #ffa500;">'args='</span>,
+])
+</pre>
+</div>
+
+<p>
+但是这里如果调用cygwin自己的ps，那么就会出错，因为cygwin的ps不支持 <code>-w</code> ， <code>-o</code> 选项:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell">$<span style="color: #ffa07a;">ps</span> -h
+Usage: cyg-ps [-aefls] [-u UID] [-p PID]
+
+Report process status
+
+ -a, --all       show processes of all users
+ -e, --everyone  show processes of all users
+ -f, --full      show process uids, ppids
+ -h, --help      output usage information and exit
+ -l, --long      show process uids, ppids, pgids, winpids
+ -p, --process   show information for specified PID
+ -s, --summary   show process summary
+ -u, --user      list processes owned by UID
+ -V, --version   output version information and exit
+ -W, --windows   show windows as well as cygwin processes
+
+With no options, cyg-ps outputs the long format by default
+</pre>
+</div>
+
+<p>
+那么只能试试用procps来替换了（对比Linux上pipenv能很好地安装运行，结合上面的ps出错的错误消息和linux上的ps来自procps-ng软件包的事实，得到了结论）。</p>
+</div>
+
+<div id="outline-container-org8e40884" class="outline-3">
+<h3 id="org8e40884"><span class="section-number-3">4.1</span> 安装procps</h3>
+<div class="outline-text-3" id="text-4-1">
+<div class="org-src-container">
+<pre class="src src-shell"><span style="color: #ffd700;"># </span><span style="color: #ffd700;">&#25110;&#32773;&#22270;&#24418;&#30028;&#38754;&#20063;&#34892;&#21834;&#65292;&#22914;&#26524;&#19981;&#23244;&#40635;&#28902;</span>
+apt-cyg install procps
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org563840a" class="outline-3">
+<h3 id="org563840a"><span class="section-number-3">4.2</span> 把cygwin自己的ps重命名为cyg-ps</h3>
+<div class="outline-text-3" id="text-4-2">
+<div class="org-src-container">
+<pre class="src src-shell">mv /usr/bin/ps /usr/bin/cyg-ps
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org168aa05" class="outline-3">
+<h3 id="org168aa05"><span class="section-number-3">4.3</span> 把procps重命名为ps</h3>
+<div class="outline-text-3" id="text-4-3">
+<div class="org-src-container">
+<pre class="src src-shell">cp /usr/bin/procps.exe /usr/bin/ps
+</pre>
+</div>
+
+<p>
+接下来，在你的项目里使用 pipenv 吧！</p>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: md11235 (<a href="mailto:md11235@gmail.com">md11235@gmail.com</a>)</p>
+<p class="date">Date: </p>
+<p class="creator"><a href="https://www.gnu.org/software/emacs/">Emacs</a> 27.0.50 (<a href="https://orgmode.org">Org</a> mode 9.1.9)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

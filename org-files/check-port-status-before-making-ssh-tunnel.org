@@ -1,0 +1,18 @@
+#+SETUPFILE: setup/theme-readtheorg-local.setup
+#+TITLE: 在建立ssh隧道映射前先检查被映射端口的状态
+
+如果被映射的端口还没打开之前就做ssh反向隧道映射，会失败
+
+    #+BEGIN_SRC shell
+    #!/bin/bash
+    
+    lsof -i :3000
+    while [ $? -ne 0 ]; do
+            echo "port 3000 is not open. I will try again in 10 seconds"
+            sleep 10
+            lsof -i :3000
+    done
+    
+    echo "port 3000 is open. Now I will make the http map(5080)"
+    autossh -M 0 -o "ServerAliveInterval 30" -o "ServerAliveCountMax 3" -NR 115.29.141.209:5080:192.168.35.130:3000 zhang@115.29.141.209
+    #+END_SRC

@@ -1,4 +1,4 @@
-#+SETUPFILE: setup/css/theme-0.orgcss
+#+SETUPFILE: setup/theme-readtheorg-local.setup
 #+TITLE: Android sdk manager command line operations
 
 copied from: https://stackoverflow.com/questions/17963508/how-to-install-android-sdk-build-tools-on-the-command-line

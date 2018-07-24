@@ -1,4 +1,4 @@
-#+SETUPFILE: setup/css/theme-0.orgcss
+#+SETUPFILE: setup/theme-readtheorg-local.setup
 #+TITLE: 在cygwin里建立Windows服务
 
 cygrunsrv -I AutoSSH-MekHub -p /usr/bin/autossh -a "-M 20000 -i /home/zhang/ssh-connect-only/id_rsa -D 18080 madsen@mekhub.cn" -e AUTOSSH_NTSERVICE=yes

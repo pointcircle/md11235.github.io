@@ -1,7 +1,7 @@
-#+SETUPFILE: setup/css/theme-0.orgcss
+#+SETUPFILE: setup/theme-readtheorg-local.setup
 #+TITLE: 在Centos7里安装中文手册页(man-pages)
 
-作者：徐邦（贵州理工学院 网络151班）
+作者：徐邦
 
 安装中文man-pages。
 

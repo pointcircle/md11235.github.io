@@ -1,4 +1,4 @@
-#+SETUPFILE: setup/css/theme-0.orgcss
+#+SETUPFILE: setup/theme-readtheorg-local.setup
 #+TITLE: sshfs通过用户和组映射挂载另一服务器的目录为本地目录
 
 假设你在一台远程Linux服务器上有帐号和密码，而且有比较大的存储空间，想

@@ -1,5 +1,8 @@
-#+TITLE: Random Memos 脚本佳人
+#+SETUPFILE: setup/theme-readtheorg-local.setup
+#+TITLE: Random Scripting Memos 脚本佳人
 
+- [[file:minimum-config-for-tmux.org][最简化的用ctrl-o做tmux的主键的配置]]
+- [[file:check-port-status-before-making-ssh-tunnel.org][在建立ssh隧道映射前先检查被映射端口的状态]]
 - [[file:install-and-use-pipenv-in-cygwin.org][在cygwin下安装和使用pipenv]]
 - [[file:sshfs-options-to-mount-remote-server-directory.org][sshfs通过用户和组映射挂载另一服务器的目录为本地目录]]
 - [[file:serialize-python-cusotm-objects-using-hickle.org][在python3里序列化自定义类的对象]]

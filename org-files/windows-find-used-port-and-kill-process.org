@@ -1,4 +1,4 @@
-#+SETUPFILE: setup/css/theme-0.orgcss
+#+SETUPFILE: setup/theme-readtheorg-local.setup
 #+TITLE: 在Windows cmd里查找占用端口的进程并杀掉
 
 在写网络程序的时候，调试时，有的进程占用端口不放弃，会导致后续的调试没法继续。那么windows下快捷处理呢？

@@ -1,4 +1,4 @@
-#+SETUPFILE: setup/css/theme-0.orgcss
+#+SETUPFILE: setup/theme-readtheorg-local.setup
 #+TITLE: 把一行文字作为另一个已存在文件的第一行
 
 方法蛮多，收集了几个。

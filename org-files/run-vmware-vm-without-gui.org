@@ -1,4 +1,4 @@
-#+SETUPFILE: setup/css/theme-0.orgcss
+#+SETUPFILE: setup/theme-readtheorg-local.setup
 #+TITLE: 在没有图形界面的linux里管理vmware虚拟机
 
 vmrun -T ws start ubuntu-14.04-mysql-5.7.20.vmx nogui
