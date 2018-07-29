@@ -1,6 +1,7 @@
 #+SETUPFILE: setup/theme-readtheorg-local.setup
 #+TITLE: Random Scripting Memos 脚本佳人
 
+- [[file:windows-sublime-python3-strange-glyphs.org][Windows上Sublime3跑Python3程序时，乱码怎么弄？]]
 - [[file:minimum-config-for-tmux.org][最简化的用ctrl-o做tmux的主键的配置]]
 - [[file:check-port-status-before-making-ssh-tunnel.org][在建立ssh隧道映射前先检查被映射端口的状态]]
 - [[file:install-and-use-pipenv-in-cygwin.org][在cygwin下安装和使用pipenv]]
