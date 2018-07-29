@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-07-29 Sun 14:33 -->
+<!-- 2018-07-29 Sun 14:47 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Windows上Sublime3跑Python3程序时，乱码怎么弄？</title>
@@ -87,7 +87,10 @@ for the JavaScript code in this tag.
 </div>
 
 <p>
-注意上面的"cmd" 后面的方括号里，用的是Anaconda3里的python.exe的绝对路径，而且路径分隔符需要写成Unix下的 <code>"/"</code> 而不是Windows下的 <code>"\"</code> 。</p>
+注意1：把 <code>"c:/Users/md11235/Anaconda3/python.exe"</code> 替换成你自己的Anaconda3的安装目录下的python.exe的路径。</p>
+
+<p>
+注意2：上面的"cmd" 后面的方括号里，用的是Anaconda3里的python.exe的绝对路径，而且路径分隔符需要写成Unix下的 <code>"/"</code> 而不是Windows下的 <code>"\"</code> 。</p>
 
 <p>
 然后保存当前配置文件为: "MyPython3.sublime-build", 然后在工具-&gt;编译系统-&gt;选择 "MyPython3"

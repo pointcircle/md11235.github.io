@@ -22,7 +22,10 @@
 }
  #+END_SRC
 
-注意上面的"cmd" 后面的方括号里，用的是Anaconda3里的python.exe的绝对路
+注意1：把 ="c:/Users/md11235/Anaconda3/python.exe"= 替换成你自己的
+Anaconda3的安装目录下的python.exe的路径。
+
+注意2：上面的"cmd" 后面的方括号里，用的是Anaconda3里的python.exe的绝对路
 径，而且路径分隔符需要写成Unix下的 ="/"= 而不是Windows下的 ="\"= 。
 
 然后保存当前配置文件为: "MyPython3.sublime-build", 然后在工具->编译系
