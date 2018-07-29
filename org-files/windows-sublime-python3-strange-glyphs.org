@@ -1,0 +1,31 @@
+#+SETUPFILE: setup/theme-readtheorg-local.setup
+#+TITLE: Windows上Sublime3跑Python3程序时，乱码怎么弄？
+
+以用Anaconda3安装的Python3为例。实际上蛮简单，比如我的Anaconda3安装在
+=c:/Users/md11235/Anaconda3/= ，那么在Sublime3的菜单里，依次选择
+“工具 -> 编译系统 -> 新编译系统”，此时你会看到：
+
+  #+BEGIN_SRC python
+{
+    "shell_cmd": "make"
+}  
+  #+END_SRC
+
+用下面的代码替换上面的所有代码：
+
+ #+BEGIN_SRC python
+{  
+    "cmd": ["c:/Users/md11235/Anaconda3/python.exe","-u","$file"],  
+    "file_regex": "^[ ]*File \"(...*?)\", line ([0-9]*)",  
+    "selector": "source.python",  
+    "encoding": "cp936" 
+}
+ #+END_SRC
+
+注意上面的"cmd" 后面的方括号里，用的是Anaconda3里的python.exe的绝对路
+径，而且路径分隔符需要写成Unix下的 ="/"= 而不是Windows下的 ="\"= 。
+
+然后保存当前配置文件为: "MyPython3.sublime-build", 然后在工具->编译系
+统->选择 "MyPython3"
+
+接下来用 =ctrl-b= 试试原本乱码的python代码，看看输出是什么。
